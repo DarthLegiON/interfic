@@ -20,3 +20,12 @@
     .block.answers {
         clear: both;
     }
+
+    .block.picture img {
+        max-width: 300px;
+        
+    }
+
+    .block.text .gray {
+        color: gray;
+    }
