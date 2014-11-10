@@ -113,7 +113,7 @@ TextBlock.prototype.getBlock = function ()
     else {
         if (this._open) {
             return '<' + this._tag 
-                + ((this._style !== '') ? 'class = "' + this._style + '" ' : '')
+                + ((this._style !== '') ? ' class="' + this._style + '" ' : '')
                 + '>' + this._text;
         } else if (this._close) {
             return this._text
