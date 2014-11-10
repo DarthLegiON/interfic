@@ -1,3 +1,9 @@
+function getFuncParam(param, def)
+{
+    return (param === undefined) ? def : param;
+}
+
+//-----------------------------------------------------------------------------------
 function Game(questCode)
 {
     
@@ -20,7 +26,7 @@ Game.prototype.initialize = function ()
         Quest.texts[0], Quest.texts[2], Quest.texts[1]//, Quest.texts[3]
     ];
     
-    this.setText(texts);
+    this.setStage(0);
 };
 
 Game.prototype._reQuest = function (questCode)
@@ -53,15 +59,32 @@ Game.prototype.setPicture = function (picture)
     document.getElementById('picture').innerHTML = '<img src="quests/' + this._questCode + '/images/' + picture.name + '">';
 };
 
+
+
+Game.prototype.setStage = function (stageId)
+{
+    this._currentStage = stageId;
+    this.setText(Quest.stages[stageId].getTexts());
+};
+
 //---------------------------------------------------------------------------
 
-function Stage()
+function Stage(answers, params, type, texts)
 {
-    this.id = 0;
-    this.answers = [new Answer()];
-    this.params = [new Parameter()];
-    this.type = 'medium';
+    this.answers = answers;
+    this.params = params;
+    this.type = getFuncParam(type, 'medium');
+    this.texts = getFuncParam(texts, []);
 }
+
+Stage.prototype.getTexts = function ()
+{
+    var returnResult = [];
+    for (var i in this.texts) {
+        returnResult.push(Quest.texts[this.texts[i]]);
+    }
+    return returnResult;
+};
 
 //---------------------------------------------------------------------------
 
