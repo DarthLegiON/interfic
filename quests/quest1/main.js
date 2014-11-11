@@ -1,2 +1,0 @@
-var Quest = new Object();
-
