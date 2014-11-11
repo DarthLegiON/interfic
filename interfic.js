@@ -65,16 +65,35 @@ Game.prototype.setStage = function (stageId)
 {
     this._currentStage = stageId;
     this.setText(Quest.stages[stageId].getTexts());
+	this.setPicture(Quest.pictures[Quest.stages[stageId].pictureid]);
+	this.setAnswers();
+};
+
+Game.prototype.setAnswers = function ()
+{
+	this._answers = Quest.stages[this._currentStage].answers;
+	var answersElement = document.getElementById('answers');
+	var html = '';
+	for (var i in this._answers) {
+		var answer = Quest.answers[this._answers[i]];
+		var answerElement = document.createElement('a');
+		answerElement.href = 'javascript://';
+		answerElement.onclick = answer.action;
+		answerElement.innerHTML = answer.text;
+		html += answerElement.outerHTML;
+	}
+	answersElement.innerHTML = html;
 };
 
 //---------------------------------------------------------------------------
 
-function Stage(answers, params, type, texts)
+function Stage(answers, params, type, texts, picture)
 {
-    this.answers = answers;
-    this.params = params;
+    this.answers = getFuncParam(answers, [new Answer()]);
+	this.params = getFuncParam(params, [new Parameter()]);
     this.type = getFuncParam(type, 'medium');
     this.texts = getFuncParam(texts, []);
+	this.pictureid = getFuncParam(picture, 0);
 }
 
 Stage.prototype.getTexts = function ()
@@ -88,23 +107,26 @@ Stage.prototype.getTexts = function ()
 
 //---------------------------------------------------------------------------
 
-function Answer()
+function Answer(text, active, action)
 {
-
+	this.text = getFuncParam(text, 'Ответ');
+	this.active = getFuncParam(active, true);
+	this.actionid = getFuncParam(action, 0);
+	this.action = null;
 }
+
+Answer.prototype.setAction = function ()
+{
+	this.action = Quest.actions[this.actionid];
+};
 
 //---------------------------------------------------------------------------
 
-function Picture()
-{
-    this.id = 0;
-    this.name = '';
-}
-
-Picture.prototype.setName = function(name)
+function Picture(name)
 {
     this.name = name;
 }
+
 
 //---------------------------------------------------------------------------
 
@@ -124,6 +146,10 @@ function TextBlock(text, open, close, tag, style)
     this._style = (style === undefined) ? '' : style;
     this._html = open && close;
 }
+
+TextBlock.prototype.isOpen = function () { return this._open && !this._close; }
+TextBlock.prototype.isClose = function () { return this._close && !this._open; }
+TextBlock.prototype.tag = function () { return this._tag; }
 
 TextBlock.prototype.getBlock = function ()
 {
@@ -148,10 +174,7 @@ TextBlock.prototype.getBlock = function ()
     }
 }
 
-TextBlock.prototype.isOpen = function () { return this._open && !this._close; }
-TextBlock.prototype.isClose = function () { return this._close && !this._open; }
 
-TextBlock.prototype.tag = function () { return this._tag; }
 
 window.onload = function ()
 {

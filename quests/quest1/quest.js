@@ -11,6 +11,26 @@ var Quest = {
     },
 
     stages: {
-        0: new Stage(null, null, 'start', [2, 1, 3])
-    }
+        0: new Stage([0, 1], null, 'start', [2, 1, 3], 0)
+    },
+	
+	pictures: {
+		0: new Picture('slider.jpg')
+	},
+	
+	actions: {
+		0: function (data)
+		{
+			console.log(data);
+		},
+		1: function (data)
+		{
+			alert('экшн 1');
+		}
+	},
+	
+	answers: {
+		0: new Answer(),
+		1: new Answer()
+	}
 };
