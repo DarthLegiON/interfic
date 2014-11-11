@@ -73,16 +73,21 @@ Game.prototype.setAnswers = function ()
 {
 	this._answers = Quest.stages[this._currentStage].answers;
 	var answersElement = document.getElementById('answers');
-	var html = '';
+	answersElement.innerHTML = '';
 	for (var i in this._answers) {
 		var answer = Quest.answers[this._answers[i]];
 		var answerElement = document.createElement('a');
-		answerElement.href = 'javascript://';
-		answerElement.onclick = answer.action;
+		answerElement.className = 'answer';
+		if (answer.active) {
+			answerElement.classList.add('active');
+			answerElement.href = 'javascript://';
+			answerElement.onclick = Quest.actions[answer.actionid];
+		}
 		answerElement.innerHTML = answer.text;
-		html += answerElement.outerHTML;
+		answersElement.appendChild(answerElement);
+		//html += answerElement.outerHTML;
 	}
-	answersElement.innerHTML = html;
+	//answersElement.innerHTML = html;
 };
 
 //---------------------------------------------------------------------------

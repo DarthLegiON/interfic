@@ -20,6 +20,24 @@
     .block.answers {
         clear: both;
     }
+	
+		.block.answers a.answer {
+			display: block;
+			text-decoration: none;
+			margin: 3px;
+			padding: 3px;
+			color: rgb(134, 134, 238);
+		}
+		.block.answers a.answer.active {
+			color: rgb(0, 0, 238);
+		}
+		.block.answers a.answer:hover {
+			color: white;
+			background-color: rgb(215, 215, 215);
+		}
+		.block.answers a.answer.active:hover {
+			background-color: rgba(0, 0, 238, 0.8);
+		}
 
     .block.picture img {
         max-width: 300px;

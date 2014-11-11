@@ -21,6 +21,7 @@ var Quest = {
 	actions: {
 		0: function (data)
 		{
+			alert('экшн 0');
 			console.log(data);
 		},
 		1: function (data)
@@ -30,7 +31,7 @@ var Quest = {
 	},
 	
 	answers: {
-		0: new Answer(),
-		1: new Answer()
+		0: new Answer('Ответ 1', true, 0),
+		1: new Answer('Ответ 2', false, 1)
 	}
 };
