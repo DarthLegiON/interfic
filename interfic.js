@@ -1,3 +1,15 @@
+var game;
+
+function extend(Child, Parent)
+{
+    var F = function () { };
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+    Child.superclass = Parent.prototype;
+}
+
+
 function getFuncParam(param, def)
 {
     return (param === undefined) ? def : param;
@@ -27,6 +39,7 @@ Game.prototype.initialize = function ()
     ];
     
     this.setStage(0);
+    this.showQuestInfo();
 };
 
 Game.prototype._reQuest = function (questCode)
@@ -40,6 +53,22 @@ Game.prototype._reQuest = function (questCode)
         _this.initialize(Quest);
     };
     document.head.appendChild(script);
+};
+
+Game.prototype.showQuestInfo = function ()
+{
+    var questInfo = document.getElementById('questinfo');
+    if (questInfo !== undefined) {
+        var questName = document.createElement('span');
+        questName.innerHTML = Quest.name;
+        questName.className = 'quest-name';
+        questInfo.appendChild(questName);
+
+        var questVer = document.createElement('span');
+        questVer.innerHTML = ' v' + Quest.version;
+        questVer.className = 'quest-version';
+        questInfo.appendChild(questVer);
+    }
 };
 
 Game.prototype.setText = function (text)
@@ -67,6 +96,7 @@ Game.prototype.setStage = function (stageId)
     this.setText(Quest.stages[stageId].getTexts());
 	this.setPicture(Quest.pictures[Quest.stages[stageId].pictureid]);
 	this.setAnswers();
+	this.setParams();
 };
 
 Game.prototype.setAnswers = function ()
@@ -88,6 +118,23 @@ Game.prototype.setAnswers = function ()
 		//html += answerElement.outerHTML;
 	}
 	//answersElement.innerHTML = html;
+};
+
+Game.prototype.setParams = function ()
+{
+    this._params = Quest.stages[this._currentStage].params;
+    var paramsElement = document.getElementById('info');
+    paramsElement.innerHTML = '';
+    for (var i in this._params) {
+        var param = Quest.parameters[this._params[i]];
+        var paramElement = document.createElement('div');
+        paramElement.className = 'param';
+        switch (param.type) {
+            case 'text':
+                paramElement.innerHTML = param.value;
+        }
+        paramsElement.appendChild(paramElement);
+    }
 };
 
 //---------------------------------------------------------------------------
@@ -135,10 +182,18 @@ function Picture(name)
 
 //---------------------------------------------------------------------------
 
-function Parameter()
+function Parameter(value)
 {
-
+    this.value = value;
 }
+
+function TextParameter(value)
+{
+    this.type = 'text';
+    TextParameter.superclass.constructor.call(this, value);
+}
+
+extend(TextParameter, Parameter);
 
 //---------------------------------------------------------------------------
 
@@ -183,6 +238,6 @@ TextBlock.prototype.getBlock = function ()
 
 window.onload = function ()
 {
-    var game = new Game('quest1');
+    game = new Game('quest1');
 };
 

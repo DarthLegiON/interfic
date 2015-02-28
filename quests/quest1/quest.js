@@ -1,6 +1,6 @@
 var Quest = {
-    name : 'Квест 1',
-
+    name : 'Тестовый квест 1',
+    version: '0.0.1',
     texts : {
         0: new TextBlock('Абзац 1', true, true),
         1: new TextBlock('Вставка 1', true, true, 'span', 'gray'),
@@ -11,7 +11,8 @@ var Quest = {
     },
 
     stages: {
-        0: new Stage([0, 1], null, 'start', [2, 1, 3], 0)
+        0: new Stage([0], [0], 'start', [2, 1, 3], 0),
+        1: new Stage([1], [1], 'finish', [4, 1, 3], 0)
     },
 	
 	pictures: {
@@ -21,17 +22,21 @@ var Quest = {
 	actions: {
 		0: function (data)
 		{
-			alert('экшн 0');
-			console.log(data);
+		    game.setStage(1);
 		},
 		1: function (data)
 		{
-			alert('экшн 1');
+		    game.setStage(0);
 		}
 	},
 	
 	answers: {
 		0: new Answer('Ответ 1', true, 0),
-		1: new Answer('Ответ 2', false, 1)
+		1: new Answer('Ответ 2', true, 1)
+	},
+
+	parameters: {
+	    0: new TextParameter('Вы в начале квеста'),
+	    1: new TextParameter('Вы устали'),
 	}
 };
