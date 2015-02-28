@@ -4,8 +4,10 @@
 }
 
 .block {
-	border: 1px solid black;
+	border: 1px solid #1d61dc;
     float: left;
+    background: black;
+    color: white;
 }
     
     .block.text, .block.answers {
@@ -19,31 +21,39 @@
 
     .block.answers {
         clear: both;
+        padding: 5px 0;
     }
 	
 		.block.answers a.answer {
 			display: block;
 			text-decoration: none;
-			margin: 3px;
 			padding: 3px;
-			color: rgb(134, 134, 238);
+			color: #505050;
 		}
 		.block.answers a.answer.active {
-			color: rgb(0, 0, 238);
+			color: white;
 		}
 		.block.answers a.answer:hover {
-			color: white;
-			background-color: rgb(215, 215, 215);
+			color: #1d61dc;
+			background-color: #101010;
 		}
 		.block.answers a.answer.active:hover {
-			background-color: rgba(0, 0, 238, 0.8);
+			background-color: #1B1B1B;
 		}
 
-    .block.picture img {
-        max-width: 300px;
+        .block.picture img {
+            max-width: 300px;
         
-    }
+        }
 
-    .block.text .gray {
-        color: gray;
-    }
+        .block.text .gray {
+            color: gray;
+        }
+        .block.text>* {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    
+p#questinfo {
+    clear:both;
+}
