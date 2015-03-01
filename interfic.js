@@ -99,6 +99,13 @@ Game.prototype.setStage = function (stageId)
 	this.setParams();
 };
 
+Game.prototype.finish = function ()
+{
+    if (confirm('Игра закончена! Попробовать еще раз?')) {
+        document.location.reload();
+    }
+}
+
 Game.prototype.setAnswers = function ()
 {
 	this._answers = Quest.stages[this._currentStage].answers;
@@ -129,10 +136,7 @@ Game.prototype.setParams = function ()
         var param = Quest.parameters[this._params[i]];
         var paramElement = document.createElement('div');
         paramElement.className = 'param';
-        switch (param.type) {
-            case 'text':
-                paramElement.innerHTML = param.value;
-        }
+        paramElement.innerHTML = param;
         paramsElement.appendChild(paramElement);
     }
 };
@@ -182,18 +186,89 @@ function Picture(name)
 
 //---------------------------------------------------------------------------
 
-function Parameter(value)
+function Parameter(type, value, prefix, postfix, hidden)
 {
-    this.value = value;
+    this._type = type;
+    this._prefix = getFuncParam(prefix, null);
+    this._postfix = getFuncParam(postfix, null);
+    this.setValue(value);
+    this.hidden = getFuncParam(hidden, false);
 }
 
-function TextParameter(value)
+Parameter.prototype.setValue = function (value)
 {
-    this.type = 'text';
-    TextParameter.superclass.constructor.call(this, value);
+    this._value = value;
+}
+
+Parameter.prototype.getValue = function ()
+{
+    return this._value;
+}
+
+Parameter.prototype.toString = function ()
+{
+    var string = '';
+    if (!(this.hidden)) {
+        string += (this._prefix !== null) ? this._prefix + ': ' : '';
+        string += '<span>' + this._getTextValue() + '</span>';
+        string += (this._postfix !== null) ? ' ' + this._postfix : '';
+    }
+    return string;
+}
+
+Parameter.prototype._getTextValue = function ()
+{
+    return this._value;
+}
+
+Parameter.prototype.show = function ()
+{
+    this.hidden = false;
+}
+
+Parameter.prototype.hide = function ()
+{
+    this.hidden = true;
+}
+
+function TextParameter(value, prefix, postfix, hidden)
+{
+    TextParameter.superclass.constructor.call(this, 'text', value, prefix, postfix, hidden);
 }
 
 extend(TextParameter, Parameter);
+
+function NumberParameter(value, prefix, postfix, rangeValues, hidden)
+{
+    NumberParameter.superclass.constructor.call(this, 'number', value, prefix, postfix, hidden);
+    this._rangeValues = getFuncParam(rangeValues, null);
+}
+
+NumberParameter.prototype._getTextValue = function ()
+{
+    if (this._rangeValues !== null) {
+        return this._getRange();
+    } else {
+        if ((this._value) % 1 === 0) {
+            return this._value.toString();
+        } else {
+            return this._value.toFixed(2).toString();
+        }
+    }
+}
+
+NumberParameter.prototype._getRange = function ()
+{
+    var result = this._rangeValues.default;
+    for (var index in this._rangeValues) {
+        if (this._value >= index) {
+            result = this._rangeValues[index];
+        }
+    }
+    return result;
+}
+
+extend(NumberParameter, Parameter);
 
 //---------------------------------------------------------------------------
 
