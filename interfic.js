@@ -103,6 +103,8 @@ Game.prototype.finish = function ()
 {
     if (confirm('Игра закончена! Попробовать еще раз?')) {
         document.location.reload();
+    } else {
+        // do smth
     }
 }
 
