@@ -34,10 +34,6 @@ Game.prototype.initialize = function ()
 {
     //alert(Quest.name);
     //dispatchEvent(this.init);
-    texts = [
-        Quest.texts[0], Quest.texts[2], Quest.texts[1]//, Quest.texts[3]
-    ];
-    
     this.setStage(0);
     this.showQuestInfo();
 };

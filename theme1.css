@@ -1,13 +1,19 @@
+body {
+	font-family: Verdana;
+	font-size: 13px;
+    background: url(img/back.png);
+}
+
 .wrap {
 	max-width: 1280px;
 	margin: auto;
+    color: white;
 }
 
 .block {
 	border: 1px solid #1d61dc;
     float: left;
     background: black;
-    color: white;
 }
     
     .block.text, .block.answers {

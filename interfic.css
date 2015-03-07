@@ -1,12 +1,10 @@
-body {
-	font-family: Verdana;
-	font-size: 13px;
-    background: url(img/back.png);
-}
-
-
 .block {
 	margin: 10px;
 	float: left;
 }
+
+.block.picture, .block.info {
+        min-width: 300px;
+        float: right;
+    }
 	
