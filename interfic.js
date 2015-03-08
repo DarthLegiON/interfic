@@ -33,7 +33,7 @@ function getFuncParam(param, def)
 /**
  * Класс "Игра", основной класс.
  * Конструктор начинает игру, основываясь на коде квеста
- * @param {type} questCode код квеста
+ * @param {string} questCode код квеста
  * @returns {Game}
  */
 function Game(questCode)
@@ -62,9 +62,19 @@ Game.prototype.initialize = function ()
     this.showQuestInfo();
 };
 
+Game.prototype.preloadPictures = function ()
+{
+    var preloadCont = document.getElementById('preload_pictures');
+    for (var i in Quest.pictures) {
+        var image = document.createElement('img');
+        image.src = 'quests/' + this._questCode + '/images/' + Quest.pictures[i].name;
+        preloadCont.appendChild(image);
+    }
+};
+
 /**
  * Загружает JS-код квеста
- * @param {type} questCode
+ * @param {string} questCode
  * @returns {undefined}
  */
 Game.prototype._reQuest = function (questCode)
@@ -75,6 +85,7 @@ Game.prototype._reQuest = function (questCode)
     var _this = this;
     script.onload = function ()
     {
+        _this.preloadPictures();
         _this.initialize(Quest);
     };
     document.head.appendChild(script);
@@ -234,9 +245,9 @@ Stage.prototype.getTexts = function ()
 
 /**
  * Ответ, вариант действия.
- * @param {type} text текст ответа
- * @param {type} active активность
- * @param {type} action ID действия
+ * @param {string} text текст ответа
+ * @param {boolean} active активность
+ * @param {number} action ID действия
  * @returns {Answer}
  */
 function Answer(text, active, action)
@@ -368,10 +379,10 @@ extend(TextParameter, Parameter);
 /**
  * Числовой параметр
  * @param {type} value
- * @param {type} prefix
- * @param {type} postfix
- * @param {type} rangeValues строки, соответствующие значениям параметра
- * @param {type} hidden
+ * @param {string} prefix
+ * @param {string} postfix
+ * @param {array} rangeValues строки, соответствующие значениям параметра
+ * @param {boolean} hidden
  * @returns {NumberParameter}
  */
 function NumberParameter(value, prefix, postfix, rangeValues, hidden)
@@ -414,6 +425,22 @@ NumberParameter.prototype._getRange = function ()
     return result;
 };
 
+/**
+ * Параметр-перечисление
+ * @param {type} value
+ * @param {type} prefix
+ * @param {type} postfix
+ * @param {type} enumList
+ * @param {type} hidden
+ * @returns {EnumParameter}
+ */
+function EnumParameter(value, prefix, postfix, enumList, hidden)
+{
+    EnumParameter.superclass.constructor.call(this, 'enum', value, prefix, postfix, hidden);
+    this._enumList = getFuncParam(enumList, null);
+}
+
+extend(EnumParameter, Parameter);
 
 //---------------------------------------------------------------------------
 /**
