@@ -62,6 +62,10 @@ Game.prototype.initialize = function ()
     this.showQuestInfo();
 };
 
+/**
+ * Предзагружает картинки на страницу, чтобы закешировать их и затем мгновенно загружать в блок картинок
+ * @returns {undefined}
+ */
 Game.prototype.preloadPictures = function ()
 {
     var preloadCont = document.getElementById('preload_pictures');
@@ -309,10 +313,10 @@ Parameter.prototype.setValue = function (value)
 };
 
 /**
- * 
- * @returns {type}
+ * Перегруженный метод, выдает значение.
+ * @returns {number}
  */
-Parameter.prototype.getValue = function ()
+Parameter.prototype.valueOf = function ()
 {
     return this._value;
 };
@@ -416,13 +420,32 @@ NumberParameter.prototype._getTextValue = function ()
  */
 NumberParameter.prototype._getRange = function ()
 {
-    var result = this._rangeValues.default;
     for (var index in this._rangeValues) {
         if (this._value >= index) {
-            result = this._rangeValues[index];
+            return this._rangeValues[index];
         }
     }
-    return result;
+    return this._rangeValues.default;
+};
+
+/**
+ * Увеличивает значение параметра на val
+ * @param {type} val число, на которое нужно инкрементировать параметр
+ * @returns {number}
+ */
+NumberParameter.prototype.inc = function (val)
+{
+    return this._value += val;
+};
+
+/**
+ * Уменьшает значение параметра на val
+ * @param {type} val число, на которое нужно декрементировать параметр
+ * @returns {number}
+ */
+NumberParameter.prototype.dec = function (val)
+{
+    return this._value -= val;
 };
 
 /**
@@ -430,17 +453,31 @@ NumberParameter.prototype._getRange = function ()
  * @param {type} value
  * @param {type} prefix
  * @param {type} postfix
- * @param {type} enumList
+ * @param {type} enumList массив строк, на которые надо заменить значение
  * @param {type} hidden
  * @returns {EnumParameter}
  */
 function EnumParameter(value, prefix, postfix, enumList, hidden)
 {
     EnumParameter.superclass.constructor.call(this, 'enum', value, prefix, postfix, hidden);
-    this._enumList = getFuncParam(enumList, null);
+    this._enumList = getFuncParam(enumList, {default : ''});
 }
 
 extend(EnumParameter, Parameter);
+
+/**
+ * Перегруженый метод, @see Parameter
+ * @returns {string}
+ */
+EnumParameter.prototype._getTextValue = function ()
+{
+    for (var index in this._enumList) {
+        if (this._value == index) {
+            return this._enumList[index];
+        }
+    }
+    return this._enumList.default;
+};
 
 //---------------------------------------------------------------------------
 /**
