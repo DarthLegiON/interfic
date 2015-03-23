@@ -22,7 +22,7 @@ function extend(Child, Parent)
  * Заменяет значение параметра на умолчание, если оно undefined
  * @param {type} param параметр
  * @param {type} def значение по умолчанию
- * @returns {unresolved}
+ * @returns {@type param}
  */
 function getFuncParam(param, def)
 {
