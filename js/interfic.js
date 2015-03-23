@@ -39,10 +39,10 @@ function getFuncParam(param, def)
 function Game(questCode)
 {
 
-    this._text = '';
-    this._answers = [new Answer()];
+    this._text = [];
+    this._answers = [new Answer({})];
     this._picture = null;
-    this._params = [new Parameter()];
+    this._params = [new Parameter({})];
     this._questCode = questCode;
     this.init = document.createEvent('HTMLEvents');
     this.init.initEvent('init');
@@ -117,15 +117,19 @@ Game.prototype.showQuestInfo = function ()
 
 /**
  * Устанавливает текст в блок для текста
- * @param {Template} text
+ * @param {Array[Template]} texts
  * @returns {undefined}
  */
-Game.prototype.setText = function (text)
+Game.prototype.setText = function (texts)
 {
     this._text = text;
     
     var textElement = document.getElementById('text');
-    textElement.innerHTML = text.render();
+    var html = '';
+    for (var i in texts) {
+        html += Quest.templates[texts[i]].render();
+    }
+    textElement.innerHTML = html;
 };
 
 /**
@@ -213,20 +217,16 @@ Game.prototype.setParams = function ()
 
 /**
  * Состояние квеста. Отвечает за набор параметров, 
- * @param {type} answers Массив ID ответов
- * @param {type} params Массив ID параметров
- * @param {type} type Тип (start, medium или finish, пока не используется)
- * @param {type} text Массив ID текстов
- * @param {type} picture ID картинки
+ * @param {Array} config 
  * @returns {Stage}
  */
-function Stage(answers, params, type, text, picture)
+function Stage(config)
 {
-    this.answers = getFuncParam(answers, []);
-    this.params = getFuncParam(params, []);
-    this.type = getFuncParam(type, 'medium');
-    this.text = getFuncParam(text, []);
-    this.pictureid = getFuncParam(picture, 0);
+    this.answers = getFuncParam(config.answers, []);
+    this.params = getFuncParam(config.params, []);
+    this.type = getFuncParam(config.type, 'medium');
+    this.text = getFuncParam(config.templates, []);
+    this.pictureid = getFuncParam(config.picture, 0);
 }
 
 /**
@@ -235,23 +235,25 @@ function Stage(answers, params, type, text, picture)
  */
 Stage.prototype.getText = function ()
 {
-    return Quest.templates[this.text];
+    var result = [];
+    for (var i in this.text) {
+        result.push(this.text[i]);
+    }
+    return result;
 };
 
 //---------------------------------------------------------------------------
 
 /**
  * Ответ, вариант действия.
- * @param {string} text текст ответа
- * @param {boolean} active активность
- * @param {number} action ID действия
+ * @param {Array} config 
  * @returns {Answer}
  */
-function Answer(text, active, action)
+function Answer(config)
 {
-    this.text = getFuncParam(text, 'Ответ');
-    this.active = getFuncParam(active, true);
-    this.actionid = getFuncParam(action, 0);
+    this.text = getFuncParam(config.text, 'Ответ');
+    this.active = getFuncParam(config.active, true);
+    this.actionid = getFuncParam(config.action, 0);
     this.action = null;
 }
 
@@ -270,29 +272,25 @@ Answer.prototype.setAction = function ()
  * @param {type} name имя файла картинки, автоматически находится в папке images квеста
  * @returns {Picture}
  */
-function Picture(name)
+function Picture(config)
 {
-    this.name = name;
+    this.name = config.filename;
 }
 
 
 //---------------------------------------------------------------------------
 /**
  * Абстрактный параметр
- * @param {string} type тип
- * @param {mixed} value значение по умолчанию
- * @param {string} prefix Префикс (то, что выводится перед значением)
- * @param {string} postfix постфикс (то, что выводится после значения)
- * @param {boolean} hidden true, если параметр не надо отображать в блоке параметров
+ * @param {Array} config 
  * @returns {Parameter}
  */
-function Parameter(type, value, prefix, postfix, hidden)
+function Parameter(config)
 {
-    this._type = type;
-    this._prefix = getFuncParam(prefix, null);
-    this._postfix = getFuncParam(postfix, null);
-    this.setValue(value);
-    this.hidden = getFuncParam(hidden, false);
+    this._type = config.type;
+    this._prefix = getFuncParam(config.prefix, null);
+    this._postfix = getFuncParam(config.postfix, null);
+    this.setValue(config.value);
+    this.hidden = getFuncParam(config.hidden, false);
 }
 
 /**
@@ -380,10 +378,10 @@ extend(TextParameter, Parameter);
  * @param {boolean} hidden
  * @returns {NumberParameter}
  */
-function NumberParameter(value, prefix, postfix, rangeValues, hidden)
+function NumberParameter(config)
 {
-    NumberParameter.superclass.constructor.call(this, 'number', value, prefix, postfix, hidden);
-    this._rangeValues = getFuncParam(rangeValues, null);
+    NumberParameter.superclass.constructor.call(this, config);
+    this._rangeValues = getFuncParam(config.rangeValues, null);
 }
 
 extend(NumberParameter, Parameter);
@@ -448,10 +446,10 @@ NumberParameter.prototype.dec = function (val)
  * @param {type} hidden
  * @returns {EnumParameter}
  */
-function EnumParameter(value, prefix, postfix, enumList, hidden)
+function EnumParameter(config)
 {
-    EnumParameter.superclass.constructor.call(this, 'enum', value, prefix, postfix, hidden);
-    this._enumList = getFuncParam(enumList, {default : ''});
+    EnumParameter.superclass.constructor.call(this, config);
+    this._enumList = getFuncParam(config.enumList, {default : ''});
 }
 
 extend(EnumParameter, Parameter);
@@ -470,81 +468,10 @@ EnumParameter.prototype._getTextValue = function ()
     return this._enumList.default;
 };
 
-//---------------------------------------------------------------------------
-/**
- * Блок текста. Может быть целым тегом, началом тега, серединой или концом.
- * @param {string} text содержимое
- * @param {boolean} open true, если начинается открывающимся тегом
- * @param {boolean} close true, если заканчивается закрывающимся тегом
- * @param {string} tag имя тега
- * @param {string} style css-стиль
- * @returns {TextBlock}
- */
-function TextBlock(text, open, close, tag, style)
+function Constant(config)
 {
-    this._text = getFuncParam(text, '');
-    this._open = getFuncParam(open, false);
-    this._close = getFuncParam(close, open !== undefined);
-    this._tag = getFuncParam(tag, 'p');
-    this._style = getFuncParam(style, '');
-    this._html = this._open && this._close;
-}
-
-/**
- * Является ли блок только открывающимся
- * @returns {Boolean}
- */
-TextBlock.prototype.isOpen = function () {
-    return this._open && !this._close;
-};
-
-/**
- * Является ли блок только закрывающимся
- * @returns {Boolean}
- */
-TextBlock.prototype.isClose = function () {
-    return this._close && !this._open;
-};
-
-/**
- * Геттер для tag
- * @returns {Boolean}
- */
-TextBlock.prototype.tag = function () {
-    return this._tag;
-};
-
-/**
- * Возвращает код блока вместе с тегом и содержимым
- * @returns {String}
- */
-TextBlock.prototype.getBlock = function ()
-{
-    if (this._html) {
-        var block = document.createElement(this._tag);
-        block.className = this._style;
-        block.innerHTML = this._text;
-        return block.outerHTML;
-    }
-    else {
-        if (this._open) {
-            return '<' + this._tag
-                    + ((this._style !== '') ? ' class="' + this._style + '" ' : '')
-                    + '>' + this._text;
-        } else if (this._close) {
-            return this._text
-                    + '</' + this._tag + '>';
-        } else {
-            return this._text;
-        }
-
-    }
-};
-
-function Constant(name, value)
-{
-    this._name = getFuncParam(name, '');
-    this._value = getFuncParam(value, null);
+    this._name = getFuncParam(config.name, '');
+    this._value = getFuncParam(config.value, null);
 }
 
 Constant.prototype.valueOf = function ()

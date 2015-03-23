@@ -3,21 +3,20 @@
 
 /**
  * Шаблон
- * @param {String} template
- * @param {Array} variables
+ * @param {Array} config
  * @returns {Template}
  */
-function Template(template, variables)
+function Template(config)
 {
     /**
      * @type String
      */
-    this._template = getFuncParam(template, '');
+    this._template = getFuncParam(config.template, '');
     
     /**
      * @type Array
      */
-    this._variables = getFuncParam(variables, {});
+    this._variables = getFuncParam(config.variables, {});
 }
 
 /**
