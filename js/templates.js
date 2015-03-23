@@ -34,7 +34,7 @@ Template.prototype._getVariablesValues = function ()
 {
     var result = {};
     for (var code in this._variables) {
-        return eval(this._variables[code]);
+        result[code] = eval(this._variables[code]);
     }
     
     return result;

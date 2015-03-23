@@ -39,7 +39,7 @@ function getFuncParam(param, def)
 function Game(questCode)
 {
 
-    this._text = [];
+    this._text = '';
     this._answers = [new Answer()];
     this._picture = null;
     this._params = [new Parameter()];
@@ -117,18 +117,15 @@ Game.prototype.showQuestInfo = function ()
 
 /**
  * Устанавливает текст в блок для текста
- * @param {type} text
+ * @param {Template} text
  * @returns {undefined}
  */
 Game.prototype.setText = function (text)
 {
     this._text = text;
+    
     var textElement = document.getElementById('text');
-    var html = '';
-    for (var i in text) {
-        html += text[i].getBlock();
-    }
-    textElement.innerHTML = html;
+    textElement.innerHTML = text.render();
 };
 
 /**
@@ -150,7 +147,7 @@ Game.prototype.setPicture = function (picture)
 Game.prototype.setStage = function (stageId)
 {
     this._currentStage = stageId;
-    this.setText(Quest.stages[stageId].getTexts());
+    this.setText(Quest.stages[stageId].getText());
     this.setPicture(Quest.pictures[Quest.stages[stageId].pictureid]);
     this.setAnswers();
     this.setParams();
@@ -202,7 +199,7 @@ Game.prototype.setParams = function ()
 {
     this._params = Quest.stages[this._currentStage].params;
     var paramsElement = document.getElementById('info');
-    paramsElement.innerHTML = '';
+    paramsElement.innerHTML = Quest.templates[this._params].render();
     for (var i in this._params) {
         var param = Quest.parameters[this._params[i]];
         var paramElement = document.createElement('div');
@@ -219,30 +216,26 @@ Game.prototype.setParams = function ()
  * @param {type} answers Массив ID ответов
  * @param {type} params Массив ID параметров
  * @param {type} type Тип (start, medium или finish, пока не используется)
- * @param {type} texts Массив ID текстов
+ * @param {type} text Массив ID текстов
  * @param {type} picture ID картинки
  * @returns {Stage}
  */
-function Stage(answers, params, type, texts, picture)
+function Stage(answers, params, type, text, picture)
 {
-    this.answers = getFuncParam(answers, [new Answer()]);
-    this.params = getFuncParam(params, [new Parameter()]);
+    this.answers = getFuncParam(answers, []);
+    this.params = getFuncParam(params, []);
     this.type = getFuncParam(type, 'medium');
-    this.texts = getFuncParam(texts, []);
+    this.text = getFuncParam(text, []);
     this.pictureid = getFuncParam(picture, 0);
 }
 
 /**
  * Выдает список текстов для текущего состояния
- * @returns {Array}
+ * @returns {Template}
  */
-Stage.prototype.getTexts = function ()
+Stage.prototype.getText = function ()
 {
-    var returnResult = [];
-    for (var i in this.texts) {
-        returnResult.push(Quest.texts[this.texts[i]]);
-    }
-    return returnResult;
+    return Quest.templates[this.text];
 };
 
 //---------------------------------------------------------------------------
@@ -329,9 +322,7 @@ Parameter.prototype.toString = function ()
 {
     var string = '';
     if (!(this.hidden)) {
-        string += (this._prefix !== null) ? this._prefix + ': ' : '';
         string += '<span>' + this._getTextValue() + '</span>';
-        string += (this._postfix !== null) ? ' ' + this._postfix : '';
     }
     return string;
 };
@@ -547,6 +538,26 @@ TextBlock.prototype.getBlock = function ()
             return this._text;
         }
 
+    }
+};
+
+function Constant(name, value)
+{
+    this._name = getFuncParam(name, '');
+    this._value = getFuncParam(value, null);
+}
+
+Constant.prototype.valueOf = function ()
+{
+    return this._value;
+};
+
+Constant.prototype.toString = function ()
+{
+    switch (typeof this._value) {
+        case 'string':
+        case 'number':
+            return this._value;
     }
 };
 
