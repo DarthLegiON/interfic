@@ -234,7 +234,7 @@ Game.prototype.setAnswers = function ()
             answerElement.href = 'javascript://';
             answerElement.onclick = Quest.actions[answer.actionid];
         }
-        answerElement.innerHTML = answer.text;
+        answerElement.innerHTML = answer.getText();
         answersElement.appendChild(answerElement);
         //html += answerElement.outerHTML;
     }
@@ -303,6 +303,7 @@ function Answer(config)
     this.active = getFuncParam(config.active, true);
     this.actionid = getFuncParam(config.action, 0);
     this.action = null;
+    this.icon = getFuncParam(config.icon, 'angle-right');
 }
 
 /**
@@ -312,6 +313,11 @@ function Answer(config)
 Answer.prototype.setAction = function ()
 {
     this.action = Quest.actions[this.actionid];
+};
+
+Answer.prototype.getText = function ()
+{
+    return '&nbsp;<i class="fa fa-' + this.icon + '"></i>&nbsp;' + this.text;
 };
 
 //---------------------------------------------------------------------------

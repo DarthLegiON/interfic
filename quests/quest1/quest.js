@@ -138,12 +138,14 @@ var Quest = {
         2: new Answer({
             text: 'Разузнать',
             active: false,
-            action: 1
+            action: 1,
+            icon: 'question'
         }),
         3: new Answer({
             text: 'Квест провален',
             active: true,
-            action: 2
+            action: 2,
+            icon: 'times'
         }),
         4: new Answer({
             text: 'Выйти из лифта',
