@@ -47,6 +47,9 @@ var Quest = {
             type: 'start',
             templates: [0, 5],
             picture: 1,
+            startAction: function () {
+                Quest.parameters[0].setValue(0);
+            },
         }),
         1: new Stage({
             name: 'Посольства',
@@ -54,7 +57,10 @@ var Quest = {
             params: 4,
             type: 'medium',
             templates: [1, 5],
-            picture: 2
+            picture: 2,
+            startAction: function () {
+                Quest.parameters[0].setValue(1);
+            },
         }),
         2: new Stage({
             name: 'Квест провален',
@@ -72,6 +78,7 @@ var Quest = {
             picture: 3,
             startAction: function () {
                 this.text = [Game.random([2, 6, 7, 8])];
+                Quest.parameters[0].setValue(2);
             },
             finishAction: function () {
                 Quest.parameters[1].inc(Quest.constants[0]);
@@ -100,13 +107,11 @@ var Quest = {
     actions: {
         0: function (data)
         {
-            Quest.parameters[0].setValue(2);
             Quest.parameters[2].setValue(0);
             game.setStage(3);
         },
         1: function (data)
         {
-            Quest.parameters[0].setValue(2);
             Quest.parameters[2].setValue(1);
             game.setStage(3);
         },
@@ -116,17 +121,7 @@ var Quest = {
         },
         3: function (data)
         {
-            
-            switch (Quest.parameters[2].valueOf()) {
-                case 0:
-                    Quest.parameters[0].setValue(1);
-                    game.setStage(1);
-                    break;
-                case 1:
-                    Quest.parameters[0].setValue(0);
-                    game.setStage(0);
-                    break;
-            } 
+            game.setStage(Quest.constants[1].valueOf()[Quest.parameters[2].valueOf()]);
         }
     },
     answers: {
@@ -184,6 +179,13 @@ var Quest = {
         0: new Constant({
             name: 'Время поездки',
             value: 3
-        })
+        }),
+        1: new Constant({
+            name: 'Состояния, в которые ведет лифт',
+            value: {
+                0: 1,
+                1: 0,
+            }
+        }),
     }
 };
