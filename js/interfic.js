@@ -44,8 +44,8 @@ function Game(questCode)
     this._picture = null;
     this._params = [new Parameter({})];
     this._questCode = questCode;
-    this.init = document.createEvent('HTMLEvents');
-    this.init.initEvent('init');
+    /*this.init = document.createEvent('HTMLEvents');
+    this.init.initEvent('init');*/
     this._reQuest(questCode);
 
 }
@@ -58,7 +58,7 @@ Game.prototype.initialize = function ()
 {
     //alert(Quest.name);
     //dispatchEvent(this.init);
-    this.setStage(0);
+    this.setStage(0, false);
     this.showQuestInfo();
 };
 
@@ -122,7 +122,7 @@ Game.prototype.showQuestInfo = function ()
  */
 Game.prototype.setText = function (texts)
 {
-    this._text = text;
+    this._text = texts;
     
     var textElement = document.getElementById('text');
     var html = '';
@@ -145,16 +145,22 @@ Game.prototype.setPicture = function (picture)
 
 /**
  * Меняет состояние квеста
- * @param {type} stageId ID состояния
+ * @param {Number} stageId ID состояния
+ * @param {Boolean} doFinish проверять ли окончание состояния, по умолчанию true
  * @returns {undefined}
  */
-Game.prototype.setStage = function (stageId)
+Game.prototype.setStage = function (stageId, doFinish)
 {
-    this._currentStage = stageId;
-    this.setText(Quest.stages[stageId].getText());
-    this.setPicture(Quest.pictures[Quest.stages[stageId].pictureid]);
-    this.setAnswers();
-    this.setParams();
+    doFinish = getFuncParam(doFinish, true);
+    if (!doFinish || this._currentStage.finishAction()) {
+        this._currentStage = Quest.stages[stageId];
+        this._currentStage.startAction();
+        this.setText(Quest.stages[stageId].getText());
+        this.setPicture(Quest.pictures[Quest.stages[stageId].pictureid]);
+        this.setAnswers();
+        this.setParams();
+    }    
+    
 };
 
 /**
@@ -171,12 +177,52 @@ Game.prototype.finish = function ()
 };
 
 /**
+ * Выдает случайные значения из списка 
+ * @param {Array} array список
+ * @param {Number} count количество (если нужно одно, можно не указывать, функция вернет не массив, а значение)
+ * @param {Boolean} repeat нужны ли повторения
+ * @returns {Array|Number}
+ */
+Game.random = function (array, count, repeat)
+{
+    /**
+     * 
+     * @type {Array}
+     */
+    var _array = getFuncParam(array, []);
+    var _count = getFuncParam(count, 1);
+    var _repeat = getFuncParam(repeat, false);
+    var arrCount = _array.length;
+    if (_count > 0 && arrCount > 0 && _count <= arrCount) {
+        if (_count === 1) {
+            var rand = Math.floor(Math.random() * (arrCount));
+            return array[rand];
+        } else {
+            var result = [];
+            var indexes = [];
+            var rand = 0;
+            for (var i = 0; i < _count; i++) {
+                rand = Math.floor(Math.random() * (arrCount));
+                while (indexes.indexOf(rand) !== -1 && !_repeat) {
+                    rand = Math.floor(Math.random() * (arrCount));
+                }
+                indexes.push(rand);
+                result.push(_array[rand]);
+            }
+            return result;
+        }
+    } else {
+        return null;
+    }
+};
+
+/**
  * Отображает варианты действий
  * @returns {undefined}
  */
 Game.prototype.setAnswers = function ()
 {
-    this._answers = Quest.stages[this._currentStage].answers;
+    this._answers = this._currentStage.answers;
     var answersElement = document.getElementById('answers');
     answersElement.innerHTML = '';
     for (var i in this._answers) {
@@ -201,7 +247,7 @@ Game.prototype.setAnswers = function ()
  */
 Game.prototype.setParams = function ()
 {
-    this._params = Quest.stages[this._currentStage].params;
+    this._params = this._currentStage.params;
     var paramsElement = document.getElementById('info');
     paramsElement.innerHTML = Quest.templates[this._params].render();
     for (var i in this._params) {
@@ -227,6 +273,8 @@ function Stage(config)
     this.type = getFuncParam(config.type, 'medium');
     this.text = getFuncParam(config.templates, []);
     this.pictureid = getFuncParam(config.picture, 0);
+    this.startAction = getFuncParam(config.startAction, function () { });
+    this.finishAction = getFuncParam(config.finishAction, function () { return true; });
 }
 
 /**
@@ -269,7 +317,7 @@ Answer.prototype.setAction = function ()
 //---------------------------------------------------------------------------
 /**
  * Картинка.
- * @param {type} name имя файла картинки, автоматически находится в папке images квеста
+ * @param {Array} config
  * @returns {Picture}
  */
 function Picture(config)
@@ -371,11 +419,7 @@ extend(TextParameter, Parameter);
 //-------------------------------------------------
 /**
  * Числовой параметр
- * @param {type} value
- * @param {string} prefix
- * @param {string} postfix
- * @param {array} rangeValues строки, соответствующие значениям параметра
- * @param {boolean} hidden
+ * @param {Array} config
  * @returns {NumberParameter}
  */
 function NumberParameter(config)
@@ -439,11 +483,7 @@ NumberParameter.prototype.dec = function (val)
 
 /**
  * Параметр-перечисление
- * @param {type} value
- * @param {type} prefix
- * @param {type} postfix
- * @param {type} enumList массив строк, на которые надо заменить значение
- * @param {type} hidden
+ * @param {Array} config
  * @returns {EnumParameter}
  */
 function EnumParameter(config)

@@ -1,16 +1,15 @@
 /* global game */
+/* global Game */
 
 var Quest = {
     name: 'Тестовый квест 1',
     version: '0.0.1',
     templates: {
         0: new Template({
-            template: '<p>Вы прилетели на Цитадель. В доках было многолюдно, туда-сюда сновали челноки, причаливали и отчаливали корабли.</p> <p>Напротив вас стоит лифт. Он может отвезти вас в другое место. Поездка займет {{var1}} минуты.</p>', 
-            variables: {var1: 'Quest.constants[0]'}
+            template: '<p>Вы прилетели на Цитадель. В доках было многолюдно, туда-сюда сновали челноки, причаливали и отчаливали корабли.</p>',             
         }),
         1: new Template({
-            template: '<p>Вы прилетели на Цитадель. В доках было многолюдно, туда-сюда сновали челноки, причаливали и отчаливали корабли.</p> <p>Напротив вас стоит лифт. Он может отвезти вас в другое место. Поездка займет {{var1}} минуты.</p>', 
-            variables: {var1: 'Quest.constants[0]'}
+            template: '<p>В посольствах, как всегда, полно представителей разных рас. Рядом была очередь в кабинет людей: посол Удина был явно чем-то сильно занят и не принимал гостей, из-за чего стоящие в очереди постоянно тыкали на кнопку, пытаясь пробиться в кабинет.</p>', 
         }),
         2: new Template({
             template: '<p>Вы едете в лифте Цитадели. На удивление, это современное средство передвижения ужасно медлительно, и вас уже начали раздражать непонятные разговоры ваших инопланетных попутчиков.</p>'
@@ -22,27 +21,43 @@ var Quest = {
             template: '<div>{{{var1}}}.</div>{{#var2}}Прошло {{{var3}}} мин.{{/var2}}', 
             variables: {
                 var1: 'Quest.parameters[0].toString()', 
-                var2: '(Quest.parameters[1] > 0)', 
+                var2: 'Quest.parameters[1] > 0', 
                 var3: 'Quest.parameters[1]'
             }
+        }),
+        5: new Template({
+            template: '<p>Напротив вас стоит лифт. Он может отвезти вас в другое место. Поездка займет {{var1}} минуты.</p>',
+            variables: {var1: 'Quest.constants[0]'}
+        }),
+        6: new Template({
+            template: '<p>Вы едете в лифте Цитадели. Откуда-то сверху доносится тихая музычка, которая уже начала вам порядком надоедать...</p>'
+        }),
+        7: new Template({
+            template: '<p>Вы зашли в лифт Цитадели. Когда дверь уже начала закрываться, вы увидели летящего к вам на всех правах гигантского крогана. Он буквально повесился на дверь, отчего та остановилась и то ли под тяжестью крогана, то ли под действием программы, начала опускаться обратно. Кроган запрыгнул в лифт с таким торжествующим видом и рыком, как будто совладал не с лифтом, а с целым молотильщиком. А на вас он смотрел как на недоеденный кусок пыжака.</p>'
+        }),
+        8: new Template({
+            template: '<p>Вы едете в лифте, и это время пролетает незаметно, потому что вы буквально приклеились взглядом к стоящей в метре азари. Ваши мысли колебались между "Вот это си..." и "Интересно, сколько же ей лет?..".</p>'
         }),
     },
     stages: {
         0: new Stage({
+            name: 'Доки',
             answers: [0],
             params: 4,
             type: 'start',
-            templates: [0],
-            picture: 1
+            templates: [0, 5],
+            picture: 1,
         }),
         1: new Stage({
+            name: 'Посольства',
             answers: [1, 2],
             params: 4,
             type: 'medium',
-            templates: [1],
+            templates: [1, 5],
             picture: 2
         }),
         2: new Stage({
+            name: 'Квест провален',
             answers: [3],
             params: 4,
             type: 'finish',
@@ -50,11 +65,22 @@ var Quest = {
             picture: 2
         }),
         3: new Stage({
+            name: 'Лифт',
             answers: [4],
             params: 4,
             type: 'medium',
-            templates: [2],
-            picture: 3
+            picture: 3,
+            startAction: function () {
+                this.text = [Game.random([2, 6, 7, 8])];
+            },
+            finishAction: function () {
+                Quest.parameters[1].inc(Quest.constants[0]);
+                if (Quest.parameters[1] >= 60) {
+                    game.setStage(2, false); 
+                    return false;
+                }
+                return true;
+            }
         })
     },
     pictures: {
@@ -90,10 +116,7 @@ var Quest = {
         },
         3: function (data)
         {
-            Quest.parameters[1].inc(3);
-            if (Quest.parameters[1] >= 60) {
-                game.setStage(2); return;
-            }
+            
             switch (Quest.parameters[2].valueOf()) {
                 case 0:
                     Quest.parameters[0].setValue(1);
@@ -135,6 +158,7 @@ var Quest = {
     },
     parameters: {
         0: new EnumParameter({
+            name: 'Местоположение персонажа',
             value: 0,
             enumList: {
                 0: 'Вы в доках',
@@ -142,9 +166,11 @@ var Quest = {
                 2: 'Вы в лифте',
         }}),
         1: new NumberParameter({
+            name: 'Прошедшее время с начала квеста (в минутах)',
             value: 0,
         }),
         2: new EnumParameter({
+            name: 'Назначение лифта',
             value: 0,
             enumList: {
                 default: '',
