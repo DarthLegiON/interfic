@@ -1,15 +1,141 @@
 body {
     background: url('../../img/back.png') black;
     color: #eee;
+    padding-top: 70px;
+}
+
+.btn:focus, .btn:active {
+    outline: 0;
+}
+
+.btn, .form-control, .dropdown-menu {
+    border-radius: 0;
+}
+
+.btn, .form-control, .navbar-inverse .navbar-nav>li>a, .navbar-nav>li>.dropdown-menu>li>a, .navbar .navbar-header a {
+    transition-property: color, background-color, border-color;
+    transition-timing-function: ease;
+    transition-duration: 0.3s;
 }
 
 .btn {
-    border-radius: 0;
     background: transparent;
+}
+
+.btn-default {
     color: white;
+}
+.btn-primary {
+    color: #337ab7;
+}
+.btn-warning {
+    color: #f0ad4e;
+}
+.btn-success {
+    color: #5cb85c;
+}
+.btn-danger {
+    color: #d9534f;
+}
+.btn-info {
+    color: #5bc0de;
+}
+
+.btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
+  margin-left: 0px;
 }
 
 .form-control {
     border-radius: 0;
-    background: black;
+    background: #152532;
+    color: white;
+}
+
+.checkbox label {
+    padding-left: 0px;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + i.fa {
+    width: 1em;
+    text-align: left;
+}
+
+input[type="checkbox"] + i.fa:before {
+    content: "\f046";
+    color: white;
+}
+
+input[type="checkbox"]:checked + i.fa:before {
+    content: "\f096";
+}
+
+.navbar-nav>li>a {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.navbar-inverse {
+    background-color: #000;
+    border-color: #152532;
+}
+
+.navbar-inverse .navbar-nav>li>a, .navbar .navbar-header a {
+    border-top: 5px solid transparent;
+    color: white;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:active,
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus,
+.navbar .navbar-header a:hover, .navbar .navbar-header a:active, .navbar .navbar-header a:focus
+{
+    color: #1B71E2;
+    text-shadow: 0 0 10px #4482D3;
+    background-color: #0D0D0D;
+    
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a,
+.navbar .navbar-header a:hover, .navbar-inverse .navbar-nav>.open>a {
+    border-top-color: #0061E0;
+    background-color: #081322;
+}
+
+.navbar .navbar-nav>li>a {
+    font-size: larger;
+}
+
+.navbar .navbar-header a {
+    font-size: x-large;
+}
+
+.navbar-brand {
+    padding: 10px 10px;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    background-color: #0D0D0D;
+    color: white;
+    border: 1px solid #152532;
+    border-top-color: #0D0D0D;
+}
+
+.navbar-nav>li>.dropdown-menu>li>a {
+    border-left: 5px solid transparent;
+    color: white;
+}
+
+.navbar-nav>li>.dropdown-menu>li>a:hover, .navbar-nav>li>.dropdown-menu>li>a:active, .navbar-nav>li>.dropdown-menu>li>a:focus {
+    border-left-color: #0061E0;
+    color: #1B71E2;
+    text-shadow: 0 0 10px #4482D3;
+    background-color: #081322;
+}
+
+.navbar-nav>li>.dropdown-menu .divider {
+    background-color: #0061E0;
 }

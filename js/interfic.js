@@ -340,7 +340,6 @@ function Picture(config)
  */
 function Parameter(config)
 {
-    this._type = config.type;
     this._prefix = getFuncParam(config.prefix, null);
     this._postfix = getFuncParam(config.postfix, null);
     this.setValue(config.value);
@@ -409,15 +408,12 @@ Parameter.prototype.hide = function ()
 //-------------------------------------------------
 /**
  * Параметр в виде текста. Фактически ничем не отличается от базового.
- * @param {type} value
- * @param {type} prefix
- * @param {type} postfix
- * @param {type} hidden
+ * @param {Array} config
  * @returns {undefined}
  */
-function TextParameter(value, prefix, postfix, hidden)
+function TextParameter(config)
 {
-    TextParameter.superclass.constructor.call(this, 'text', value, prefix, postfix, hidden);
+    TextParameter.superclass.constructor.call(this, config);
 }
 
 extend(TextParameter, Parameter);
@@ -469,8 +465,8 @@ NumberParameter.prototype._getRange = function ()
 
 /**
  * Увеличивает значение параметра на val
- * @param {type} val число, на которое нужно инкрементировать параметр
- * @returns {number}
+ * @param {Number} val число, на которое нужно инкрементировать параметр
+ * @returns {Number}
  */
 NumberParameter.prototype.inc = function (val)
 {
@@ -479,8 +475,8 @@ NumberParameter.prototype.inc = function (val)
 
 /**
  * Уменьшает значение параметра на val
- * @param {type} val число, на которое нужно декрементировать параметр
- * @returns {number}
+ * @param {Number} val число, на которое нужно декрементировать параметр
+ * @returns {Number}
  */
 NumberParameter.prototype.dec = function (val)
 {
