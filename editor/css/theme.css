@@ -8,7 +8,7 @@ body {
     outline: 0;
 }
 
-.btn, .form-control, .dropdown-menu {
+.btn, .form-control, .dropdown-menu, .container .jumbotron {
     border-radius: 0;
 }
 
@@ -43,6 +43,12 @@ body {
 
 .btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
   margin-left: 0px;
+}
+
+.btn-default:hover, .btn-default:active, .btn-default:focus {
+    border-color: #005CBA;
+    background: black;
+    color: #005CBA;
 }
 
 .form-control {
@@ -137,5 +143,14 @@ input[type="checkbox"]:checked + i.fa:before {
 }
 
 .navbar-nav>li>.dropdown-menu .divider {
-    background-color: #0061E0;
+    background-color: #152532;
+}
+
+.nav .fa, .dropdown-menu .fa, .btn .fa {
+    margin-right: 0.4em;
+}
+
+.jumbotron {
+    background: transparent;
+    border: 1px solid #2E599F;
 }
