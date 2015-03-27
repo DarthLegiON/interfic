@@ -12,8 +12,8 @@ body {
     border-radius: 0;
 }
 
-.btn, .form-control, .navbar-inverse .navbar-nav>li>a, .navbar-nav>li>.dropdown-menu>li>a, .navbar .navbar-header a {
-    transition-property: color, background-color, border-color;
+.btn, .form-control, .navbar-inverse .navbar-nav>li>a, .navbar-nav>li>.dropdown-menu>li>a, .navbar .navbar-header a, .jumbotron {
+    transition-property: color, background-color, border-color, box-shadow;
     transition-timing-function: ease;
     transition-duration: 0.3s;
 }
@@ -80,8 +80,8 @@ input[type="checkbox"]:checked + i.fa:before {
 }
 
 .navbar-nav>li>a {
-  padding-top: 10px;
-  padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 15px;
 }
 
 .navbar-inverse {
@@ -100,7 +100,7 @@ input[type="checkbox"]:checked + i.fa:before {
 .navbar .navbar-header a:hover, .navbar .navbar-header a:active, .navbar .navbar-header a:focus
 {
     color: #1B71E2;
-    text-shadow: 0 0 10px #4482D3;
+    /*text-shadow: 0 0 10px #4482D3;*/
     background-color: #0D0D0D;
     
 }
@@ -138,7 +138,7 @@ input[type="checkbox"]:checked + i.fa:before {
 .navbar-nav>li>.dropdown-menu>li>a:hover, .navbar-nav>li>.dropdown-menu>li>a:active, .navbar-nav>li>.dropdown-menu>li>a:focus {
     border-left-color: #0061E0;
     color: #1B71E2;
-    text-shadow: 0 0 10px #4482D3;
+    /*text-shadow: 0 0 10px #4482D3;*/
     background-color: #081322;
 }
 
@@ -151,6 +151,31 @@ input[type="checkbox"]:checked + i.fa:before {
 }
 
 .jumbotron {
-    background: transparent;
-    border: 1px solid #2E599F;
+    background: #000;
+    border: 1px solid rgba(46, 89, 159, 0.5);
+}
+
+.jumbotron:hover {
+    box-shadow: inset 0 0 70px rgba(46, 89, 159, 0.7);
+    border: 1px solid rgba(46, 89, 159, 1.0);
+    background: rgba(46, 89, 159, 0.1);
+}
+
+.panel {
+    background-color: #000;
+    color: white;
+    border-radius: 0px;
+    border-color: rgba(46, 89, 159, 1.0);
+}
+
+.panel .panel-heading {
+    border-color: rgba(46, 89, 159, 1.0);
+}
+
+.panel .panel-body, .panel.panel-default .panel-heading, .panel.panel-default .panel-footer {
+    background-color: transparent;
+}
+
+.panel.panel-default .panel-heading {
+    color: white;
 }

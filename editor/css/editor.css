@@ -3,3 +3,7 @@ body {
     font-size: 13px;
     background: url(img/back.png);
 }
+
+.block {
+    display: none;
+}

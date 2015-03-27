@@ -1,6 +1,7 @@
-/* global Quest */
+/* global quest */
 
 var game;
+var quest;
 
 /**
  * Наследует один класс от другого
@@ -46,7 +47,7 @@ function Game(questCode)
     this._questCode = questCode;
     /*this.init = document.createEvent('HTMLEvents');
     this.init.initEvent('init');*/
-    this._reQuest(questCode);
+    this._request(questCode);
 
 }
 
@@ -56,10 +57,10 @@ function Game(questCode)
  */
 Game.prototype.initialize = function ()
 {
-    //alert(Quest.name);
+    //alert(quest.name);
     //dispatchEvent(this.init);
     this.setStage(0, false);
-    this.showQuestInfo();
+    this.showquestInfo();
 };
 
 /**
@@ -69,9 +70,9 @@ Game.prototype.initialize = function ()
 Game.prototype.preloadPictures = function ()
 {
     var preloadCont = document.getElementById('preload_pictures');
-    for (var i in Quest.pictures) {
+    for (var i in quest.pictures) {
         var image = document.createElement('img');
-        image.src = 'quests/' + this._questCode + '/images/' + Quest.pictures[i].name;
+        image.src = 'quests/' + this._questCode + '/images/' + quest.pictures[i].name;
         preloadCont.appendChild(image);
     }
 };
@@ -81,16 +82,17 @@ Game.prototype.preloadPictures = function ()
  * @param {string} questCode
  * @returns {undefined}
  */
-Game.prototype._reQuest = function (questCode)
+Game.prototype._request = function (questCode)
 {
     var script = document.createElement('script');
-    script.src = 'quests/' + questCode + '/quest.js';
+    script.src = 'quests/' + questCode + '/quest_config.js';
     script.charset = 'UTF-8';
     var _this = this;
     script.onload = function ()
     {
+        quest = new Quest(questConfig);
         _this.preloadPictures();
-        _this.initialize(Quest);
+        _this.initialize(quest);
     };
     document.head.appendChild(script);
 };
@@ -99,17 +101,17 @@ Game.prototype._reQuest = function (questCode)
  * Отображает информацию о квесте (название и версию) в специальном блоке
  * @returns {undefined}
  */
-Game.prototype.showQuestInfo = function ()
+Game.prototype.showquestInfo = function ()
 {
     var questInfo = document.getElementById('questinfo');
     if (questInfo !== undefined) {
         var questName = document.createElement('span');
-        questName.innerHTML = Quest.name;
+        questName.innerHTML = quest.name;
         questName.className = 'quest-name';
         questInfo.appendChild(questName);
 
         var questVer = document.createElement('span');
-        questVer.innerHTML = ' v' + Quest.version;
+        questVer.innerHTML = ' v' + quest.version;
         questVer.className = 'quest-version';
         questInfo.appendChild(questVer);
     }
@@ -127,7 +129,7 @@ Game.prototype.setText = function (texts)
     var textElement = document.getElementById('text');
     var html = '';
     for (var i in texts) {
-        html += Quest.templates[texts[i]].render();
+        html += quest.templates[texts[i]].render();
     }
     textElement.innerHTML = html;
 };
@@ -153,10 +155,10 @@ Game.prototype.setStage = function (stageId, doFinish)
 {
     doFinish = getFuncParam(doFinish, true);
     if (!doFinish || this._currentStage.finishAction()) {
-        this._currentStage = Quest.stages[stageId];
+        this._currentStage = quest.stages[stageId];
         this._currentStage.startAction();
-        this.setText(Quest.stages[stageId].getText());
-        this.setPicture(Quest.pictures[Quest.stages[stageId].pictureid]);
+        this.setText(quest.stages[stageId].getText());
+        this.setPicture(quest.pictures[quest.stages[stageId].pictureid]);
         this.setAnswers();
         this.setParams();
     }    
@@ -226,13 +228,13 @@ Game.prototype.setAnswers = function ()
     var answersElement = document.getElementById('answers');
     answersElement.innerHTML = '';
     for (var i in this._answers) {
-        var answer = Quest.answers[this._answers[i]];
+        var answer = quest.answers[this._answers[i]];
         var answerElement = document.createElement('a');
         answerElement.className = 'answer';
         if (answer.active) {
             answerElement.classList.add('active');
             answerElement.href = 'javascript://';
-            answerElement.onclick = Quest.actions[answer.actionid];
+            answerElement.onclick = quest.actions[answer.actionid].action;
         }
         answerElement.innerHTML = answer.getText();
         answersElement.appendChild(answerElement);
@@ -249,9 +251,9 @@ Game.prototype.setParams = function ()
 {
     this._params = this._currentStage.params;
     var paramsElement = document.getElementById('info');
-    paramsElement.innerHTML = Quest.templates[this._params].render();
+    paramsElement.innerHTML = quest.templates[this._params].render();
     for (var i in this._params) {
-        var param = Quest.parameters[this._params[i]];
+        var param = quest.parameters[this._params[i]];
         var paramElement = document.createElement('div');
         paramElement.className = 'param';
         paramElement.innerHTML = param;
@@ -290,6 +292,13 @@ Stage.prototype.getText = function ()
     return result;
 };
 
+
+function Action(config)
+{
+    this.name = getFuncParam(config.name, '');
+    this.action = getFuncParam(config.action, function () { });
+}
+
 //---------------------------------------------------------------------------
 
 /**
@@ -312,7 +321,7 @@ function Answer(config)
  */
 Answer.prototype.setAction = function ()
 {
-    this.action = Quest.actions[this.actionid];
+    this.action = quest.actions[this.actionid].action;
 };
 
 Answer.prototype.getText = function ()
@@ -528,6 +537,31 @@ Constant.prototype.toString = function ()
         case 'number':
             return this._value;
     }
+};
+
+function Quest(config)
+{
+    this._initialize(config);
+}
+
+/**
+ * 
+ * @param {Object} config
+ * @returns {undefined}
+ */
+Quest.prototype._initialize = function (config)
+{
+    for (var section in config) {
+        this[section] = {};
+        if (typeof config[section] === 'object') {
+            for (var index in config[section]) {
+                var className = config[section][index].class;
+                this[section][index] = new window[className](config[section][index]);
+            }
+        }
+    }
+    this.name = config.name;
+    this.version = config.version;
 };
 
 
