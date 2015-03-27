@@ -3,7 +3,7 @@
 function onDocumentReady()
 {
     $('input[type="checkbox"]').after('<i class="fa fa-lg"></i>');
-    
+    Menu.render();
     Menu.jump('start');
 }
 

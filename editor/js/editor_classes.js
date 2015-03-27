@@ -1,19 +1,25 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 Menu = {
-    jump: function (href)
+    jump: function (href, params)
     {
-        var split = href.split('/');
+        
         var block = $('#main_container');
-        var blocks = $('.block');
-        blocks.hide();
-        for (var i in split) {
-            block = block.children('.block.block-' + split[i]);
-            block.show();
-        }
+        var template = new UrlTemplate({
+            url: href,
+            variables: getFuncParam(params, {}),
+            afterLoad: function () {
+                block.html(template.render());
+            }
+        });
+    },
+    render: function (activeItem)
+    {
+        var params = undefined;
+        var template = new UrlTemplate({
+            url: 'mainmenu',
+            variables: getFuncParam(params, {}),
+            afterLoad: function () {
+                $('body').prepend(template.render());
+            }
+        });
     }
 };

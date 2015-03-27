@@ -563,14 +563,3 @@ Quest.prototype._initialize = function (config)
     this.name = config.name;
     this.version = config.version;
 };
-
-
-/**
- * Запуск игры.
- * @returns {undefined}
- */
-window.onload = function ()
-{
-    game = new Game('quest1');
-};
-
