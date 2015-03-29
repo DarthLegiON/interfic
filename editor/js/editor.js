@@ -5,7 +5,7 @@ function onDocumentReady()
     $('input[type="checkbox"]').after('<i class="fa fa-lg"></i>');
     Menu.render();
     if (Editor.questLoaded()) {
-        Menu.jump('quest/info', {quest: localStorage.quest});
+        Editor.openQuest(localStorage.quest);
     } else {
         Menu.jump('start');
     }
@@ -32,12 +32,12 @@ $(document).on('submit', 'form#quest-create-form', function (e) {
         ]
     });
     if (form.validate()) {
-        var quest = new Quest({
-            name: form.values.name,
-            version: '0.0.1'
-        });
-        localStorage.setItem('quest', quest);
-        Menu.jump('quest/info', {quest: localStorage.quest});
+        Editor.createQuest(form);
+        Menu.jump('quest/info', {quest: Editor.questConfig});
     }
     
 })
+
+$(document).on('click', '#quest-close', function (e) {
+    Editor.closeQuest();
+});

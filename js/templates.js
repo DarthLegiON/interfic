@@ -17,6 +17,8 @@ function Template(config)
      * @type Array
      */
     this._variables = getFuncParam(config.variables, {});
+    
+    this._evalVariables = getFuncParam(config.evalVariables, true);
 }
 
 /**
@@ -33,7 +35,7 @@ Template.prototype._getVariablesValues = function ()
 {
     var result = {};
     for (var code in this._variables) {
-        result[code] = eval(this._variables[code]);
+        result[code] = this._evalVariables ? eval(this._variables[code]) : this._variables[code];
     }
     
     return result;
@@ -42,6 +44,8 @@ Template.prototype._getVariablesValues = function ()
 
 function UrlTemplate(config)
 {
+    UrlTemplate.superclass.constructor.call(this, config);
+    
     if (typeof config.url !== 'undefined') {
         this._url = config.url;
         this._getFromUrl();

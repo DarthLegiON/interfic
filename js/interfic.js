@@ -47,7 +47,7 @@ function Game(questCode)
     this._questCode = questCode;
     /*this.init = document.createEvent('HTMLEvents');
     this.init.initEvent('init');*/
-    this._request(questCode);
+    this._reQuest(questCode);
 
 }
 
@@ -82,7 +82,7 @@ Game.prototype.preloadPictures = function ()
  * @param {string} questCode
  * @returns {undefined}
  */
-Game.prototype._request = function (questCode)
+Game.prototype._reQuest = function (questCode)
 {
     var script = document.createElement('script');
     script.src = 'quests/' + questCode + '/quest_config.js';

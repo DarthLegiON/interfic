@@ -170,6 +170,7 @@ input[type="checkbox"]:checked + i.fa:before {
 
 .panel .panel-heading {
     border-color: rgba(46, 89, 159, 1.0);
+    border-radius: 0px;
 }
 
 .panel .panel-body, .panel.panel-default .panel-heading, .panel.panel-default .panel-footer {
