@@ -1,1 +1,7 @@
-nbproject/*
+nbproject
+Thumbs.db
+/vendor
+composer.phar
+/web/assets
+runtime
+/web/cache
