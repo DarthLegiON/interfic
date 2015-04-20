@@ -20,6 +20,8 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/theme.css',
         'css/site.css',
+        'css/interfic.css',
+        'css/theme1.css',
     ];
     public $js = [
     ];

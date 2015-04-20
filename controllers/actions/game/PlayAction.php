@@ -17,7 +17,7 @@ class PlayAction extends Action {
         /**
          * @todo запуск игры
          */
-        return '';
+        return $this->controller->render('play/main_interface');
     }
 
 }

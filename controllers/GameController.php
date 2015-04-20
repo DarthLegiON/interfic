@@ -11,12 +11,17 @@ use yii\web\Controller;
 
 
 class GameController extends Controller{
+
+    /**
+     * @inheritdoc
+     */
+    public $layout = 'game';
+
     public function actions()
     {
         return [
             'play' => 'app\controllers\actions\game\PlayAction',
         ];
     }
-
 
 }
