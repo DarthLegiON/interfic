@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\auth\models;
 
 use Yii;
 use yii\base\Model;
@@ -76,4 +76,15 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'password' => 'Пароль',
+            'rememberMe' => 'Запомнить',
+        ];
+    }
+
+
 }

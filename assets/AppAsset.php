@@ -24,9 +24,11 @@ class AppAsset extends AssetBundle
         'css/theme1.css',
     ];
     public $js = [
+        'js/main.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'kartik\icons\FontAwesomeAsset',
     ];
 }

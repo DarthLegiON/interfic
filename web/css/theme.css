@@ -1,14 +1,22 @@
 body {
     background: url('../../img/back.png') black;
-    color: #eee;
-    padding-top: 70px;
+    color: #b8b8b8;
+}
+
+a {
+    color: #1B71E2;
+}
+
+a:hover, a:active {
+    color: #1B71E2;
+    text-decoration: underline;
 }
 
 .btn:focus, .btn:active {
     outline: 0;
 }
 
-.btn, .form-control, .dropdown-menu, .container .jumbotron {
+.btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb {
     border-radius: 0;
 }
 
@@ -18,7 +26,7 @@ body {
     transition-duration: 0.3s;
 }
 
-.btn {
+.btn, .breadcrumb {
     background: transparent;
 }
 

@@ -15,7 +15,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\modules\auth\models\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -49,6 +49,11 @@ $config = [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
+        ],
+    ],
+    'modules' => [
+        'auth' => [
+            'class' => 'app\modules\auth\Module',
         ],
     ],
     'params' => $params,
