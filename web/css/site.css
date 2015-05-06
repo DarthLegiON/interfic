@@ -89,3 +89,19 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.menu-user-login .dropdown-menu {
+    width: 350px;
+    padding: 10px;
+}
+
+li.menu-user-info>a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.menu-user-info img.avatar {
+    width: 30px;
+    border-radius: 15px;
+}
+

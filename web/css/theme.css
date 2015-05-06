@@ -188,8 +188,3 @@ input[type="checkbox"]:checked + label>i.fa:before {
 .panel.panel-default .panel-heading {
     color: white;
 }
-
-.menu-user .dropdown-menu {
-    width: 350px;
-    padding: 10px;
-}

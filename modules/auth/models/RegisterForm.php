@@ -81,7 +81,7 @@ class RegisterForm extends Model {
      */
     public function checkUsername($attribute, $params)
     {
-        $usersFound = User::findAll(['login' => $this->$attribute]);
+        $usersFound = User::findAll(['lower(login)' => strtolower($this->$attribute)]);
         if (count($usersFound) > 0) {
             $this->addError($attribute, 'Логин уже занят');
         }

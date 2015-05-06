@@ -40,15 +40,20 @@ AppAsset::register($this);
                     Yii::$app->user->isGuest ?
                         [
                             'label' => Icon::show('sign-in') . 'Войти',
-                            'url' => ['/auth/user/login'],
                             'items' => [
                                 '<div>' . $this->render('@app/modules/auth/views/user/f_login_small') . '</div>',
                             ],
-                            'options' => ['class' => 'menu-user']
+                            'options' => ['class' => 'menu-user-login']
                         ] :
-                        ['label' => Icon::show('sign-out') . 'Выйти (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/auth/user/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
+                        [
+                            'label' => ((Yii::$app->user->identity->avatar) ? Html::img(['/uploads/avatars/' . Yii::$app->user->identity->avatar], ['class' => 'avatar']) : '')
+                                . '&nbsp;' . Yii::$app->user->identity->username . '',
+                            'options' => ['class' => 'menu-user-info'],
+                            'items' => [
+                                ['label' => Icon::show('user') . 'Профиль', 'url' => ['/auth/user/profile']],
+                                ['label' => Icon::show('sign-out') . 'Выйти', 'url' => ['/auth/user/logout'], 'linkOptions' => ['data-method' => 'post'],],
+                            ]
+                        ],
                 ],
             ]);
             NavBar::end();

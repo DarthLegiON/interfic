@@ -2,37 +2,21 @@
 
 namespace app\modules\auth\models;
 
+use Yii;
+
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
     public $id;
     public $username;
-    public $password;
     public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+    public $avatar;
 
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return static::getFromDBModel(\app\modules\base\models\User::findOne(['id_User' => $id]));
     }
 
     /**
@@ -40,12 +24,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
         return null;
     }
 
@@ -57,13 +35,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return static::getFromDBModel(\app\modules\base\models\User::findOne(['lower(login)' => strtolower($username)]));
     }
 
     /**
@@ -98,6 +70,23 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->security->validatePassword($password, $this->authKey);
+    }
+
+    /**
+     * @param \app\modules\base\models\User $model
+     */
+    private static function getFromDBModel($model)
+    {
+        if (isset($model)) {
+            return new static([
+                'id' => $model->id_User,
+                'username' => $model->login,
+                'authKey' => $model->password_hash,
+                'avatar' => $model->avatar,
+            ]);
+        } else {
+            return null;
+        }
     }
 }
