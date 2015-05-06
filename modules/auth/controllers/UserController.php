@@ -91,9 +91,9 @@ class UserController extends Controller
     }
 
     /**
-     * Регистрирует пользователя
+     * Р РµРіРёСЃС‚СЂРёСЂСѓРµС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
      * @param RegisterForm $form
-     * @return boolean true, если удача, false, если неудача
+     * @return integer ID РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, false, РµСЃР»Рё РЅРµСѓРґР°С‡Р°
      */
     private function registerUser($form)
     {
@@ -116,7 +116,7 @@ class UserController extends Controller
 
     /**
      * @param UploadedFile $file
-     * @return string имя файла
+     * @return string РРјСЏ С„Р°Р№Р»Р°
      */
     private function saveAvatar($file)
     {

@@ -38,7 +38,14 @@ AppAsset::register($this);
                 'encodeLabels' => false,
                 'items' => [
                     Yii::$app->user->isGuest ?
-                        ['label' => Icon::show('sign-in') . 'Войти', 'url' => ['/auth/user/login']] :
+                        [
+                            'label' => Icon::show('sign-in') . 'Войти',
+                            'url' => ['/auth/user/login'],
+                            'items' => [
+                                '<div>' . $this->render('@app/modules/auth/views/user/f_login_small') . '</div>',
+                            ],
+                            'options' => ['class' => 'menu-user']
+                        ] :
                         ['label' => Icon::show('sign-out') . 'Выйти (' . Yii::$app->user->identity->username . ')',
                             'url' => ['/auth/user/logout'],
                             'linkOptions' => ['data-method' => 'post']],

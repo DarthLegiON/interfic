@@ -16,7 +16,7 @@ a:hover, a:active {
     outline: 0;
 }
 
-.btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb {
+.btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb, .form-group-sm .form-control, .form-group-lg .form-control {
     border-radius: 0;
 }
 
@@ -73,17 +73,17 @@ input[type="checkbox"] {
     display: none;
 }
 
-input[type="checkbox"] + i.fa {
+input[type="checkbox"] + label>i.fa {
     width: 1em;
     text-align: left;
 }
 
-input[type="checkbox"] + i.fa:before {
+input[type="checkbox"] + label>i.fa:before {
     content: "\f046";
     color: white;
 }
 
-input[type="checkbox"]:checked + i.fa:before {
+input[type="checkbox"]:checked + label>i.fa:before {
     content: "\f096";
 }
 
@@ -187,4 +187,9 @@ input[type="checkbox"]:checked + i.fa:before {
 
 .panel.panel-default .panel-heading {
     color: white;
+}
+
+.menu-user .dropdown-menu {
+    width: 350px;
+    padding: 10px;
 }

@@ -18,6 +18,7 @@ use yii\bootstrap\ActiveForm;
         'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
         'labelOptions' => ['class' => 'col-lg-1 control-label'],
     ],
+    'action' => ['/auth/user/login'],
 ]); ?>
 
 <?= $form->field($model, 'username') ?>
@@ -31,7 +32,7 @@ use yii\bootstrap\ActiveForm;
 
 <div class="form-group">
     <div class="col-lg-offset-1 col-lg-11">
-        <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
     </div>
 </div>
 
