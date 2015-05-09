@@ -18,7 +18,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode($this->title) ?> - Interfic</title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -46,7 +46,7 @@ AppAsset::register($this);
                             'options' => ['class' => 'menu-user-login']
                         ] :
                         [
-                            'label' => ((Yii::$app->user->identity->avatar) ? Html::img(['/uploads/avatars/' . Yii::$app->user->identity->avatar], ['class' => 'avatar']) : '')
+                            'label' => ((Yii::$app->user->identity->avatar) ? Html::img(['/uploads/avatars/' . Yii::$app->user->identity->avatar], ['class' => 'avatar']) : '<span class="avatar">&nbsp;</span>')
                                 . '&nbsp;' . Yii::$app->user->identity->username . '',
                             'options' => ['class' => 'menu-user-info'],
                             'items' => [

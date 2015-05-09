@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use app\modules\auth\models\LoginForm;
 use app\modules\auth\models\RegisterForm;
+use app\modules\auth\models\EditProfileForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\base\models\User;
@@ -25,6 +26,16 @@ class UserController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'actions' => ['edit-profile'],
+                        'allow' => true,
+                        'roles' => ['editProfile'],
+                    ],
+                    [
+                        'actions' => ['register'],
+                        'allow' => false,
+                        'roles' => ['@'],
+                    ]
                 ],
             ],
             'verbs' => [
@@ -60,8 +71,11 @@ class UserController extends Controller
     }
 
     public function actionRegister()
-
     {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = new RegisterForm();
         if ($model->load(Yii::$app->request->post())) {
 
@@ -79,9 +93,7 @@ class UserController extends Controller
                         'model' => $model,
                     ]);
                 }
-
             }
-
         }
 
         return $this->render('register', [
@@ -90,10 +102,56 @@ class UserController extends Controller
 
     }
 
+    public function actionProfile($id = null)
+    {
+        $user = $this->getUserById($id);
+
+        return $this->render('profile', [
+            'user' => $user,
+            'own' => $id == Yii::$app->user->id || !isset($id),
+            'admin' => Yii::$app->user->can('manageUsers'), /** @TODO Добавить право на редактирование админу */
+        ]);
+    }
+
+    public function actionEditProfile($id = null)
+    {
+        $id = (Yii::$app->request->isPost) ? Yii::$app->request->post('EditProfileForm')['id'] : $id;
+        if (!isset($id) || $id == Yii::$app->user->id || Yii::$app->user->can('manageUsers')) {
+            $model = new EditProfileForm();
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->validate()) {
+                    if ($this->saveUser($model)) {
+                        return $this->redirect(['profile' . '?id=' . $model->id]);
+                    } else {
+                        return $this->render('edit_profile', [
+                            'model' => $model,
+                        ]);
+                    }
+                }
+            } else {
+                $user = $this->getUserById($id);
+
+                $model->id = $user->id_User;
+                $model->username = $user->login;
+                $model->bio = $user->bio;
+
+                return $this->render('edit_profile', [
+                    'model' => $model,
+                ]);
+            }
+
+            return $this->render('edit_profile', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->goHome();
+        }
+    }
+
     /**
      * Регистрирует пользователя
      * @param RegisterForm $form
-     * @return integer ID пользователя, false, если неудача
+     * @return integer|boolean ID пользователя, false, если неудача
      */
     private function registerUser($form)
     {
@@ -115,6 +173,28 @@ class UserController extends Controller
     }
 
     /**
+     * Сохраняет данные о пользователе
+     * @param EditProfileForm $form
+     * @return boolean false, если неудача
+     */
+    private function saveUser($form)
+    {
+        /**
+         * @var User $userModel
+         */
+        $userModel = $this->getUserById($form->id);
+        if (!empty($form->passwordNew)) {
+            $userModel->password_hash = Yii::$app->getSecurity()->generatePasswordHash($form->passwordNew);
+        }
+        if (!empty($form->avatar)) {
+            $userModel->avatar = $this->saveAvatar($file = UploadedFile::getInstance($form, 'avatar'));
+        }
+        $userModel->bio = $form->bio;
+
+        return $userModel->save();
+    }
+
+    /**
      * @param UploadedFile $file
      * @return string Имя файла
      */
@@ -126,5 +206,24 @@ class UserController extends Controller
             return $filename;
         }
     }
+
+    /**
+     * @param $id
+     * @return User
+     */
+    private function getUserById($id)
+    {
+        if (!isset($id)) {
+            if (\Yii::$app->user->isGuest) {
+                return $this->goHome();
+            } else {
+                $id = Yii::$app->user->id;
+
+            }
+        }
+
+        return User::findOne(['id_User' => $id]);
+    }
+
 
 }

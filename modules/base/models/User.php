@@ -14,6 +14,7 @@ use Yii;
  * @property string $code
  * @property string $email
  * @property string $ip_address
+ * @property string $bio
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -32,8 +33,10 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['login', 'password_hash', 'email', 'ip_address'], 'required'],
+            [['bio'], 'string'],
             [['login'], 'string', 'max' => 45],
-            [['password_hash', 'avatar'], 'string', 'max' => 256],
+            [['password_hash'], 'string', 'max' => 60],
+            [['avatar'], 'string', 'max' => 256],
             [['code'], 'string', 'max' => 10],
             [['email'], 'string', 'max' => 100],
             [['ip_address'], 'string', 'max' => 11]
@@ -53,6 +56,22 @@ class User extends \yii\db\ActiveRecord
             'code' => 'Код',
             'email' => 'Адрес E-mail',
             'ip_address' => 'Регистрационный IP-адрес',
+            'bio' => 'Информация о пользователе',
         ];
+    }
+
+    public function getRole()
+    {
+        return array_values(Yii::$app->authManager->getRolesByUser($this->id_User))[0]->description;
+    }
+
+    public function getQuests()
+    {
+        return [];
+    }
+
+    public function getGamesCount()
+    {
+        return 0;
     }
 }

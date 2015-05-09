@@ -143,7 +143,13 @@ input[type="checkbox"]:checked + label>i.fa:before {
     color: white;
 }
 
-.navbar-nav>li>.dropdown-menu>li>a:hover, .navbar-nav>li>.dropdown-menu>li>a:active, .navbar-nav>li>.dropdown-menu>li>a:focus {
+.navbar-nav>li>.dropdown-menu>li.active>a {
+    background-color: #001531;
+    border-left-color: #00439B;
+}
+
+.navbar-nav>li>.dropdown-menu>li>a:hover, .navbar-nav>li>.dropdown-menu>li>a:active, .navbar-nav>li>.dropdown-menu>li>a:focus,
+.navbar-nav>li>.dropdown-menu>li.active>a:hover, .navbar-nav>li>.dropdown-menu>li.active>a:active, .navbar-nav>li>.dropdown-menu>li.active>a:focus {
     border-left-color: #0061E0;
     color: #1B71E2;
     /*text-shadow: 0 0 10px #4482D3;*/
@@ -187,4 +193,16 @@ input[type="checkbox"]:checked + label>i.fa:before {
 
 .panel.panel-default .panel-heading {
     color: white;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top: none;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #696969;
+}
+
+.breadcrumb > li + li:before {
+    content: "»\00a0";
 }

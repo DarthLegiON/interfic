@@ -96,12 +96,23 @@ a.desc:after {
 }
 
 li.menu-user-info>a {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    line-height: 30px;
 }
 
-.menu-user-info img.avatar {
+.menu-user-info .avatar {
     width: 30px;
+    height: 30px;
     border-radius: 15px;
+    display: inline-block;
 }
 
+.user-profile .full-avatar {
+    width: 160px;
+    height: 200px;
+}
+
+.user-profile .full-avatar img {
+    border: 1px solid #00439B;
+}

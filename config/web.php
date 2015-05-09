@@ -50,12 +50,16 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
     ],
     'modules' => [
         'auth' => [
             'class' => 'app\modules\auth\Module',
         ],
     ],
+
     'params' => $params,
     'language' => 'ru',
 ];
