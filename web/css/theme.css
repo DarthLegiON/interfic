@@ -215,3 +215,27 @@ input[type="radio"]:checked + label>i.fa:before, label>input[type="radio"]:check
 .breadcrumb > li + li:before {
     content: "»\00a0";
 }
+
+.alert {
+    border-radius: 0px;
+}
+
+.alert-danger {
+    background-color: #2D0000;
+    border-color: #a94442;
+}
+
+.alert-warning {
+    background-color: #231D00;
+    border-color: #8a6d3b;
+}
+
+.alert-success {
+    background-color: #0A2300;
+    border-color: #3c763d;
+}
+
+.alert-info {
+    background-color: #001926;
+    border-color: #31708f;
+}

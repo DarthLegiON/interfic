@@ -19,7 +19,7 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'edit-profile'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
@@ -30,11 +30,6 @@ class UserController extends Controller
                         'actions' => ['edit-profile'],
                         'allow' => true,
                         'roles' => ['editProfile'],
-                    ],
-                    [
-                        'actions' => ['register'],
-                        'allow' => false,
-                        'roles' => ['@'],
                     ]
                 ],
             ],
@@ -126,7 +121,7 @@ class UserController extends Controller
         return $this->render('profile', [
             'user' => $user,
             'own' => $id == Yii::$app->user->id || !isset($id),
-            'admin' => Yii::$app->user->can('manageUsers'), /** @TODO Добавить право на редактирование админу */
+            'admin' => Yii::$app->user->can('manageUsers'),
         ]);
     }
 
