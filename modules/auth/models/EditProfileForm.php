@@ -9,7 +9,6 @@
 namespace app\modules\auth\models;
 
 
-use app\modules\auth\models\User;
 use yii\base\Model;
 
 class EditProfileForm extends Model {
@@ -43,6 +42,10 @@ class EditProfileForm extends Model {
      * @var string Описание
      */
     public $bio;
+    /**
+     * @var string Роль
+     */
+    public $role;
 
     /**
      * @inheritdoc
@@ -51,6 +54,8 @@ class EditProfileForm extends Model {
     {
         return [
             ['id', 'required'],
+            ['role', 'string'],
+            ['bio', 'string', 'max' => 1000],
             [['passwordNew', 'passwordOld', 'passwordRepeat'], 'string', 'min' => 8],
             ['passwordOld', 'checkOldPassword'],
             ['passwordRepeat', 'checkRepeatedPassword'],
@@ -102,8 +107,9 @@ class EditProfileForm extends Model {
             'passwordOld' => 'Старый пароль',
             'passwordNew' => 'Новый пароль',
             'passwordRepeat' => 'Повторите пароль',
-            'avatar' => 'Изображение',
+            'avatar' => 'Аватар',
             'bio' => 'Подпись',
+            'role' => 'Группа',
         ];
     }
 
@@ -119,6 +125,20 @@ class EditProfileForm extends Model {
             'avatar' => 'Не больше 160x160px и 200 КБ, только jpg, gif или png',
             'bio' => 'Краткое описание вашего профиля'
         ];
+    }
+
+    /**
+     * Возвращает список ролей в формате [код => название]
+     * @return array
+     */
+    public function getRolesList()
+    {
+        $roles = \Yii::$app->authManager->getRoles();
+        $return = [];
+        foreach ($roles as $role) {
+            $return[$role->name] = $role->description;
+        }
+        return $return;
     }
 
 }

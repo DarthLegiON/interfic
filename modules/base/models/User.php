@@ -3,6 +3,7 @@
 namespace app\modules\base\models;
 
 use Yii;
+use yii\web\Application;
 
 /**
  * This is the model class for table "Users".
@@ -73,5 +74,10 @@ class User extends \yii\db\ActiveRecord
     public function getGamesCount()
     {
         return 0;
+    }
+
+    public function getAvatarFullPath()
+    {
+        return Yii::$app->params['avatars-path'] . $this->avatar;
     }
 }

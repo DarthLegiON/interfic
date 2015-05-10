@@ -11,7 +11,7 @@ use yii\helpers\Html;
 if (!empty($user)) :
 
     $this->title = 'Профиль: ' . $user->login;
-    $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['list']];
+    $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
     $this->params['breadcrumbs'][] = $this->title;
 
     ?>
@@ -26,9 +26,9 @@ if (!empty($user)) :
         </h1>
 
 
-        <div class="full-avatar pull-left text-center">
+        <div class="full-avatar pull-left text-left">
             <?= ($user->avatar)
-                    ? Html::img(['/uploads/avatars/' . $user->avatar])
+                    ? Html::img(['/' . $user->getAvatarFullPath()])
                     : Html::tag('div', 'Нет аватара')
             ?>
         </div>
@@ -53,7 +53,7 @@ if (!empty($user)) :
         <div class="clearfix"></div>
 
         <? if ($user->bio) : ?>
-        <h3>Дополнительная информация</h3>
+        <h3>Подпись</h3>
         <?= $user->bio ?>
         <? endif; ?>
 

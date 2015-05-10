@@ -69,22 +69,31 @@ a:hover, a:active {
     padding-left: 0px;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
     display: none;
 }
 
-input[type="checkbox"] + label>i.fa {
+input[type="checkbox"] + label>i.fa, input[type="radio"] + label>i.fa {
     width: 1em;
     text-align: left;
 }
 
-input[type="checkbox"] + label>i.fa:before {
+input[type="checkbox"] + label>i.fa:before, label>input[type="checkbox"] + i.fa:before {
     content: "\f046";
     color: white;
 }
 
-input[type="checkbox"]:checked + label>i.fa:before {
+input[type="checkbox"]:checked + label>i.fa:before, label>input[type="checkbox"]:checked + i.fa:before {
     content: "\f096";
+}
+
+input[type="radio"] + label>i.fa:before, label>input[type="radio"] + i.fa:before {
+    content: "\f10c";
+    color: white;
+}
+
+input[type="radio"]:checked + label>i.fa:before, label>input[type="radio"]:checked + i.fa:before {
+    content: "\f192";
 }
 
 .navbar-nav>li>a {

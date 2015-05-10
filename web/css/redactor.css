@@ -1,0 +1,28 @@
+.redactor-toolbar {
+    background: #000;
+}
+
+.redactor-toolbar li a {
+   color: #fff;
+}
+
+.redactor-toolbar li a:hover {
+   background: #081322;
+   color: #1B71E2;
+}
+
+.redactor-toolbar li a:active,
+.redactor-toolbar li a.redactor-act {
+   background: #0D0D0D;
+   color: #1B71E2;
+}
+
+.redactor-box {
+    border: 1px solid rgb(46, 89, 159);
+}
+
+.redactor-editor {
+    background: #000;
+    border: none;
+    border-top: 1px solid rgba(46, 89, 159, 0.5);
+}

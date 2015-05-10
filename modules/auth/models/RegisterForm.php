@@ -109,7 +109,7 @@ class RegisterForm extends Model {
             'username' => 'Логин',
             'password' => 'Пароль',
             'passwordRepeat' => 'Повторите пароль',
-            'avatar' => 'Изображение',
+            'avatar' => 'Аватар',
             'email' => 'Адрес E-mail',
         ];
     }

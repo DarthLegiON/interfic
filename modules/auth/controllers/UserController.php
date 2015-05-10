@@ -47,6 +47,10 @@ class UserController extends Controller
         ];
     }
 
+    /**
+     * Вход пользователя
+     * @return string|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -63,6 +67,10 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Выход пользователя
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -70,6 +78,10 @@ class UserController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Регистрация пользователя
+     * @return string|\yii\web\Response
+     */
     public function actionRegister()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -102,6 +114,11 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Профиль пользователя
+     * @param null $id
+     * @return string
+     */
     public function actionProfile($id = null)
     {
         $user = $this->getUserById($id);
@@ -113,6 +130,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Редактирование профиля пользователя
+     * @param null $id
+     * @return string|\yii\web\Response
+     */
     public function actionEditProfile($id = null)
     {
         $id = (Yii::$app->request->isPost) ? Yii::$app->request->post('EditProfileForm')['id'] : $id;
@@ -134,7 +156,9 @@ class UserController extends Controller
                 $model->id = $user->id_User;
                 $model->username = $user->login;
                 $model->bio = $user->bio;
-
+                if (isset($user->id_User) && $id != Yii::$app->user->id && Yii::$app->user->can('manageUsers')) {
+                    $model->role = array_values(Yii::$app->authManager->getRolesByUser($user->id_User))[0]->name;
+                }
                 return $this->render('edit_profile', [
                     'model' => $model,
                 ]);
@@ -162,7 +186,7 @@ class UserController extends Controller
         $userModel->email = $form->email;
         $userModel->password_hash = Yii::$app->getSecurity()->generatePasswordHash($form->password);
         if (isset($form->avatar)) {
-            $userModel->avatar = $this->saveAvatar($file = UploadedFile::getInstance($form, 'avatar'));
+            $userModel->avatar = $this->saveAvatar(UploadedFile::getInstance($form, 'avatar'));
         }
         if ($userModel->save()) {
             return $userModel->id_User;
@@ -186,15 +210,27 @@ class UserController extends Controller
         if (!empty($form->passwordNew)) {
             $userModel->password_hash = Yii::$app->getSecurity()->generatePasswordHash($form->passwordNew);
         }
-        if (!empty($form->avatar)) {
-            $userModel->avatar = $this->saveAvatar($file = UploadedFile::getInstance($form, 'avatar'));
+        $avatarFile = UploadedFile::getInstance($form, 'avatar');
+        if (isset($avatarFile)) {
+            if (isset($userModel->avatar)) {
+                unlink($userModel->getAvatarFullPath());
+            }
+            $userModel->avatar = $this->saveAvatar($avatarFile);
         }
-        $userModel->bio = $form->bio;
 
+        if (isset($form->role) && Yii::$app->user->can('manageUsers')) {
+            Yii::$app->authManager->revokeAll($form->id);
+            Yii::$app->authManager->assign(Yii::$app->authManager->getRole($form->role), $form->id);
+        }
+        $userModel->bio = $this->prepareBio($form->bio);
+
+        /*var_dump($form);
+        var_dump($userModel);*/
         return $userModel->save();
     }
 
     /**
+     * Сохраняет в особую папку аватар пользователя и возвращает ссылку на этот файл
      * @param UploadedFile $file
      * @return string Имя файла
      */
@@ -202,7 +238,7 @@ class UserController extends Controller
     {
         if (isset($file)) {
             $filename = uniqid('av_') . '.' . $file->extension;
-            $file->saveAs('uploads/avatars/' . $filename);
+            $file->saveAs(Yii::$app->params['avatars-path'] . $filename);
             return $filename;
         }
     }
@@ -223,6 +259,15 @@ class UserController extends Controller
         }
 
         return User::findOne(['id_User' => $id]);
+    }
+
+    /**
+     * Удаляет из подписи лишние теги
+     * @param $text
+     * @return string
+     */
+    private function prepareBio($text) {
+        return strip_tags($text, ['div', 'p', 'span', 'strong', 'em', 'li', 'ul', 'del', 'a', 'img', 'u']);
     }
 
 

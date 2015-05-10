@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 if (!empty($model->id)) :
 
 $this->title = 'Редактирование профиля: ' . $model->username;
-$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['list']];
+$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Профиль: ' . $model->username, 'url' => ['profile?id=' . $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 
@@ -28,13 +28,34 @@ $form = ActiveForm::begin([
                                 <div class=\"col-lg-offset-2 col-lg-12 hint-block\">{hint}</div>",
         'labelOptions' => ['class' => 'col-lg-2 control-label'],
     ],
-]); ?>
-        <?= $form->field($model, 'id', ['options' => ['class' => 'hidden']])->input('hidden') ?>
-        <?= $form->field($model, 'passwordOld')->passwordInput() ?>
-        <?= $form->field($model, 'passwordNew')->passwordInput() ?>
-        <?= $form->field($model, 'passwordRepeat')->passwordInput() ?>
-        <?= $form->field($model, 'avatar')->fileInput() ?>
-        <input type="hidden" name="MAX_FILE_SIZE" value="200000"/>
+]);
+    echo $form->field($model, 'id', ['options' => ['class' => 'hidden']])->input('hidden');
+
+    if ($model->role) {
+        echo $form->field($model, 'role')->radioList($model->getRolesList(), ['separator' => '<br>']);
+    }
+
+    echo $form->field($model, 'avatar')->fileInput();
+    echo '<input type="hidden" name="MAX_FILE_SIZE" value="200000"/>';
+    echo '<br>';
+    echo $form->field($model, 'passwordOld')->passwordInput();
+    echo $form->field($model, 'passwordNew')->passwordInput();
+    echo $form->field($model, 'passwordRepeat')->passwordInput(); ?>
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="editprofileform-bio">Подпись</label>
+
+        <div class="col-lg-10">
+            <?= \yii\imperavi\Widget::widget([
+                'model' => $model,
+                'attribute' => 'bio',
+                'options' => [
+                    'source' => false,
+                    'buttons' => ['bold', 'italic', 'underline', 'image', 'link'],
+                ],
+                'plugins' => ['fontcolor'],
+            ]); ?>
+        </div>
+    </div>
 
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
