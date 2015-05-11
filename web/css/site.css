@@ -101,11 +101,12 @@ li.menu-user-info>a {
     line-height: 30px;
 }
 
-.menu-user-info .avatar {
+.menu-user-info .avatar, .user-index .avatar {
     width: 30px;
     height: 30px;
     border-radius: 15px;
     display: inline-block;
+    margin-right: 5px;
 }
 
 .user-profile .full-avatar {

@@ -5,6 +5,7 @@
 use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\modules\base\models\User;
 
 if (!empty($model->id)) :
 
@@ -32,7 +33,7 @@ $form = ActiveForm::begin([
     echo $form->field($model, 'id', ['options' => ['class' => 'hidden']])->input('hidden');
 
     if ($model->role) {
-        echo $form->field($model, 'role')->radioList($model->getRolesList(), ['separator' => '<br>']);
+        echo $form->field($model, 'role')->radioList(User::getRolesList(), ['separator' => '<br>']);
     }
 
     echo $form->field($model, 'avatar')->fileInput();

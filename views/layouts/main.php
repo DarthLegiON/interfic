@@ -47,7 +47,7 @@ AppAsset::register($this);
                         ] :
                         [
                             'label' => ((Yii::$app->user->identity->avatar) ? Html::img(['/uploads/avatars/' . Yii::$app->user->identity->avatar], ['class' => 'avatar']) : '<span class="avatar">&nbsp;</span>')
-                                . '&nbsp;' . Yii::$app->user->identity->username . '',
+                                . Yii::$app->user->identity->username . '',
                             'options' => ['class' => 'menu-user-info'],
                             'items' => [
                                 ['label' => Icon::show('user') . 'Профиль', 'url' => ['/auth/user/profile']],

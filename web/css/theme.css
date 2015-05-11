@@ -212,6 +212,10 @@ input[type="radio"]:checked + label>i.fa:before, label>input[type="radio"]:check
     border: 1px solid #696969;
 }
 
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(16, 68, 132, 0.2);
+}
+
 .breadcrumb > li + li:before {
     content: "»\00a0";
 }
@@ -238,4 +242,42 @@ input[type="radio"]:checked + label>i.fa:before, label>input[type="radio"]:check
 .alert-info {
     background-color: #001926;
     border-color: #31708f;
+}
+
+.table > tbody > .row-vtop > * {
+     vertical-align: top;
+ }
+
+.table > tbody > .row-vmiddle > * {
+    vertical-align: middle;
+}
+
+.table > tbody > .row-vbottom > * {
+    vertical-align: bottom;
+}
+
+.pagination {
+    border-radius: 0px;
+}
+
+.pagination>li>span, .pagination>li>a {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    background: transparent;
+    border-color: #696969 !important;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+    background: rgba(16, 68, 132, 0.2);
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background: #1263E2;
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > a, .pagination > .disabled > a:hover,
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+    background: transparent;
 }

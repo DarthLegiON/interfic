@@ -28,12 +28,17 @@ if (!empty($user)) :
 
         <div class="full-avatar pull-left text-left">
             <?= ($user->avatar)
-                    ? Html::img(['/' . $user->getAvatarFullPath()])
+                    ? Html::img([$user->getAvatarFullPath()])
                     : Html::tag('div', 'Нет аватара')
             ?>
         </div>
+        <? if ($own) : ?>
         <p>
-            <b>Группа:</b> <?= $user->getRole(); ?>
+            <b>Персональный код:</b> <?= $user->id_User; ?>
+        </p>
+        <? endif ?>
+        <p>
+            <b>Группа:</b> <?= $user->getRoleName(); ?>
         </p>
         <p>
             <b>Квесты:</b>&nbsp;
@@ -53,12 +58,12 @@ if (!empty($user)) :
         <div class="clearfix"></div>
 
         <? if ($user->bio) : ?>
-        <h3>Подпись</h3>
+        <h4>Подпись</h4>
         <?= $user->bio ?>
         <? endif; ?>
 
-        <? if ($admin) : ?>
-        <h3>Дополнительная информация</h3>
+        <? if ($admin || $own) : ?>
+        <h4>Дополнительная информация</h4>
             <table class="table">
                 <colgroup>
                     <col width="250px">

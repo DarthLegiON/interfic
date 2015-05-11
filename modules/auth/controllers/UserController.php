@@ -11,6 +11,8 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\base\models\User;
 use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
+use app\modules\auth\models\UserSearch;
 
 class UserController extends Controller
 {
@@ -40,6 +42,17 @@ class UserController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionIndex()
+    {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

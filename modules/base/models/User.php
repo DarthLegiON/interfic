@@ -58,12 +58,21 @@ class User extends \yii\db\ActiveRecord
             'email' => 'Адрес E-mail',
             'ip_address' => 'Регистрационный IP-адрес',
             'bio' => 'Информация о пользователе',
+            'role' => 'Группа',
+            'avatarFullPath' => 'Аватар',
+            'quests' => 'Квесты',
+            'gamesCount' => 'Сыграно игр',
         ];
+    }
+
+    public function getRoleName()
+    {
+        return array_values(Yii::$app->authManager->getRolesByUser($this->id_User))[0]->description;
     }
 
     public function getRole()
     {
-        return array_values(Yii::$app->authManager->getRolesByUser($this->id_User))[0]->description;
+        return array_keys(Yii::$app->authManager->getRolesByUser($this->id_User))[0];
     }
 
     public function getQuests()
@@ -78,6 +87,20 @@ class User extends \yii\db\ActiveRecord
 
     public function getAvatarFullPath()
     {
-        return Yii::$app->params['avatars-path'] . $this->avatar;
+        return '/' . Yii::$app->params['avatars-path'] . $this->avatar;
+    }
+
+    /**
+     * Возвращает список ролей в формате [код => название]
+     * @return array
+     */
+    public static function getRolesList()
+    {
+        $roles = \Yii::$app->authManager->getRoles();
+        $return = [];
+        foreach ($roles as $role) {
+            $return[$role->name] = $role->description;
+        }
+        return $return;
     }
 }
