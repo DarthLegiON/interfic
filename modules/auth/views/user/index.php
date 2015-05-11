@@ -30,7 +30,7 @@ $admin = Yii::$app->user->can('manageUsers');
         'rowOptions' => ['class' => 'row-vmiddle'],
         'columns' => [
 
-            ['attribute' => 'id_User', 'filterInputOptions' => ['class' => 'form-control input-sm', 'style' => 'width: 40px']],
+            ['attribute' => 'id_User', 'filterInputOptions' => ['class' => 'form-control', 'style' => 'width: 40px']],
             [
                 'label' => 'Никнейм',
                 'attribute' => 'login',
