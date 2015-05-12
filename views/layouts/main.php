@@ -42,6 +42,9 @@ AppAsset::register($this);
                             'label' => Icon::show('sign-in') . 'Войти',
                             'items' => [
                                 '<div>' . $this->render('@app/modules/auth/views/user/f_login_small') . '</div>',
+                                '<li class="divider"></li>',
+                                ['label' => Icon::show('users') . 'Пользователи', 'url' => ['/auth/user/index']],
+                                ['label' => Icon::show('user-plus') . 'Регистрация', 'url' => ['/auth/user/register']],
                             ],
                             'options' => ['class' => 'menu-user-login']
                         ] :
@@ -50,7 +53,9 @@ AppAsset::register($this);
                                 . Yii::$app->user->identity->username . '',
                             'options' => ['class' => 'menu-user-info'],
                             'items' => [
+                                ['label' => Icon::show('users') . 'Пользователи', 'url' => ['/auth/user/index']],
                                 ['label' => Icon::show('user') . 'Профиль', 'url' => ['/auth/user/profile']],
+                                '<li class="divider"></li>',
                                 ['label' => Icon::show('sign-out') . 'Выйти', 'url' => ['/auth/user/logout'], 'linkOptions' => ['data-method' => 'post'],],
                             ]
                         ],

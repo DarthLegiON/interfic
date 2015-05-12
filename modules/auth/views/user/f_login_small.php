@@ -31,16 +31,16 @@ $form = ActiveForm::begin([
 
 <?= $form->field($model, 'password')->passwordInput() ?>
 
-<?= $form->field($model, 'rememberMe', [
-    'template' => "<div class=\"col-sm-offset-3 col-lg-9\">{input} {label}</div>",
-    'labelOptions' => ['class' => 'control-label'],
-])->checkbox([], false) ?>
 
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
+        <div class="col-sm-offset-3 col-sm-3">
             <?= Html::submitButton('Вход', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
-            <?= Html::a('Регистрация', ['/auth/user/register'], ['class' => 'btn btn-primary']) ?>
         </div>
+
+        <?= $form->field($model, 'rememberMe', [
+            'template' => "<div class=\"col-lg-6\">{input} {label}</div>",
+            'labelOptions' => ['class' => 'control-label'],
+        ])->checkbox([], false) ?>
     </div>
 
 <?php ActiveForm::end(); ?>

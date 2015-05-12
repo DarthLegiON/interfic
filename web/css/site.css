@@ -90,9 +90,9 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
-.menu-user-login .dropdown-menu {
+.menu-user-login .dropdown-menu > div {
     width: 350px;
-    padding: 10px;
+    padding: 0 10px;
 }
 
 li.menu-user-info>a {

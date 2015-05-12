@@ -197,6 +197,7 @@ class UserController extends Controller
             $userModel->avatar = $this->saveAvatar(UploadedFile::getInstance($form, 'avatar'));
         }
         if ($userModel->save()) {
+            Yii::$app->authManager->assign(Yii::$app->authManager->getRole('player'), $userModel->id_User);
             return $userModel->id_User;
         } else {
             return false;
@@ -221,7 +222,7 @@ class UserController extends Controller
         $avatarFile = UploadedFile::getInstance($form, 'avatar');
         if (isset($avatarFile)) {
             if (isset($userModel->avatar)) {
-                unlink($userModel->getAvatarFullPath());
+                unlink(Yii::$app->params['avatars-path'] . $userModel->avatar);
             }
             $userModel->avatar = $this->saveAvatar($avatarFile);
         }
