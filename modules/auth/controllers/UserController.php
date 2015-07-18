@@ -275,8 +275,9 @@ class UserController extends Controller
      * @param $text
      * @return string
      */
-    private function prepareBio($text) {
-        return strip_tags($text, ['div', 'p', 'span', 'strong', 'em', 'li', 'ul', 'del', 'a', 'img', 'u']);
+    private function prepareBio($text)
+    {
+        return strip_tags($text, '<div><p><span><strong><em><li><ul><del><a><img><u>');
     }
 
 

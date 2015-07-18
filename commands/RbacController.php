@@ -53,6 +53,7 @@ class RbacController extends \yii\console\Controller
         $auth->add($player);
         $auth->addChild($player, $editProfile);
         $auth->addChild($player, $play);
+        $auth->addChild($player, $createQuest);
         echo 'Role "player" created\n';
 
         $master = $auth->createRole('master');

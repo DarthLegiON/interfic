@@ -17,6 +17,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\modules\auth\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => 'auth/user/login'
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -58,7 +59,14 @@ $config = [
         'auth' => [
             'class' => 'app\modules\auth\Module',
         ],
+        'game' => [
+            'class' => 'app\modules\game\Module',
+        ],
+        'editor' => [
+            'class' => 'app\modules\editor\Module',
+        ],
     ],
+
 
     'params' => $params,
     'language' => 'ru',

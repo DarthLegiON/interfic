@@ -26,7 +26,7 @@ $admin = Yii::$app->user->can('manageUsers');
         'dataProvider' => $dataProvider,
         'tableOptions' => ['class' => 'table table-bordered'],
         'filterModel' => $searchModel,
-        'emptyCell' => '&nbsp;',
+        'emptyCell' => '',
         'rowOptions' => ['class' => 'row-vmiddle'],
         'columns' => [
 
@@ -47,7 +47,7 @@ $admin = Yii::$app->user->can('manageUsers');
             [
                 'attribute' => 'role',
                 'value' => function ($model, $key, $index, $column) {
-                    return $model->getRoleName();
+                    return $model->roleName;
                 },
                 'filter' => User::getRolesList(),
             ],
@@ -60,7 +60,9 @@ $admin = Yii::$app->user->can('manageUsers');
                 'urlCreator' => function ($action, $model, $key, $index) {
                     switch ($action) {
                         case 'update' :
-                            return (['edit-profile?id=' . $model->id_User]);
+                            return ['edit-profile?id=' . $model->id_User];
+                        default:
+                            return [];
                     }
                 },
                 'visible' => $admin,

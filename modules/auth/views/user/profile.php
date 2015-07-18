@@ -59,7 +59,9 @@ if (!empty($user)) :
 
         <? if ($user->bio) : ?>
         <h4>Подпись</h4>
-        <?= $user->bio ?>
+        <div>
+            <?= $user->bio ?>
+        </div>
         <? endif; ?>
 
         <? if ($admin || $own) : ?>
@@ -83,6 +85,8 @@ if (!empty($user)) :
 <? else :
 
     $this->title = 'Пользователь не найден';
+    $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
 
     ?>
     <h1>

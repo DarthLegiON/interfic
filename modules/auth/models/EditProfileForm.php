@@ -80,9 +80,11 @@ class EditProfileForm extends Model {
      */
     public function checkOldPassword($attribute, $params)
     {
-        $user = User::findIdentity($this->id);
-        if (!$user->validatePassword($this->$attribute)) {
-            $this->addError($attribute, 'Пароль неверный');
+        if (!Yii::$app->user->can('manageUsers')) {
+            $user = User::findIdentity($this->id);
+            if (!$user->validatePassword($this->$attribute)) {
+                $this->addError($attribute, 'Пароль неверный');
+            }
         }
     }
 

@@ -118,3 +118,10 @@ li.menu-user-info>a {
 .user-profile .full-avatar img {
     border: 1px solid #00439B;
 }
+
+.filters .form-control {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
