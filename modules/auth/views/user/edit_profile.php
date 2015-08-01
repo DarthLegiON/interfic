@@ -74,5 +74,5 @@ else :
         <?= Html::encode($this->title) ?>
     </h1>
 
-<? endif; ?>
+<?php endif; ?>
 

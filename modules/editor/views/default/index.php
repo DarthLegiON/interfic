@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model, $key, $index, $column) {
                     $canOpen = Yii::$app->user->can('manageQuests') || Yii::$app->user->can('createQuest') && Yii::$app->user->id == $model->fid_creator_user;
                     if ($canOpen) {
-                        return Html::a($model->name, ['quest-open?id=' . $model->id_quest]);
+                        return Html::a($model->name, ['view', 'id' => $model->id_quest]);
                     } else {
                         return $model->name;
                     }

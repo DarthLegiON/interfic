@@ -19,7 +19,7 @@ if (!empty($quest)) :
 
 
 
-<? else :
+<?php else :
 
     $this->title = 'Квест не найден';
     $this->params['breadcrumbs'][] = ['label' => 'Редактор квестов', 'url' => ['index']];
@@ -53,4 +53,4 @@ if (!empty($quest)) :
     ]
 ]); ?>
 
-<? endif; ?>
+<?php endif; ?>
