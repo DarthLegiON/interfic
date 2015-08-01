@@ -8,7 +8,7 @@
 
 use app\modules\base\models\User;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,6 +27,7 @@ $admin = Yii::$app->user->can('manageUsers');
         'tableOptions' => ['class' => 'table table-bordered'],
         'filterModel' => $searchModel,
         'emptyCell' => '',
+        'export' => false,
         'rowOptions' => ['class' => 'row-vmiddle'],
         'columns' => [
 

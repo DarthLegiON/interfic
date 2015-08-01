@@ -65,6 +65,9 @@ $config = [
         'editor' => [
             'class' => 'app\modules\editor\Module',
         ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ],
     ],
 
 

@@ -96,7 +96,7 @@ class Quest extends \yii\db\ActiveRecord
      */
     public function getVersionCode()
     {
-        return $this->getActualVersion()->release . '.' . $this->getActualVersion()->iteration;
+        return $this->getActualVersion()->versionCode;
     }
 
     public function getCreatorUsername()

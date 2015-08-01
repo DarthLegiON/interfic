@@ -1,8 +1,7 @@
 <?php
 
-use kartik\icons\Icon;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $quest app\modules\base\models\Quest */
 /* @var $versions yii\data\ActiveDataProvider */
@@ -17,7 +16,23 @@ if (!empty($quest)) :
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <h2>Версии</h2>
 
+    <?= GridView::widget([
+
+    'dataProvider' => $versions,
+    'emptyCell' => '',
+    'export' => false,
+    'tableOptions' => ['class' => 'table table-bordered'],
+    'columns' => [
+        'name',
+        ['attribute' => 'description', 'format' => 'html'],
+        'versionCode',
+        ['attribute' => 'save_date', 'format' => ['date', 'php:d.m.Y h:i:s']],
+        'testProduction',
+        ['class' => \kartik\grid\ActionColumn::className()]
+    ]
+]); ?>
 
 <?php else :
 
@@ -28,29 +43,5 @@ if (!empty($quest)) :
     ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <h2>Версии</h2>
-
-    <?= GridView::widget([
-    'dataProvider' => $versions,
-    'emptyCell' => '',
-    'tableOptions' => ['class' => 'table table-bordered'],
-    'columns' => [
-        [
-            'attribute' => 'name',
-            'value' => function ($model, $key, $index, $column) {
-                $canOpen = Yii::$app->user->can('manageQuests') || Yii::$app->user->can('createQuest') && Yii::$app->user->id == $model->fid_creator_user;
-                if ($canOpen) {
-                    return Html::a($model->name, ['quest-open?id=' . $model->id_quest]);
-                } else {
-                    return $model->name;
-                }
-            },
-            'format' => 'html',
-        ],
-        ['attribute' => 'description', 'format' => 'html'],
-        'creatorUsername',
-        ['attribute' => 'versionCode', 'format' => 'text']
-    ]
-]); ?>
 
 <?php endif; ?>

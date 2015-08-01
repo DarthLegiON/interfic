@@ -15,6 +15,7 @@ use yii\data\ActiveDataProvider;
  * @property integer $release
  * @property integer $iteration
  * @property string $save_date
+ * @property string versionCode
  */
 class QuestVersion extends \yii\db\ActiveRecord
 {
@@ -54,6 +55,7 @@ class QuestVersion extends \yii\db\ActiveRecord
             'iteration' => 'Номер итерации',
             'save_date' => 'Дата сохранения версии',
             'versionCode' => 'Версия',
+            'testProduction' => ''
         ];
     }
 
@@ -69,6 +71,30 @@ class QuestVersion extends \yii\db\ActiveRecord
                 'pageSize' => 10,
             ],
         ]);
+    }
 
+    public function getVersionCode()
+    {
+        return $this->release . '.' . $this->iteration;
+    }
+
+    public function getTestProduction()
+    {
+        $result = [];
+        if ($this->checkTest()) {
+            $result[] = 'Тестовая';
+        }
+        if ($this->checkProduction()) {
+            $result[] = 'Рабочая';
+        }
+        return implode(', ', $result);
+    }
+
+    private function checkTest(){
+        return count(Quest::findAll(['fid_test_version' => $this->id_Quest_Version])) > 0;
+    }
+
+    private function checkProduction(){
+        return count(Quest::findAll(['fid_production_version' => $this->id_Quest_Version])) > 0;
     }
 }
