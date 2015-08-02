@@ -10,7 +10,7 @@ use app\modules\base\models\Quest;
 use app\modules\base\models\QuestVersion;
 use app\modules\editor\models\QuestCreateForm;
 
-class DefaultController extends Controller
+class QuestController extends Controller
 {
     public function behaviors()
     {
@@ -52,6 +52,7 @@ class DefaultController extends Controller
                     'name' => $model->name,
                     'description' => $model->description,
                     'save_date' => (new \DateTime('now'))->format('Y-m-d H:i:s'),
+                    'fid_creator_user' => Yii::$app->user->id,
                 ]);
                 $questVersion->save();
                 $quest->fid_test_version = $questVersion->id_Quest_Version;
