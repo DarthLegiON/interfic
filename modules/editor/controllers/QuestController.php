@@ -53,6 +53,7 @@ class QuestController extends Controller
                     'description' => $model->description,
                     'save_date' => (new \DateTime('now'))->format('Y-m-d H:i:s'),
                     'fid_creator_user' => Yii::$app->user->id,
+                    'version_name' => 'Начальная версия',
                 ]);
                 $questVersion->save();
                 $quest->fid_test_version = $questVersion->id_Quest_Version;

@@ -60,7 +60,7 @@ class QuestVersion extends \yii\db\ActiveRecord
             'release' => 'Версия релиза',
             'iteration' => 'Номер итерации',
             'save_date' => 'Дата сохранения версии',
-            'versionCode' => 'Версия',
+            'versionCode' => 'Код версии',
             'testProduction' => '',
             'fid_creator_user' => 'Автор версии',
             'creatorUsername' => 'Автор версии',

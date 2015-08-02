@@ -21,7 +21,8 @@
         "asofter/yii2-imperavi-redactor": "*",
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-icons": "dev-master",
-        "kartik-v/yii2-grid": "*"
+        "kartik-v/yii2-grid": "*",
+        "huijiewei/yii2-bootboxjs": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

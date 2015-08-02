@@ -16,7 +16,19 @@ if (!empty($quest)) :
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <h2>Версии</h2>
+    <h3>Общая информация</h3>
+
+    <dl class="dl-horizontal">
+        <dt>Создатель</dt>
+        <dd><?= $quest->creatorUsername ?></dd>
+        <dt>Текущая версия</dt>
+        <dd><?= $quest->versionCode ?></dd>
+        <dt>Описание</dt>
+        <dd><?= $quest->description ?></dd>
+    </dl>
+
+    <h3>Версии</h3>
+
     <p>Выберите версию для редактирования.</p>
 
     <?= GridView::widget([
@@ -26,13 +38,14 @@ if (!empty($quest)) :
     'export' => false,
     'tableOptions' => ['class' => 'table table-bordered'],
     'columns' => [
-        'name',
+        'version_name',
         'versionCode',
         ['attribute' => 'save_date', 'format' => ['date', 'php:d.m.Y h:i:s']],
-        'testProduction',
         'creatorUsername',
+        'testProduction',
         [
             'class' => \kartik\grid\ActionColumn::className(),
+            'template' => '{update} {delete}',
         ]
     ]
 ]); ?>
