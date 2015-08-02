@@ -2,6 +2,7 @@
 
 namespace app\modules\base\models;
 
+use app\modules\base\models\interfaces\Restricted;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -17,7 +18,7 @@ use yii\data\ActiveDataProvider;
  * @property integer $versionCode
  * @property integer $creatorUsername
  */
-class Quest extends \yii\db\ActiveRecord
+class Quest extends \yii\db\ActiveRecord implements Restricted
 {
     /**
      * @var QuestVersion Актуальная версия (test или production), кэшируется
@@ -145,5 +146,14 @@ class Quest extends \yii\db\ActiveRecord
             $result[$version->id_Quest_Version] = $version->versionCode . ' (' . $version->version_name . ')';
         }
         return $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function checkPermission()
+    {
+        return Yii::$app->user->can('manageQuests')
+        || Yii::$app->user->id == $this->fid_creator_user;
     }
 }

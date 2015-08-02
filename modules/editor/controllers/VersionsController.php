@@ -11,7 +11,7 @@ use app\modules\base\models\Quest;
 use app\modules\base\models\QuestVersion;
 use app\modules\editor\models\QuestCreateForm;
 
-class VersionsController extends Controller
+class VersionsController extends BaseController
 {
     public function behaviors()
     {
@@ -31,41 +31,27 @@ class VersionsController extends Controller
 
     public function actionCreate($id)
     {
-        $model = new VersionCreateForm;
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                /** @var QuestVersion $version */
-                $version = QuestVersion::findOne(['id_Quest_Version' => $model->startVersion]);
-                $version->cloneVersion($model);
+        /** @var Quest $quest */
+        $quest = Quest::findOne(['id_quest' => $id]);
+        if ($this->checkAccess($quest)) {
+            $model = new VersionCreateForm;
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->validate()) {
+                    /** @var QuestVersion $version */
+                    $version = QuestVersion::findOne(['id_Quest_Version' => $model->startVersion]);
+                    $version->cloneVersion($model);
 
-                return $this->redirect(['quest/view', 'id' => $id]);
+                    return $this->redirect(['quest/view', 'id' => $id]);
+                }
+            } else {
 
-                /*$quest = new Quest([
-                    'fid_creator_user' => Yii::$app->user->id,
+                $versionsList = $quest->getVersionsShortList();
+
+                return $this->render('create', [
+                    'model' => $model,
+                    'versionsList' => $versionsList,
                 ]);
-                $quest->save();
-
-                $questVersion = new QuestVersion([
-                    'fid_quest' => $quest->id_quest,
-                    'name' => $model->name,
-                    'description' => $model->description,
-                    'save_date' => (new \DateTime('now'))->format('Y-m-d H:i:s'),
-                    'fid_creator_user' => Yii::$app->user->id,
-                    'version_name' => 'Начальная версия',
-                ]);
-                $questVersion->save();
-                $quest->fid_test_version = $questVersion->id_Quest_Version;
-                $quest->save();
-                return $this->redirect(['index']);*/
             }
-        } else {
-
-            $versionsList = Quest::findOne(['id_quest' => $id])->getVersionsShortList();
-
-            return $this->render('create', [
-                'model' => $model,
-                'versionsList' => $versionsList,
-            ]);
         }
     }
 
@@ -76,6 +62,17 @@ class VersionsController extends Controller
 
     public function actionDelete($id)
     {
-
+        /** @var QuestVersion $version */
+        $version = QuestVersion::findOne(['id_Quest_Version' => $id]);
+        if ($this->checkAccess($version)) {
+            if (empty($version->testProduction)) {
+                $version->delete();
+                $this->redirect(['quest/view', 'id' => $version->fid_quest]);
+            } else {
+                return $this->render('cant-delete', [
+                    'model' => $version,
+                ]);
+            }
+        }
     }
 }

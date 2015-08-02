@@ -2,6 +2,7 @@
 
 namespace app\modules\base\models;
 
+use app\modules\base\models\interfaces\Restricted;
 use app\modules\editor\models\VersionCreateForm;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -19,8 +20,9 @@ use yii\data\ActiveDataProvider;
  * @property string versionCode
  * @property integer $fid_creator_user
  * @property string $version_name
+ * @property string $testProduction
  */
-class QuestVersion extends \yii\db\ActiveRecord
+class QuestVersion extends \yii\db\ActiveRecord implements Restricted
 {
     /**
      * @inheritdoc
@@ -154,13 +156,14 @@ class QuestVersion extends \yii\db\ActiveRecord
     }
 
     /**
-     * Находит максимальную итерацию версии
-     * @return integer
+     * Помечает версию как тестовую
      */
-    private function getMaxIteration()
+    public function setTest()
     {
-        $releaseVersions = QuestVersion::find()->where(['fid_quest' => $this->fid_quest, 'release' => $this->release])->orderBy(['iteration' => SORT_DESC])->all();
-        return $releaseVersions[0]->iteration;
+        /** @var Quest $quest */
+        $quest = Quest::findOne(['id_quest' => $this->fid_quest]);
+        $quest->fid_test_version = $this->id_Quest_Version;
+        $quest->save();
     }
 
     /**
@@ -174,17 +177,6 @@ class QuestVersion extends \yii\db\ActiveRecord
     }
 
     /**
-     * Помечает версию как тестовую
-     */
-    public function setTest()
-    {
-        /** @var Quest $quest */
-        $quest = Quest::findOne(['id_quest' => $this->fid_quest]);
-        $quest->fid_test_version = $this->id_Quest_Version;
-        $quest->save();
-    }
-
-    /**
      * Помечает версию как рабочую
      */
     public function setProduction()
@@ -195,4 +187,23 @@ class QuestVersion extends \yii\db\ActiveRecord
         $quest->save();
     }
 
+    /**
+     * Находит максимальную итерацию версии
+     * @return integer
+     */
+    private function getMaxIteration()
+    {
+        $releaseVersions = QuestVersion::find()->where(['fid_quest' => $this->fid_quest, 'release' => $this->release])->orderBy(['iteration' => SORT_DESC])->all();
+        return $releaseVersions[0]->iteration;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function checkPermission()
+    {
+        return Yii::$app->user->can('manageQuests')
+        || Yii::$app->user->id == $this->fid_creator_user
+        || Yii::$app->user->id == Quest::findOne(['id_quest' => $this->fid_quest])->fid_creator_user;
+    }
 }
