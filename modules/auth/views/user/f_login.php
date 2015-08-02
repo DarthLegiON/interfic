@@ -25,10 +25,9 @@ use yii\bootstrap\ActiveForm;
 
 <?= $form->field($model, 'password')->passwordInput() ?>
 
-<?= $form->field($model, 'rememberMe', [
-    'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-    'labelOptions' => ['class' => 'control-label'],
-])->checkbox([], false) ?>
+<?= $form->field($model, 'rememberMe')->widget(\kartik\checkbox\CheckboxX::className(), [
+    'pluginOptions'=>['threeState'=>false]
+]) ?>
 
 <div class="form-group">
     <div class="col-lg-offset-1 col-lg-11">

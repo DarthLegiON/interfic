@@ -2,6 +2,7 @@
 
 namespace app\modules\base\models;
 
+use app\modules\editor\models\VersionCreateForm;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -27,6 +28,20 @@ class QuestVersion extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Quest_Versions';
+    }
+
+    public static function findByQuestId($id)
+    {
+        $query = self::find()
+            ->where(['fid_quest' => $id])
+            ->orderBy(['save_date' => SORT_DESC]);
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
     }
 
     /**
@@ -59,26 +74,12 @@ class QuestVersion extends \yii\db\ActiveRecord
             'description' => 'Описание',
             'release' => 'Версия релиза',
             'iteration' => 'Номер итерации',
-            'save_date' => 'Дата сохранения версии',
-            'versionCode' => 'Код версии',
+            'save_date' => 'Дата сохранения',
+            'versionCode' => 'Код',
             'testProduction' => '',
-            'fid_creator_user' => 'Автор версии',
-            'creatorUsername' => 'Автор версии',
+            'fid_creator_user' => 'Автор',
+            'creatorUsername' => 'Автор',
         ];
-    }
-
-    public static function findByQuestId($id)
-    {
-        $query = self::find()
-            ->where(['fid_quest' => $id])
-            ->orderBy(['save_date' => SORT_DESC]);
-
-        return new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
     }
 
     public function getVersionCode()
@@ -98,11 +99,13 @@ class QuestVersion extends \yii\db\ActiveRecord
         return implode(', ', $result);
     }
 
-    private function checkTest(){
+    private function checkTest()
+    {
         return count(Quest::findAll(['fid_test_version' => $this->id_Quest_Version])) > 0;
     }
 
-    private function checkProduction(){
+    private function checkProduction()
+    {
         return count(Quest::findAll(['fid_production_version' => $this->id_Quest_Version])) > 0;
     }
 
@@ -117,4 +120,65 @@ class QuestVersion extends \yii\db\ActiveRecord
         }
 
     }
+
+    /**
+     * Создает точную копию версии вместе со всеми настройками квеста (каскадно)
+     * @param VersionCreateForm $form
+     * @return QuestVersion
+     */
+    public function cloneVersion($form)
+    {
+        $newVersion = new QuestVersion;
+        $newVersion->attributes = $this->attributes;
+        $newVersion->id_Quest_Version = null;
+        $newVersion->version_name = $form->versionName;
+        $newVersion->save_date = (new \DateTime('now'))->format('Y-m-d H:i:s');
+        $newVersion->iteration = $this->getMaxIteration() + 1;
+        $newVersion->save();
+        if ($form->isTest) {
+            $newVersion->setTest();
+        }
+        if ($form->isNewRelease) {
+            $newVersion->release++;
+            $newVersion->iteration = 0;
+            $newVersion->setProduction();
+        }
+        $newVersion->save();
+
+        // TODO добавить каскадное клонирование всех параметров квеста
+        return $newVersion;
+    }
+
+    /**
+     * Находит максимальную итерацию версии
+     * @return integer
+     */
+    private function getMaxIteration()
+    {
+        $releaseVersions = QuestVersion::find()->where(['release' => $this->release])->orderBy(['iteration' => SORT_DESC])->all();
+        return $releaseVersions[0]->iteration;
+    }
+
+    /**
+     * Помечает версию как тестовую
+     */
+    public function setTest()
+    {
+        /** @var Quest $quest */
+        $quest = Quest::findOne(['id_quest' => $this->fid_quest]);
+        $quest->fid_test_version = $this->id_Quest_Version;
+        $quest->save();
+    }
+
+    /**
+     * Помечает версию как рабочую
+     */
+    public function setProduction()
+    {
+        /** @var Quest $quest */
+        $quest = Quest::findOne(['id_quest' => $this->fid_quest]);
+        $quest->fid_production_version = $this->id_Quest_Version;
+        $quest->save();
+    }
+
 }

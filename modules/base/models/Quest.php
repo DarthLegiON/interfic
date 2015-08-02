@@ -33,6 +33,28 @@ class Quest extends \yii\db\ActiveRecord
     }
 
     /**
+     * Получает все квесты
+     * @return ActiveDataProvider
+     */
+    public static function searchAll()
+    {
+        $query = self::find();
+
+        if (!Yii::$app->user->can('manageQuests')) {
+            $query->where(['fid_creator_user' => Yii::$app->user->id])
+                ->orWhere('fid_production_version is not null');
+        }
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -60,6 +82,15 @@ class Quest extends \yii\db\ActiveRecord
     }
 
     /**
+     * Возвращает имя квеста (по актуальной версии)
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getActualVersion()->name;
+    }
+
+    /**
      * Возвращает актуальную версию (релиз или последнюю тестовую)
      * @return QuestVersion
      */
@@ -70,15 +101,6 @@ class Quest extends \yii\db\ActiveRecord
             $this->actualVersion = $this->hasOne(QuestVersion::className(), ['id_Quest_Version' => $field])->all()[0];
         }
         return $this->actualVersion;
-    }
-
-    /**
-     * Возвращает имя квеста (по актуальной версии)
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->getActualVersion()->name;
     }
 
     /**
@@ -112,24 +134,16 @@ class Quest extends \yii\db\ActiveRecord
     }
 
     /**
-     * Получает все квесты
-     * @return ActiveDataProvider
+     * Возвращает список версий квеста в формате id => "код_версии (имя_версии)"
+     * @return string[]
      */
-    public static function searchAll()
+    public function getVersionsShortList()
     {
-        $query = self::find();
-
-        if (!Yii::$app->user->can('manageQuests')) {
-            $query->where(['fid_creator_user' => Yii::$app->user->id])
-                ->orWhere('fid_production_version is not null');
+        $versionsList = QuestVersion::find()->where(['fid_quest' => $this->id_quest])->orderBy(['save_date' => SORT_DESC])->all();
+        $result = [];
+        foreach ($versionsList as $version) {
+            $result[$version->id_Quest_Version] = $version->versionCode . ' (' . $version->version_name . ')';
         }
-
-        return new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
-
+        return $result;
     }
 }

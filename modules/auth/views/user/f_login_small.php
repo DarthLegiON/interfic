@@ -38,9 +38,12 @@ $form = ActiveForm::begin([
         </div>
 
         <?= $form->field($model, 'rememberMe', [
-            'template' => "<div class=\"col-lg-6\">{input} {label}</div>",
-            'labelOptions' => ['class' => 'control-label'],
-        ])->checkbox([], false) ?>
+            'template' => "<div class=\"col-lg-6\">{input}{label}</div>",
+            'labelOptions' => ['class' => 'cbx-label'],
+        ])->widget(\kartik\checkbox\CheckboxX::className(), [
+            'pluginOptions' => ['threeState' => false],
+        ]) ?>
+
     </div>
 
 <?php ActiveForm::end(); ?>

@@ -16,8 +16,8 @@ a:hover, a:active {
     outline: 0;
 }
 
-.btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb, .form-group-sm .form-control, .form-group-lg .form-control {
-    border-radius: 0;
+.btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb, .form-group-sm .form-control, .form-group-lg .form-control, .cbx {
+    border-radius: 0 !important;
 }
 
 .btn, .form-control, .navbar-inverse .navbar-nav > li > a, .navbar-nav > li > .dropdown-menu > li > a, .navbar .navbar-header a, .jumbotron {
@@ -64,7 +64,7 @@ a:hover, a:active {
     color: #005CBA;
 }
 
-.form-control {
+.form-control, .cbx {
     border-radius: 0;
     background: #152532;
     color: white;
@@ -309,4 +309,10 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
     .modal-dialog {
         margin: 170px auto;
     }
+}
+
+.tooltip.in > .tooltip-inner {
+    border: 1px solid rgba(46, 89, 159, 0.5);
+    box-shadow: 0 0 20px rgba(46, 89, 159, 0.5);
+    border-radius: 0;
 }

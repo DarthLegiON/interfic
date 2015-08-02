@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use kartik\icons\Icon;
 
 /* @var $quest app\modules\base\models\Quest */
 /* @var $versions yii\data\ActiveDataProvider */
@@ -46,9 +47,23 @@ if (!empty($quest)) :
         [
             'class' => \kartik\grid\ActionColumn::className(),
             'template' => '{update} {delete}',
+            'urlCreator' => function ($action, $model, $key, $index) {
+                switch ($action) {
+                    case 'update':
+                        return ['versions/open', 'id' => $model->id_Quest_Version];
+                    case 'delete':
+                        return ['versions/delete', 'id' => $model->id_Quest_Version];
+                    default:
+                        return '';
+                }
+            },
+            'updateOptions' => ['title' => 'Открыть версию на редактирование', 'data-toggle' => 'tooltip'],
+            'deleteOptions' => ['title' => 'Удалить версию (удалить тестовую или рабочую версию нельзя!)', 'data-toggle' => 'tooltip'],
         ]
     ]
 ]); ?>
+
+    <?= Html::a(Icon::show('plus') . 'Новая версия', ['versions/create', 'id' => $quest->id_quest], ['class' => 'btn btn-success']) ?>
 
 <?php else :
 

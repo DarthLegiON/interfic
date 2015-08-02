@@ -20,9 +20,11 @@
         "yiisoft/yii2-swiftmailer": "*",
         "asofter/yii2-imperavi-redactor": "*",
         "kartik-v/yii2-widgets": "dev-master",
+        "kartik-v/yii2-helpers": "dev-master",
         "kartik-v/yii2-icons": "dev-master",
         "kartik-v/yii2-grid": "*",
-        "huijiewei/yii2-bootboxjs": "*"
+        "huijiewei/yii2-bootboxjs": "*",
+        "kartik-v/yii2-checkbox-x": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -31,6 +31,7 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'kartik\icons\FontAwesomeAsset',
+        'kartik\checkbox\CheckboxXAsset',
         'huijiewei\bootboxjs\BootboxjsAsset'
     ];
 }
