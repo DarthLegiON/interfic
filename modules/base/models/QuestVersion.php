@@ -133,16 +133,20 @@ class QuestVersion extends \yii\db\ActiveRecord
         $newVersion->id_Quest_Version = null;
         $newVersion->version_name = $form->versionName;
         $newVersion->save_date = (new \DateTime('now'))->format('Y-m-d H:i:s');
-        $newVersion->iteration = $this->getMaxIteration() + 1;
         $newVersion->save();
+
         if ($form->isTest) {
             $newVersion->setTest();
         }
+
         if ($form->isNewRelease) {
-            $newVersion->release++;
+            $newVersion->release = $this->getMaxRelease() + 1;
             $newVersion->iteration = 0;
             $newVersion->setProduction();
+        } else {
+            $newVersion->iteration = $this->getMaxIteration() + 1;
         }
+
         $newVersion->save();
 
         // TODO добавить каскадное клонирование всех параметров квеста
@@ -155,8 +159,18 @@ class QuestVersion extends \yii\db\ActiveRecord
      */
     private function getMaxIteration()
     {
-        $releaseVersions = QuestVersion::find()->where(['release' => $this->release])->orderBy(['iteration' => SORT_DESC])->all();
+        $releaseVersions = QuestVersion::find()->where(['fid_quest' => $this->fid_quest, 'release' => $this->release])->orderBy(['iteration' => SORT_DESC])->all();
         return $releaseVersions[0]->iteration;
+    }
+
+    /**
+     * Находит максимальную версию релиза
+     * @return integer
+     */
+    private function getMaxRelease()
+    {
+        $releaseVersions = QuestVersion::find()->where(['fid_quest' => $this->fid_quest])->orderBy(['release' => SORT_DESC])->all();
+        return $releaseVersions[0]->release;
     }
 
     /**
