@@ -24,53 +24,54 @@ AppAsset::register($this);
 <body>
 
 <?php $this->beginBody() ?>
-    <div class="wrap">
-        <?php
-            NavBar::begin([
-                'brandLabel' => Icon::show('home') . 'Interfic',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
+<div class="wrap">
+    <?php
+    NavBar::begin([
+        'brandLabel' => Icon::show('home') . 'Interfic',
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top',
+        ],
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
+        'items' => [
+            Yii::$app->user->isGuest ?
+                [
+                    'label' => Icon::show('sign-in') . 'Войти',
+                    'items' => \yii\helpers\ArrayHelper::merge(Yii::$app->controller->route !== 'auth/user/login' ? [
+                        '<div>' . $this->render('@app/modules/auth/views/user/f_login_small') . '</div>',
+                        '<li class="divider"></li>',
+                    ] : [], [
+                        ['label' => Icon::show('users') . 'Пользователи', 'url' => ['/auth/user/index']],
+                        ['label' => Icon::show('user-plus') . 'Регистрация', 'url' => ['/auth/user/register']],
+                    ]),
+                    'options' => ['class' => 'menu-user-login']
+                ] :
+                [
+                    'label' => ((Yii::$app->user->identity->avatar) ? Html::img(['/uploads/avatars/' . Yii::$app->user->identity->avatar], ['class' => 'avatar']) : '<span class="avatar">&nbsp;</span>')
+                        . Yii::$app->user->identity->username . '',
+                    'options' => ['class' => 'menu-user-info'],
+                    'items' => [
+                        ['label' => Icon::show('users') . 'Пользователи', 'url' => ['/auth/user/index']],
+                        ['label' => Icon::show('user') . 'Профиль', 'url' => ['/auth/user/profile']],
+                        '<li class="divider"></li>',
+                        ['label' => Icon::show('sign-out') . 'Выйти', 'url' => ['/auth/user/logout'], 'linkOptions' => ['data-method' => 'post'],],
+                    ]
                 ],
-            ]);
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'encodeLabels' => false,
-                'items' => [
-                    Yii::$app->user->isGuest ?
-                        [
-                            'label' => Icon::show('sign-in') . 'Войти',
-                            'items' => [
-                                '<div>' . $this->render('@app/modules/auth/views/user/f_login_small') . '</div>',
-                                '<li class="divider"></li>',
-                                ['label' => Icon::show('users') . 'Пользователи', 'url' => ['/auth/user/index']],
-                                ['label' => Icon::show('user-plus') . 'Регистрация', 'url' => ['/auth/user/register']],
-                            ],
-                            'options' => ['class' => 'menu-user-login']
-                        ] :
-                        [
-                            'label' => ((Yii::$app->user->identity->avatar) ? Html::img(['/uploads/avatars/' . Yii::$app->user->identity->avatar], ['class' => 'avatar']) : '<span class="avatar">&nbsp;</span>')
-                                . Yii::$app->user->identity->username . '',
-                            'options' => ['class' => 'menu-user-info'],
-                            'items' => [
-                                ['label' => Icon::show('users') . 'Пользователи', 'url' => ['/auth/user/index']],
-                                ['label' => Icon::show('user') . 'Профиль', 'url' => ['/auth/user/profile']],
-                                '<li class="divider"></li>',
-                                ['label' => Icon::show('sign-out') . 'Выйти', 'url' => ['/auth/user/logout'], 'linkOptions' => ['data-method' => 'post'],],
-                            ]
-                        ],
-                ],
-            ]);
-            NavBar::end();
-        ?>
+        ],
+    ]);
+    NavBar::end();
+    ?>
 
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= $content ?>
-        </div>
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= $content ?>
     </div>
+</div>
 
 <?php $this->endBody() ?>
 </body>

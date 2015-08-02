@@ -26,13 +26,13 @@ use yii\bootstrap\ActiveForm;
 <?= $form->field($model, 'password')->passwordInput() ?>
 
 <?= $form->field($model, 'rememberMe')->widget(\kartik\checkbox\CheckboxX::className(), [
-    'pluginOptions'=>['threeState'=>false]
+    'pluginOptions' => ['threeState' => false]
 ]) ?>
 
-<div class="form-group">
-    <div class="col-lg-offset-1 col-lg-11">
-        <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+    <div class="form-group">
+        <div class="col-lg-offset-1 col-lg-11">
+            <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        </div>
     </div>
-</div>
 
 <?php ActiveForm::end(); ?>
