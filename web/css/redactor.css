@@ -18,11 +18,12 @@
 }
 
 .redactor-box {
-    border: 1px solid rgb(46, 89, 159);
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    background: #000;
 }
 
 .redactor-editor {
     background: #000;
     border: none;
-    border-top: 1px solid rgba(46, 89, 159, 0.5);
+    border-top: 1px solid rgba(204, 204, 204, 0.3);
 }

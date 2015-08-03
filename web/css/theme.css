@@ -12,8 +12,8 @@ a:hover, a:active {
     text-decoration: underline;
 }
 
-.btn:focus, .btn:active {
-    outline: 0;
+:focus {
+    outline: none !important;
 }
 
 .btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb, .form-group-sm .form-control, .form-group-lg .form-control, .cbx {
@@ -32,10 +32,12 @@ a:hover, a:active {
 
 .btn-default {
     color: white;
+    border-color: rgba(204, 204, 204, 0.5);
 }
 
 .btn-primary {
-    color: #337ab7;
+    color: white;
+    border-color: rgba(0, 92, 186, 0.6);
 }
 
 .btn-warning {
@@ -43,7 +45,8 @@ a:hover, a:active {
 }
 
 .btn-success {
-    color: #5cb85c;
+    color: white;
+    border-color: rgba(92, 184, 92, 0.5);
 }
 
 .btn-danger {
@@ -55,19 +58,64 @@ a:hover, a:active {
 }
 
 .btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .btn-default:hover, .btn-default:active, .btn-default:focus {
-    border-color: #005CBA;
-    background: black;
-    color: #005CBA;
+    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btn-default:active:hover, .btn-default.active:hover,
+.btn-default:focus:hover, .btn-default.active:focus, .btn-default:active:focus {
+    border-color: rgba(255, 255, 255, 1.0);
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    border-color: rgba(0, 92, 186, 0.7);
+    background: rgba(0, 92, 186, 0.2);
+    color: white;
+}
+
+.btn-primary:active:hover, .btn-primary.active:hover,
+.btn-primary:focus:hover, .btn-primary.active:focus, .btn-primary:active:focus {
+    border-color: rgba(0, 92, 186, 1.0);
+    background: rgba(0, 92, 186, 0.5);
+    color: white;
+}
+
+.btn-success:hover, .btn-success:active, .btn-success:focus {
+    border-color: rgba(92, 184, 92, 0.7);
+    background: rgba(92, 184, 92, 0.2);
+    color: white;
+}
+
+.btn-success:active:hover, .btn-success.active:hover,
+.btn-success:focus:hover, .btn-success.active:focus, .btn-success:active:focus {
+    border-color: rgba(92, 184, 92, 1.0);
+    background: rgba(92, 184, 92, 0.5);
+    color: white;
 }
 
 .form-control, .cbx {
     border-radius: 0;
-    background: #152532;
+    background: transparent;
     color: white;
+    border-color: rgba(204, 204, 204, 0.5);
+}
+
+.form-control:hover, .cbx-active:hover {
+    border-color: rgba(204, 204, 204, 0.7);
+    box-shadow: none;
+}
+
+.form-control:focus, .cbx-active:focus {
+    border-color: rgba(204, 204, 204, 0.9);
+    background: rgba(0, 92, 186, 0.2);
+    box-shadow: none;
 }
 
 .checkbox label {
