@@ -1,0 +1,375 @@
+body {
+  background: url('../../img/back.png') black;
+  color: #b8b8b8;
+}
+
+@link-color: #00A69C;
+
+@default-color: #FFFFFF;
+
+@primary-color: #005CBA;
+
+@success-color: #5CB85C;
+
+a {
+  color: @link-color;
+}
+
+a:hover, a:active, a:focus {
+  color: @link-color;
+  text-decoration: underline;
+}
+
+:focus {
+  outline: none !important;
+}
+
+.btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb, .form-group-sm .form-control, .form-group-lg .form-control, .cbx {
+  border-radius: 0 !important;
+}
+
+.btn, .form-control, .navbar-inverse .navbar-nav > li > a, .navbar-nav > li > .dropdown-menu > li > a, .navbar .navbar-header a, .jumbotron {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-timing-function: ease;
+  transition-duration: 0.3s;
+}
+
+.btn, .breadcrumb {
+  background: transparent;
+}
+
+.btn:active {
+  box-shadow: none;
+}
+
+.btn-default {
+  color: white;
+  border-color: fadeout(@default-color, 70%);
+}
+
+
+.btn-default:hover, .btn-default:active, .btn-default:focus {
+  border-color: transparent;
+  background: fadeout(@default-color, 70%);
+  color: white;
+}
+
+.btn-default:active:hover, .btn-default.active:hover,
+.btn-default:focus:hover, .btn-default.active:focus, .btn-default:active:focus {
+  border-color: fadeout(@default-color, 60%);
+  background: fadeout(@default-color, 60%);
+  color: white;
+}
+
+.btn-primary {
+  color: white;
+  border-color: fadeout(@primary-color, 70%);
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  border-color: transparent;
+  background: fadeout(@primary-color, 50%);
+  color: white;
+}
+
+.btn-primary:active:hover, .btn-primary.active:hover,
+.btn-primary:focus:hover, .btn-primary.active:focus, .btn-primary:active:focus {
+  border-color: fadeout(@primary-color, 40%);
+  background: fadeout(@primary-color, 40%);
+  color: white;
+}
+
+.btn-success {
+  color: white;
+  border-color: fadeout(@success-color, 70%);
+}
+
+.btn-success:hover, .btn-success:active, .btn-success:focus {
+  border-color: transparent;
+  background: fadeout(@success-color, 70%);
+  color: white;
+}
+
+.btn-success:active:hover, .btn-success.active:hover,
+.btn-success:focus:hover, .btn-success.active:focus, .btn-success:active:focus {
+  border-color: fadeout(@success-color, 60%);
+  background: fadeout(@success-color, 60%);
+  color: white;
+}
+
+.btn-danger {
+  color: #d9534f;
+}
+
+.btn-warning {
+  color: #f0ad4e;
+}
+
+.btn-info {
+  color: #5bc0de;
+}
+
+.btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group {
+  margin-left: 0;
+}
+
+.form-control, .cbx {
+  border-radius: 0;
+  background: transparent;
+  color: white;
+  border-color: fadeout(@default-color, 50%);
+}
+
+.form-control:hover, .cbx-active:hover {
+  border-color: fadeout(@default-color, 30%);
+  box-shadow: none;
+}
+
+.form-control:focus, .cbx-active:focus {
+  border-color: fadeout(@link-color, 10%);
+  box-shadow: none;
+}
+
+.checkbox label {
+  padding-left: 0px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  display: none;
+}
+
+input[type="checkbox"] + label > i.fa, input[type="radio"] + label > i.fa {
+  width: 1em;
+  text-align: left;
+}
+
+input[type="checkbox"] + label > i.fa:before, label > input[type="checkbox"] + i.fa:before {
+  content: "\f046";
+  color: white;
+}
+
+input[type="checkbox"]:checked + label > i.fa:before, label > input[type="checkbox"]:checked + i.fa:before {
+  content: "\f096";
+}
+
+input[type="radio"] + label > i.fa:before, label > input[type="radio"] + i.fa:before {
+  content: "\f10c";
+  color: white;
+}
+
+input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:checked + i.fa:before {
+  content: "\f192";
+}
+
+.navbar-nav > li > a {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.navbar-inverse {
+  background-color: #000;
+  border-color: darken(@link-color, 25%);
+}
+
+.navbar-inverse .navbar-nav > li > a, .navbar .navbar-header a {
+  border-top: 5px solid transparent;
+  color: @default-color;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:active,
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus,
+.navbar .navbar-header a:hover, .navbar .navbar-header a:active, .navbar .navbar-header a:focus {
+  color: @default-color;
+  background-color: darken(@link-color, 95%);
+
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a,
+.navbar .navbar-header a:hover, .navbar-inverse .navbar-nav > .open > a {
+  border-top-color: @link-color;
+  background-color: darken(@link-color, 27%);
+}
+
+.navbar .navbar-nav > li > a {
+  font-size: larger;
+}
+
+.navbar .navbar-header a {
+  font-size: x-large;
+}
+
+.navbar-brand {
+  padding: 10px 10px;
+}
+
+.navbar-nav > li > .dropdown-menu {
+  background-color: #0D0D0D;
+  color: white;
+  border: 1px solid #152532;
+  border-top-color: #0D0D0D;
+}
+
+.navbar-nav > li > .dropdown-menu > li > a {
+  border-left: 5px solid transparent;
+  color: white;
+}
+
+.navbar-nav > li > .dropdown-menu > li.active > a {
+  background-color: #001531;
+  border-left-color: #00439B;
+}
+
+.navbar-nav > li > .dropdown-menu > li > a:hover, .navbar-nav > li > .dropdown-menu > li > a:active, .navbar-nav > li > .dropdown-menu > li > a:focus,
+.navbar-nav > li > .dropdown-menu > li.active > a:hover, .navbar-nav > li > .dropdown-menu > li.active > a:active, .navbar-nav > li > .dropdown-menu > li.active > a:focus {
+  border-left-color: @link-color;
+  background-color: darken(@link-color, 27%);
+}
+
+.navbar-nav > li > .dropdown-menu .divider {
+  background-color: darken(@link-color, 25%);
+}
+
+.nav .fa, .dropdown-menu .fa, .btn .fa {
+  margin-right: 0.4em;
+}
+
+.jumbotron {
+  background: #000;
+  border: 1px solid fadeout(@link-color, 50%);
+}
+
+.jumbotron:hover {
+  box-shadow: inset 0 0 70px fadeout(@link-color, 30%);
+  border: 1px solid fadeout(@link-color, 30%);
+  background: fadeout(@link-color, 90%);
+}
+
+.panel {
+  background-color: #000;
+  color: white;
+  border-radius: 0px;
+  border-color: rgba(46, 89, 159, 1.0);
+}
+
+.panel .panel-heading {
+  border-color: rgba(46, 89, 159, 1.0);
+  border-radius: 0px;
+}
+
+.panel .panel-body, .panel.panel-default .panel-heading, .panel.panel-default .panel-footer {
+  background-color: transparent;
+}
+
+.panel.panel-default .panel-heading {
+  color: white;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  border-top: none;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  border: 1px solid #696969;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(16, 68, 132, 0.2);
+}
+
+.breadcrumb > li + li:before {
+  content: "»\00a0";
+}
+
+.alert {
+  border-radius: 0px;
+}
+
+.alert-danger {
+  background-color: #2D0000;
+  border-color: #a94442;
+}
+
+.alert-warning {
+  background-color: #231D00;
+  border-color: #8a6d3b;
+}
+
+.alert-success {
+  background-color: #0A2300;
+  border-color: #3c763d;
+}
+
+.alert-info {
+  background-color: #001926;
+  border-color: #31708f;
+}
+
+.table > tbody > .row-vtop > * {
+  vertical-align: top;
+}
+
+.table > tbody > .row-vmiddle > * {
+  vertical-align: middle;
+}
+
+.table > tbody > .row-vbottom > * {
+  vertical-align: bottom;
+}
+
+.pagination {
+  border-radius: 0px;
+}
+
+.pagination > li > span, .pagination > li > a {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  background: transparent;
+  border-color: #696969 !important;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+  background: rgba(16, 68, 132, 0.2);
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background: #1263E2;
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > a, .pagination > .disabled > a:hover,
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+  background: transparent;
+}
+
+.modal-content {
+  border-radius: 0;
+  background-color: #101010;
+  border: 1px solid rgba(46, 89, 159, 0.5);
+  box-shadow: 0 0 20px rgba(46, 89, 159, 0.5);
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(184, 184, 184, 0.5);
+}
+
+.close, .close:hover {
+  color: #B8B8B8;
+}
+
+.modal-backdrop.in {
+  opacity: .2;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    margin: 170px auto;
+  }
+}
+
+.tooltip.in > .tooltip-inner {
+  border: 1px solid rgba(46, 89, 159, 0.5);
+  box-shadow: 0 0 20px rgba(46, 89, 159, 0.5);
+  border-radius: 0;
+}
