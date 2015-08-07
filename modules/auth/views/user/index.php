@@ -50,7 +50,10 @@ $admin = Yii::$app->user->can('manageUsers');
                 'value' => function ($model, $key, $index, $column) {
                     return $model->roleName;
                 },
-                'filter' => User::getRolesList(),
+                'filterType' => GridView::FILTER_SELECT2,
+                'filterWidgetOptions' => [
+                    'data' => \yii\helpers\ArrayHelper::merge([null => 'Все'], User::getRolesList()),
+                ],
             ],
             ['attribute' => 'gamesCount'],
             ['attribute' => 'email', 'visible' => $admin, 'format' => 'email'],
