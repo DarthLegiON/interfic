@@ -44,56 +44,56 @@ a:hover, a:active, a:focus {
 
 .btn-default {
   color: white;
-  border-color: fadeout(@default-color, 70%);
+  border-color: fade(@default-color, 30%);
 }
 
 
 .btn-default:hover, .btn-default:active, .btn-default:focus {
   border-color: transparent;
-  background: fadeout(@default-color, 70%);
+  background: fade(@default-color, 30%);
   color: white;
 }
 
 .btn-default:active:hover, .btn-default.active:hover,
 .btn-default:focus:hover, .btn-default.active:focus, .btn-default:active:focus {
-  border-color: fadeout(@default-color, 60%);
-  background: fadeout(@default-color, 60%);
+  border-color: fade(@default-color, 40%);
+  background: fade(@default-color, 40%);
   color: white;
 }
 
 .btn-primary {
   color: white;
-  border-color: fadeout(@primary-color, 70%);
+  border-color: fade(@primary-color, 30%);
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   border-color: transparent;
-  background: fadeout(@primary-color, 50%);
+  background: fade(@primary-color, 50%);
   color: white;
 }
 
 .btn-primary:active:hover, .btn-primary.active:hover,
 .btn-primary:focus:hover, .btn-primary.active:focus, .btn-primary:active:focus {
-  border-color: fadeout(@primary-color, 40%);
-  background: fadeout(@primary-color, 40%);
+  border-color: fade(@primary-color, 60%);
+  background: fade(@primary-color, 60%);
   color: white;
 }
 
 .btn-success {
   color: white;
-  border-color: fadeout(@success-color, 70%);
+  border-color: fade(@success-color, 30%);
 }
 
 .btn-success:hover, .btn-success:active, .btn-success:focus {
   border-color: transparent;
-  background: fadeout(@success-color, 70%);
+  background: fade(@success-color, 30%);
   color: white;
 }
 
 .btn-success:active:hover, .btn-success.active:hover,
 .btn-success:focus:hover, .btn-success.active:focus, .btn-success:active:focus {
-  border-color: fadeout(@success-color, 60%);
-  background: fadeout(@success-color, 60%);
+  border-color: fade(@success-color, 40%);
+  background: fade(@success-color, 40%);
   color: white;
 }
 
@@ -117,16 +117,16 @@ a:hover, a:active, a:focus {
   border-radius: 0;
   background: transparent;
   color: white;
-  border-color: fadeout(@default-color, 50%);
+  border-color: fade(@default-color, 50%);
 }
 
 .form-control:hover, .cbx-active:hover {
-  border-color: fadeout(@default-color, 30%);
+  border-color: fade(@default-color, 70%);
   box-shadow: none;
 }
 
 .form-control:focus, .cbx-active:focus {
-  border-color: fadeout(@link-color, 10%);
+  border-color: fade(@link-color, 90%);
   box-shadow: none;
 }
 
@@ -236,13 +236,13 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
 
 .jumbotron {
   background: #000;
-  border: 1px solid fadeout(@link-color, 50%);
+  border: 1px solid fade(@link-color, 50%);
 }
 
 .jumbotron:hover {
-  box-shadow: inset 0 0 70px fadeout(@link-color, 30%);
-  border: 1px solid fadeout(@link-color, 30%);
-  background: fadeout(@link-color, 90%);
+  box-shadow: inset 0 0 70px fade(@link-color, 70%);
+  border: 1px solid fade(@link-color, 70%);
+  background: fade(@link-color, 10%);
 }
 
 .panel {
