@@ -12,7 +12,7 @@ body {
 @success-color: #5CB85C;
 
 a {
-  color: @link-color;
+  color: darken(@link-color, 5%);
 }
 
 a:hover, a:active, a:focus {
@@ -204,10 +204,10 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
 }
 
 .navbar-nav > li > .dropdown-menu {
-  background-color: #0D0D0D;
-  color: white;
-  border: 1px solid #152532;
-  border-top-color: #0D0D0D;
+  background-color: darken(@link-color, 95%);
+  color: @default-color;
+  border: 1px solid darken(@link-color, 25%);
+  border-top-color: darken(@link-color, 95%);
 }
 
 .navbar-nav > li > .dropdown-menu > li > a {
@@ -216,8 +216,8 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
 }
 
 .navbar-nav > li > .dropdown-menu > li.active > a {
-  background-color: #001531;
-  border-left-color: #00439B;
+  background-color: darken(@link-color, 29%);
+  border-left-color: fade(@link-color, 80%);
 }
 
 .navbar-nav > li > .dropdown-menu > li > a:hover, .navbar-nav > li > .dropdown-menu > li > a:active, .navbar-nav > li > .dropdown-menu > li > a:focus,
