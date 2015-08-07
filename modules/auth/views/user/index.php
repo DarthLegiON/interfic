@@ -53,6 +53,7 @@ $admin = Yii::$app->user->can('manageUsers');
                 'filterType' => GridView::FILTER_SELECT2,
                 'filterWidgetOptions' => [
                     'data' => \yii\helpers\ArrayHelper::merge([null => 'Все'], User::getRolesList()),
+                    'theme' => 'interfic',
                 ],
             ],
             ['attribute' => 'gamesCount'],

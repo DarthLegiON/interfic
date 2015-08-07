@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'css/interfic.css',
         'css/theme1.css',
         'css/redactor.css',
+        'css/plugins/select2.css'
     ];
     public $js = [
         'js/main.js'

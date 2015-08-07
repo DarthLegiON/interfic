@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'versionName') ?>
     <?= $form->field($model, 'startVersion')->widget(Select2::className(), [
+        'theme' => 'interfic',
         'data' => $versionsList
     ]) ?>
     <?= $form->field($model, 'isTest')->widget(\kartik\checkbox\CheckboxX::className(), [
