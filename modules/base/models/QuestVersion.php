@@ -134,6 +134,7 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
         $newVersion->attributes = $this->attributes;
         $newVersion->id_Quest_Version = null;
         $newVersion->version_name = $form->versionName;
+        $newVersion->fid_creator_user = Yii::$app->user->id;
         $newVersion->save_date = (new \DateTime('now'))->format('Y-m-d H:i:s');
         $newVersion->save();
 

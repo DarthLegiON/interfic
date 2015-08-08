@@ -1,5 +1,5 @@
 body {
-  background: url('../../img/back.png') black;
+  background: url('img/back.png') black;
   color: #b8b8b8;
 }
 
@@ -62,39 +62,39 @@ a:hover, a:active, a:focus {
 }
 
 .btn-primary {
-  color: white;
+  color: @primary-color;
   border-color: fade(@primary-color, 30%);
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   border-color: transparent;
   background: fade(@primary-color, 50%);
-  color: white;
+  color: @default-color;
 }
 
 .btn-primary:active:hover, .btn-primary.active:hover,
 .btn-primary:focus:hover, .btn-primary.active:focus, .btn-primary:active:focus {
   border-color: fade(@primary-color, 60%);
   background: fade(@primary-color, 60%);
-  color: white;
+  color: @default-color;
 }
 
 .btn-success {
-  color: white;
+  color: @success-color;
   border-color: fade(@success-color, 30%);
 }
 
 .btn-success:hover, .btn-success:active, .btn-success:focus {
   border-color: transparent;
   background: fade(@success-color, 30%);
-  color: white;
+  color: @default-color;
 }
 
 .btn-success:active:hover, .btn-success.active:hover,
 .btn-success:focus:hover, .btn-success.active:focus, .btn-success:active:focus {
   border-color: fade(@success-color, 40%);
   background: fade(@success-color, 40%);
-  color: white;
+  color: @default-color;
 }
 
 .btn-danger {

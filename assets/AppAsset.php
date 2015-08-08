@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
         'css/theme.css',
         'css/site.css',
         'css/interfic.css',
-        'css/theme1.css',
+        //'css/theme1.css',
         'css/redactor.css',
         'css/plugins/select2.css'
     ];

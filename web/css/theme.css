@@ -1,5 +1,5 @@
 body {
-  background: url('../../img/back.png') #000000;
+  background: url('img/back.png') #000000;
   color: #b8b8b8;
 }
 a {
@@ -62,7 +62,7 @@ a:focus {
   color: white;
 }
 .btn-primary {
-  color: white;
+  color: #005cba;
   border-color: rgba(0, 92, 186, 0.3);
 }
 .btn-primary:hover,
@@ -70,7 +70,7 @@ a:focus {
 .btn-primary:focus {
   border-color: transparent;
   background: rgba(0, 92, 186, 0.5);
-  color: white;
+  color: #ffffff;
 }
 .btn-primary:active:hover,
 .btn-primary.active:hover,
@@ -79,10 +79,10 @@ a:focus {
 .btn-primary:active:focus {
   border-color: rgba(0, 92, 186, 0.6);
   background: rgba(0, 92, 186, 0.6);
-  color: white;
+  color: #ffffff;
 }
 .btn-success {
-  color: white;
+  color: #5cb85c;
   border-color: rgba(92, 184, 92, 0.3);
 }
 .btn-success:hover,
@@ -90,7 +90,7 @@ a:focus {
 .btn-success:focus {
   border-color: transparent;
   background: rgba(92, 184, 92, 0.3);
-  color: white;
+  color: #ffffff;
 }
 .btn-success:active:hover,
 .btn-success.active:hover,
@@ -99,7 +99,7 @@ a:focus {
 .btn-success:active:focus {
   border-color: rgba(92, 184, 92, 0.4);
   background: rgba(92, 184, 92, 0.4);
-  color: white;
+  color: #ffffff;
 }
 .btn-danger {
   color: #d9534f;
