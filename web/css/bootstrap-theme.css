@@ -134,7 +134,7 @@ a:focus {
   box-shadow: none;
 }
 .checkbox label {
-  padding-left: 0px;
+  padding-left: 0;
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -251,12 +251,12 @@ label > input[type="radio"]:checked + i.fa:before {
 .panel {
   background-color: #000;
   color: white;
-  border-radius: 0px;
+  border-radius: 0;
   border-color: #2e599f;
 }
 .panel .panel-heading {
   border-color: #2e599f;
-  border-radius: 0px;
+  border-radius: 0;
 }
 .panel .panel-body,
 .panel.panel-default .panel-heading,
@@ -289,7 +289,7 @@ label > input[type="radio"]:checked + i.fa:before {
   content: "»\00a0";
 }
 .alert {
-  border-radius: 0px;
+  border-radius: 0;
 }
 .alert-danger {
   background-color: #2D0000;
@@ -317,14 +317,11 @@ label > input[type="radio"]:checked + i.fa:before {
   vertical-align: bottom;
 }
 .pagination {
-  border-radius: 0px;
+  border-radius: 0;
 }
 .pagination > li > span,
 .pagination > li > a {
-  border-top-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
+  border-radius: 0 !important;
   background: transparent;
   border-color: #696969 !important;
 }
