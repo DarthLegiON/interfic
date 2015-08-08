@@ -1,6 +1,20 @@
 body {
   background: url('img/back.png') #000000;
-  color: #b8b8b8;
+  color: #999999;
+}
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  color: #3dafa8;
 }
 a {
   color: #008d84;

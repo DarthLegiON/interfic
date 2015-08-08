@@ -1,8 +1,3 @@
-body {
-  background: url('img/back.png') black;
-  color: #b8b8b8;
-}
-
 @link-color: #00A69C;
 
 @default-color: #FFFFFF;
@@ -10,6 +5,20 @@ body {
 @primary-color: #005CBA;
 
 @success-color: #5CB85C;
+
+body {
+  background: url('img/back.png') black;
+  color: darken(@default-color,  40%);
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  color: darken(mix(@default-color, @link-color, 50%), 20%);
+}
 
 a {
   color: darken(@link-color, 5%);
