@@ -3,13 +3,13 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
+use app\assets\EditorAsset;
 use kartik\icons\Icon;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-AppAsset::register($this);
+EditorAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

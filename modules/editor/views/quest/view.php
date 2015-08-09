@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\grid\GridView;
 use kartik\icons\Icon;
 
 /* @var $quest app\modules\base\models\Quest */
@@ -27,43 +26,16 @@ if (!empty($quest)) :
         <dt>Описание</dt>
         <dd><?= $quest->description ?></dd>
     </dl>
+    <hr>
+    <h3>
+        Версии
+        <?= Html::a(Icon::show('plus') . 'Новая версия', ['versions/create', 'id' => $quest->id_quest], ['class' => 'btn btn-success']) ?>
+    </h3>
+    <p>Выберите версию для редактирования. Текущая тестовая версия отмечена оранжевым, текущая рабочая - красным.</p>
 
-    <h3>Версии</h3>
-
-    <p>Выберите версию для редактирования.</p>
-
-    <?= GridView::widget([
-
+    <?= $this->render('../versions/list', [
     'dataProvider' => $versions,
-    'emptyCell' => '',
-    'export' => false,
-    'tableOptions' => ['class' => 'table table-bordered'],
-    'columns' => [
-        'version_name',
-        'versionCode',
-        ['attribute' => 'save_date', 'format' => ['date', 'php:d.m.Y h:i:s']],
-        'creatorUsername',
-        'testProduction',
-        [
-            'class' => \kartik\grid\ActionColumn::className(),
-            'template' => '{update} {delete}',
-            'urlCreator' => function ($action, $model, $key, $index) {
-                switch ($action) {
-                    case 'update':
-                        return ['versions/open', 'id' => $model->id_Quest_Version];
-                    case 'delete':
-                        return ['versions/delete', 'id' => $model->id_Quest_Version];
-                    default:
-                        return '';
-                }
-            },
-            'updateOptions' => ['title' => 'Открыть версию на редактирование', 'data-toggle' => 'tooltip'],
-            'deleteOptions' => ['title' => 'Удалить версию (удалить тестовую или рабочую версию нельзя!)', 'data-toggle' => 'tooltip'],
-        ]
-    ]
-]); ?>
-
-    <?= Html::a(Icon::show('plus') . 'Новая версия', ['versions/create', 'id' => $quest->id_quest], ['class' => 'btn btn-success']) ?>
+]) ?>
 
 <?php else :
 

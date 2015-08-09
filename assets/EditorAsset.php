@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Darth LegiON
- * Date: 08.08.2015
- * Time: 15:38
+ * Date: 09.08.2015
+ * Time: 12:29
  */
 
 namespace app\assets;
@@ -12,19 +12,16 @@ namespace app\assets;
 use yii\web\AssetBundle;
 
 /**
- * Ассет для игрового режима
+ * Ассет для редактора квестов
  * @package app\assets
  */
-class GameAsset extends AssetBundle
+class EditorAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+
     public $css = [
-        'css/interfic.css',
-        'css/theme1.css',
-    ];
-    public $js = [
-        // TODO добавить игровые модули
+        'css/editor.css',
     ];
     public $depends = [
         'app\assets\AppAsset'

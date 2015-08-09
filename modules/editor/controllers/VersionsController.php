@@ -29,7 +29,7 @@ class VersionsController extends BaseController
         ];
     }
 
-    public function actionCreate($id)
+    public function actionCreate($id, $id_start = null)
     {
         /** @var Quest $quest */
         $quest = Quest::findOne(['id_quest' => $id]);
@@ -46,6 +46,7 @@ class VersionsController extends BaseController
             } else {
 
                 $versionsList = $quest->getVersionsShortList();
+                $model->startVersion = $id_start;
 
                 return $this->render('create', [
                     'model' => $model,
