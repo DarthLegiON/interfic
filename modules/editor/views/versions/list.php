@@ -2,7 +2,6 @@
 
 use app\components\widgets\ActionButton;
 use kartik\grid\GridView;
-use kartik\helpers\Html;
 use kartik\icons\Icon;
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -12,23 +11,13 @@ echo GridView::widget([
     'dataProvider' => $dataProvider,
     'emptyCell' => '',
     'export' => false,
-    /*'rowOptions' => function ($model, $key, $index, $grid) {
-        return [
-            'class' => $model->isProduction
-            ? 'danger'
-            : ($model->isTest
-                ? 'warning'
-                : null
-            )
-        ];
-    },*/
     'columns' => [
         [
             'attribute' => 'versionCode',
             'format' => 'html',
             'value' => function ($model, $key, $index, $column) {
-                $iconTest = ($model->isTest) ? Icon::show('wrench', ['class' => 'text-warning']) : '';
-                $iconProduction = ($model->isProduction) ? Icon::show('rocket', ['class' => 'text-danger']) : '';
+                $iconTest = ($model->isTest) ? Icon::show('wrench', ['class' => 'text-warning pull-right', 'title' => 'Тестовая версия', 'data-toggle' => 'tooltip']) : '';
+                $iconProduction = ($model->isProduction) ? Icon::show('rocket', ['class' => 'text-danger pull-right', 'title' => 'Рабочая версия', 'data-toggle' => 'tooltip']) : '';
                 return $model->versionCode . $iconTest . $iconProduction;
             },
         ],
@@ -43,9 +32,9 @@ echo GridView::widget([
             'urlCreator' => function ($action, $model, $key, $index) {
                 switch ($action) {
                     case 'test':
-                        return ['versions/test', 'id' => $model->id_Quest_Version];
+                        return ['versions/make-test', 'id' => $model->id_Quest_Version];
                     case 'production':
-                        return ['versions/production', 'id' => $model->id_Quest_Version];
+                        return ['versions/make-production', 'id' => $model->id_Quest_Version];
                     default:
                         return '';
                 }
@@ -80,7 +69,7 @@ echo GridView::widget([
         ],
         [
             'class' => \kartik\grid\ActionColumn::className(),
-            'template' => '{update}{create}{delete} {test}{production}',
+            'template' => '<div class="btn-group text-nowrap">{update}{create}{delete}</div>',
             'urlCreator' => function ($action, $model, $key, $index) {
                 switch ($action) {
                     case 'update':

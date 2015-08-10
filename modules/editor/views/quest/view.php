@@ -31,7 +31,7 @@ if (!empty($quest)) :
         Версии
         <?= Html::a(Icon::show('plus') . 'Новая версия', ['versions/create', 'id' => $quest->id_quest], ['class' => 'btn btn-success']) ?>
     </h3>
-    <p>Выберите версию для редактирования. Текущая тестовая версия отмечена оранжевым, текущая рабочая - красным.</p>
+    <p>Выберите версию для редактирования.</p>
 
     <?= $this->render('../versions/list', [
     'dataProvider' => $versions,

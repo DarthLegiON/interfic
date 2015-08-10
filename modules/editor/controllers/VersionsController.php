@@ -10,6 +10,7 @@ use yii\web\Controller;
 use app\modules\base\models\Quest;
 use app\modules\base\models\QuestVersion;
 use app\modules\editor\models\QuestCreateForm;
+use yii\web\ForbiddenHttpException;
 
 class VersionsController extends BaseController
 {
@@ -20,7 +21,7 @@ class VersionsController extends BaseController
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['open', 'delete', 'create'],
+                        'actions' => ['open', 'delete', 'create', 'make-test', 'make-production'],
                         'allow' => true,
                         'roles' => ['createQuest', 'manageQuests'],
                     ],
@@ -29,6 +30,14 @@ class VersionsController extends BaseController
         ];
     }
 
+    /**
+     * Отображает страницу создания новой версии
+     * @param int$id ID квеста
+     * @param int|null $id_start ID стартового квеста
+     * @return string|\yii\web\Response
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionCreate($id, $id_start = null)
     {
         /** @var Quest $quest */
@@ -61,6 +70,14 @@ class VersionsController extends BaseController
 
     }
 
+    /**
+     * Безвозвратно удаляет версию из системы
+     * @param int $id ID версии
+     * @return string
+     * @throws \Exception
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionDelete($id)
     {
         /** @var QuestVersion $version */
@@ -68,12 +85,45 @@ class VersionsController extends BaseController
         if ($this->checkAccess($version)) {
             if (empty($version->testProduction)) {
                 $version->delete();
+                // TODO сделать каскадное удаление всех элементов версии
                 $this->redirect(['quest/view', 'id' => $version->fid_quest]);
             } else {
                 return $this->render('cant-delete', [
                     'model' => $version,
                 ]);
             }
+        }
+    }
+
+    /**
+     * Делает версию тестовой.
+     * @param int $id ID версии
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionMakeTest($id)
+    {
+        /** @var QuestVersion $version */
+        $version = QuestVersion::findOne(['id_Quest_Version' => $id]);
+        if ($this->checkAccess($version)) {
+            $version->setTest();
+            $this->redirect(['quest/view', 'id' => $version->fid_quest]);
+        }
+    }
+
+    /**
+     * Делает версию рабочей.
+     * @param int $id ID версии
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionMakeProduction($id)
+    {
+        /** @var QuestVersion $version */
+        $version = QuestVersion::findOne(['id_Quest_Version' => $id]);
+        if ($this->checkAccess($version)) {
+            $version->setProduction();
+            $this->redirect(['quest/view', 'id' => $version->fid_quest]);
         }
     }
 }
