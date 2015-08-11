@@ -22,7 +22,7 @@ abstract class BaseController extends Controller
 {
     /**
      * Проверяет доступ к записи
-     * @param Restricted $record
+     * @param Restricted|null $record
      * @return bool
      * @throws ForbiddenHttpException если нет доступа
      * @throws NotFoundHttpException если запись не существует

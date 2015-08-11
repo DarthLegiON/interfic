@@ -3,6 +3,7 @@
 namespace app\modules\editor\controllers;
 
 use app\modules\editor\models\VersionCreateForm;
+use app\modules\editor\models\VersionEditForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -32,7 +33,7 @@ class VersionsController extends BaseController
 
     /**
      * Отображает страницу создания новой версии
-     * @param int$id ID квеста
+     * @param int $id ID квеста
      * @param int|null $id_start ID стартового квеста
      * @return string|\yii\web\Response
      * @throws \yii\web\ForbiddenHttpException
@@ -67,7 +68,23 @@ class VersionsController extends BaseController
 
     public function actionOpen($id)
     {
-
+        /** @var QuestVersion $version */
+        $version = QuestVersion::findOne(['id_Quest_Version' => $id]);
+        if ($this->checkAccess($version)) {
+            $form = new VersionEditForm;
+            if ($form->load(Yii::$app->request->post())) {
+                $version->name = $form->questName;
+                $version->description = $form->description;
+                $version->version_name = $form->versionName;
+                $version->save();
+            } else {
+                $form->loadFromRecord($version);
+            }
+            return $this->render('open', [
+                'version' => $version,
+                'versionForm' => $form,
+            ]);
+        }
     }
 
     /**

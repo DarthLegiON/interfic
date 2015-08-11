@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Редактирование', 'ur
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="user-register">
+<div class="version-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -54,4 +54,4 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php ActiveForm::end(); ?>
 
-</div><!-- user-register -->
+</div><!-- version-create -->

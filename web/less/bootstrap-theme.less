@@ -464,6 +464,12 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
     border: 1px solid darken(@default-color, 70%);
   }
 
+  > thead > tr > th,
+  > tbody > tr > th,
+  > tfoot > tr > th {
+    border-bottom-width: 2px;
+  }
+
   > caption + thead > tr:first-child > th,
   > colgroup + thead > tr:first-child > th,
   > thead:first-child > tr:first-child > th,
@@ -472,6 +478,10 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
   > thead:first-child > tr:first-child > td {
     border-top: 1px solid darken(@default-color, 70%);
   }
+}
+
+.table-responsive {
+  overflow-x: visible;
 }
 
 .table-striped > tbody > tr:nth-of-type(even) {

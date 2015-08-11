@@ -425,6 +425,11 @@ label > input[type="radio"]:checked + i.fa:before {
 .table-bordered > tfoot > tr > td {
   border: 1px solid #4d4d4d;
 }
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th {
+  border-bottom-width: 2px;
+}
 .table-bordered > caption + thead > tr:first-child > th,
 .table-bordered > colgroup + thead > tr:first-child > th,
 .table-bordered > thead:first-child > tr:first-child > th,
@@ -432,6 +437,9 @@ label > input[type="radio"]:checked + i.fa:before {
 .table-bordered > colgroup + thead > tr:first-child > td,
 .table-bordered > thead:first-child > tr:first-child > td {
   border-top: 1px solid #4d4d4d;
+}
+.table-responsive {
+  overflow-x: visible;
 }
 .table-striped > tbody > tr:nth-of-type(even) {
   background-color: rgba(0, 166, 156, 0.1);

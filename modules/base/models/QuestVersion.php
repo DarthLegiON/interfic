@@ -22,6 +22,9 @@ use yii\data\ActiveDataProvider;
  * @property string $version_name
  * @property string $testProduction
  * @property integer $fid_start_version
+ * @property boolean isTest
+ * @property boolean isProduction
+ * @property string startVersionCode
  */
 class QuestVersion extends \yii\db\ActiveRecord implements Restricted
 {
@@ -37,7 +40,7 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
     {
         $query = self::find()
             ->where(['fid_quest' => $id])
-            ->orderBy(['save_date' => SORT_DESC]);
+            ->orderBy(['id_Quest_Version' => SORT_DESC]);
 
         return new ActiveDataProvider([
             'query' => $query,
