@@ -20,7 +20,7 @@ if (!empty($user)) :
 
         <h1>
             <?= Html::encode($this->title) ?>
-            <? if ($own || $admin) {
+            <?php if ($own || $admin) {
                 echo Html::a(Icon::show('pencil') . 'Редактировать...', ['/auth/user/edit-profile?id=' . $user->id_User], ['class' => 'btn btn-default btn-change-avatar']);
             } ?>
         </h1>
@@ -32,17 +32,17 @@ if (!empty($user)) :
                     : Html::tag('div', 'Нет аватара')
             ?>
         </div>
-        <? if ($own) : ?>
+        <?php if ($own) : ?>
         <p>
             <b>Персональный код:</b> <?= $user->id_User; ?>
         </p>
-        <? endif ?>
+        <?php endif ?>
         <p>
             <b>Группа:</b> <?= $user->getRoleName(); ?>
         </p>
         <p>
             <b>Квесты:</b>&nbsp;
-            <? $userQuests = $user->getQuests();
+            <?php $userQuests = $user->getQuests();
             if (count($userQuests) > 0) {
                 foreach ($user->getQuests() as $quest) {
                     /** @TODO Вывести список игр со ссылками на страницы */
@@ -57,14 +57,14 @@ if (!empty($user)) :
         </p>
         <div class="clearfix"></div>
 
-        <? if ($user->bio) : ?>
+        <?php if ($user->bio) : ?>
         <h4>Подпись</h4>
         <div>
             <?= $user->bio ?>
         </div>
-        <? endif; ?>
+        <?php endif; ?>
 
-        <? if ($admin || $own) : ?>
+        <?php if ($admin || $own) : ?>
         <h4>Дополнительная информация</h4>
             <table class="table">
                 <colgroup>
@@ -79,10 +79,10 @@ if (!empty($user)) :
                     <td><?= $user->ip_address; ?></td>
                 </tr>
             </table>
-        <? endif; ?>
+        <?php endif; ?>
     </div>
 
-<? else :
+<?php else :
 
     $this->title = 'Пользователь не найден';
     $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
@@ -93,4 +93,4 @@ if (!empty($user)) :
         <?= Html::encode($this->title) ?>
     </h1>
 
- <? endif; ?>
+ <?php endif; ?>

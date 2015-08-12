@@ -8,7 +8,6 @@ $config = [
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'xp8DtMY2me5JRfOmkVZwWraO_1CeKGfJ',
         ],
         'cache' => [
@@ -54,6 +53,10 @@ $config = [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
+        'formatter' => [
+            'class' => yii\i18n\Formatter::className(),
+            'defaultTimeZone' => 'Europe/Moscow',
+        ],
     ],
     'modules' => [
         'auth' => [
@@ -64,6 +67,9 @@ $config = [
         ],
         'editor' => [
             'class' => 'app\modules\editor\Module',
+        ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
         ],
     ],
 

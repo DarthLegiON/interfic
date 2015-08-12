@@ -1,0 +1,6 @@
+body {
+  background: url('img/me-background.jpg');
+}
+.btn-grid-action.active-version-icon {
+  color: #ffffff !important;
+}

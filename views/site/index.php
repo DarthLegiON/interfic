@@ -10,11 +10,11 @@ $this->title = 'Interfic - главная';
     <div class="jumbotron">
         <h1>Добро пожаловать в Interfic!</h1>
 
-        <? if (Yii::$app->user->isGuest) : ?>
+        <?php if (Yii::$app->user->isGuest) : ?>
         <p>
             Чтобы начать играть, войдите или зарегистрируйтесь на сайте!
         </p>
-        <? endif ?>
+        <?php endif ?>
     </div>
 
     <div class="body-content">
