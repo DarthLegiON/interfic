@@ -15,7 +15,7 @@ if (!empty($quest)) :
     ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <hr>
     <h3>Общая информация</h3>
 
     <dl class="dl-horizontal">

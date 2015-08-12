@@ -4,6 +4,7 @@ namespace app\modules\base\models;
 
 use app\modules\base\models\interfaces\Restricted;
 use app\modules\editor\models\VersionCreateForm;
+use DateTimeZone;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -25,6 +26,7 @@ use yii\data\ActiveDataProvider;
  * @property boolean isTest
  * @property boolean isProduction
  * @property string startVersionCode
+ * @property string creatorUsername
  */
 class QuestVersion extends \yii\db\ActiveRecord implements Restricted
 {

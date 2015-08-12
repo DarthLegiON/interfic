@@ -72,10 +72,14 @@ a:hover, a:active, a:focus {
   box-shadow: none !important;
 }
 
-.btn, .form-control, .navbar-inverse .navbar-nav > li > a, .navbar-nav > li > .dropdown-menu > li > a, .navbar .navbar-header a, .jumbotron {
+.transitioned {
   transition-property: color, background-color, border-color, box-shadow;
   transition-timing-function: ease;
   transition-duration: 0.3s;
+}
+
+.btn, .form-control, .navbar-inverse .navbar-nav > li > a, .navbar-nav > li > .dropdown-menu > li > a, .navbar .navbar-header a, .jumbotron {
+  .transitioned
 }
 
 .btn, .breadcrumb {
@@ -255,7 +259,7 @@ a:hover, a:active, a:focus {
   border-radius: 0;
   background: transparent;
   color: white;
-  border-color: fade(@default-color, 50%);
+  border-color: fade(@default-color, 30%);
 }
 
 .form-control:hover, .cbx-active:hover {
@@ -623,4 +627,33 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
   border: 1px solid fade(@link-color, 50%);
   box-shadow: 0 0 20px fade(@link-color, 50%);
   border-radius: 0;
+}
+
+.nav-tabs {
+  margin-bottom: 15px;
+  border-bottom: 1px solid fade(@link-color, 50%);
+
+  > li > a {
+    border-radius: 0;
+    .transitioned
+  }
+
+  > li > a:hover {
+    border-color: transparent;
+  }
+
+  > li > a:hover, > li > a:focus {
+    background-color: fade(@link-color, 30%);
+    color: @default-color;
+  }
+
+  > li.active > a,
+  > li.active > a:hover,
+  > li.active > a:focus {
+    color: @default-color;
+    cursor: default;
+    background-color: fade(@link-color, 50%);
+    border: 1px solid transparent;
+  }
+
 }

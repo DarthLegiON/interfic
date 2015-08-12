@@ -23,7 +23,10 @@ echo GridView::widget([
         ],
         'version_name',
         'startVersionCode',
-        ['attribute' => 'save_date', 'format' => ['date', 'php:d.m.Y h:i:s']],
+        [
+            'attribute' => 'save_date',
+            'format' => ['date', 'php:d.m.Y H:i:s']
+        ],
         'creatorUsername',
         [
             'class' => \kartik\grid\ActionColumn::className(),

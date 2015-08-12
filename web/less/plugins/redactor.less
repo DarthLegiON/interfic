@@ -1,24 +1,33 @@
+@link-color: #00A69C;
+
+@default-color: #FFFFFF;
+
 .redactor-toolbar {
   background: #000;
 }
+
 .redactor-toolbar li a {
   color: #fff;
 }
+
 .redactor-toolbar li a:hover {
-  background: rgba(0, 166, 156, 0.5);
-  color: #00a69c;
+  background: fade(@link-color, 50%);
+  color: @link-color;
 }
+
 .redactor-toolbar li a:active,
 .redactor-toolbar li a.redactor-act {
-  background: rgba(0, 166, 156, 0.25);
-  color: #00a69c;
+  background: fade(@link-color, 25%);
+  color: @link-color;
 }
+
 .redactor-box {
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid fade(@default-color, 30%);
   background: #000;
 }
+
 .redactor-editor {
   background: #000;
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid fade(@default-color, 30%);
 }

@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="version-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <hr>
     <?php $form = ActiveForm::begin([
         'id' => 'version-create-form',
         'options' => [

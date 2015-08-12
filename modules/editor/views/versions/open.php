@@ -3,7 +3,7 @@
 use app\modules\base\models\QuestVersion;
 use app\modules\editor\models\VersionEditForm;
 use kartik\helpers\Html;
-use yii\bootstrap\Collapse;
+use yii\bootstrap\Tabs;
 
 /** @var QuestVersion $version */
 /** @var VersionEditForm $versionForm */
@@ -16,6 +16,47 @@ $this->params['breadcrumbs'][] = 'Версия ' . $version->versionCode;
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
+<hr>
+<h3>Общая информация</h3>
 
-<?= $this->render('open_form', ['version' => $version, 'model' => $versionForm]) ?>
+<dl class="dl-horizontal">
+    <dt>Название версии</dt>
+    <dd><?= $version->version_name ?></dd>
+    <dt>Создатель</dt>
+    <dd><?= $version->creatorUsername ?></dd>
+    <dt>Код</dt>
+    <dd><?= $version->versionCode ?></dd>
+    <dt>Изменена</dt>
+    <dd><?= Yii::$app->formatter->asDatetime($version->save_date, 'php:d.m.Y H:i:s') ?></dd>
+</dl>
+
+<?= Tabs::widget([
+    'items' => [
+        [
+            'label' => 'Общая информация',
+            'content' => $this->render('open_form', ['version' => $version, 'model' => $versionForm]),
+            'active' => true,
+        ],
+        [
+            'label' => 'Шаблоны',
+            'url' => '#',
+        ],
+        [
+            'label' => 'Параметры',
+            'url' => '#',
+        ],
+        [
+            'label' => 'Состояния',
+            'url' => '#',
+        ],
+        [
+            'label' => 'Изображения',
+            'url' => '#',
+        ],
+        [
+            'label' => 'Действия',
+            'url' => '#',
+        ],
+    ]
+]); ?>
 

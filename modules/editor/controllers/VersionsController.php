@@ -76,6 +76,7 @@ class VersionsController extends BaseController
                 $version->name = $form->questName;
                 $version->description = $form->description;
                 $version->version_name = $form->versionName;
+                $version->save_date = (new \DateTime('now'))->format('Y-m-d H:i:s');
                 $version->save();
             } else {
                 $form->loadFromRecord($version);
