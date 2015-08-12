@@ -1,6 +1,6 @@
 body {
-  background: url('img/back.png') #000000;
-  color: #999999;
+  background: black;
+  color: #cccccc;
 }
 h1,
 .h1,
@@ -76,6 +76,9 @@ a:focus {
   transition-duration: 0.3s;
 }
 .btn,
+.form-control {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 .breadcrumb {
   background: transparent;
 }
@@ -225,7 +228,6 @@ a:focus {
 .form-control,
 .cbx {
   border-radius: 0;
-  background: transparent;
   color: white;
   border-color: rgba(255, 255, 255, 0.3);
 }

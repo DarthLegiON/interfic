@@ -1,5 +1,7 @@
 @link-color: #00A69C;
 
+@dark-background-color: #000000;
+
 @default-color: #FFFFFF;
 
 @primary-color: #005CBA;
@@ -13,8 +15,8 @@
 @info-color: @link-color;
 
 body {
-  background: url('img/back.png') black;
-  color: darken(@default-color, 40%);
+  background: black;
+  color: darken(@default-color, 20%);
 }
 
 h1, .h1,
@@ -82,7 +84,11 @@ a:hover, a:active, a:focus {
   .transitioned
 }
 
-.btn, .breadcrumb {
+.btn, .form-control {
+  background-color: fade(@dark-background-color, 20%);
+}
+
+.breadcrumb {
   background: transparent;
 }
 
@@ -257,7 +263,6 @@ a:hover, a:active, a:focus {
 
 .form-control, .cbx {
   border-radius: 0;
-  background: transparent;
   color: white;
   border-color: fade(@default-color, 30%);
 }
