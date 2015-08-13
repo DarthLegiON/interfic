@@ -6,6 +6,7 @@
  * Time: 12:10
  */
 
+use app\components\widgets\ActionButton;
 use app\modules\base\models\User;
 use yii\helpers\Html;
 use kartik\grid\GridView;
@@ -70,6 +71,16 @@ $admin = Yii::$app->user->can('manageUsers');
                             return [];
                     }
                 },
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        return ActionButton::widget([
+                            'icon' => 'pencil',
+                            'url' => $url,
+                            'title' => 'Редактировать профиль',
+                            'buttonStyle' => 'btn-primary',
+                        ]);
+                    },
+                ],
                 'visible' => $admin,
             ],
         ]

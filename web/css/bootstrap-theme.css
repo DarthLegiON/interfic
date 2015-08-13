@@ -430,7 +430,7 @@ label > input[type="radio"]:checked + i.fa:before {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #4d4d4d;
+  border: 1px solid #004a46;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -443,7 +443,7 @@ label > input[type="radio"]:checked + i.fa:before {
 .table-bordered > caption + thead > tr:first-child > td,
 .table-bordered > colgroup + thead > tr:first-child > td,
 .table-bordered > thead:first-child > tr:first-child > td {
-  border-top: 1px solid #4d4d4d;
+  border-top: 1px solid #004a46;
 }
 .table-responsive {
   overflow-x: visible;
@@ -563,6 +563,7 @@ label > input[type="radio"]:checked + i.fa:before {
 }
 .nav-tabs > li > a {
   border-radius: 0;
+  margin-right: 0;
   transition-property: color, background-color, border-color, box-shadow;
   transition-timing-function: ease;
   transition-duration: 0.3s;
@@ -582,4 +583,12 @@ label > input[type="radio"]:checked + i.fa:before {
   cursor: default;
   background-color: rgba(0, 166, 156, 0.5);
   border: 1px solid transparent;
+}
+.file-preview,
+.file-preview-frame {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0 !important;
+}
+.file-preview-frame {
+  box-shadow: none;
 }

@@ -470,7 +470,7 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
   > thead > tr > td,
   > tbody > tr > td,
   > tfoot > tr > td {
-    border: 1px solid darken(@default-color, 70%);
+    border: 1px solid darken(@link-color, 18%);
   }
 
   > thead > tr > th,
@@ -485,7 +485,7 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
   > caption + thead > tr:first-child > td,
   > colgroup + thead > tr:first-child > td,
   > thead:first-child > tr:first-child > td {
-    border-top: 1px solid darken(@default-color, 70%);
+    border-top: 1px solid darken(@link-color, 18%);
   }
 }
 
@@ -640,6 +640,7 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
 
   > li > a {
     border-radius: 0;
+    margin-right: 0;
     .transitioned
   }
 
@@ -661,4 +662,13 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
     border: 1px solid transparent;
   }
 
+}
+
+.file-preview, .file-preview-frame {
+  border: 1px solid fade(@default-color, 30%);
+  border-radius: 0 !important;
+}
+
+.file-preview-frame {
+  box-shadow: none;
 }
