@@ -12,6 +12,7 @@ use Yii;
  * @property string $default_value
  * @property integer $fid_type
  * @property integer $fid_quest
+ * @property string $code
  *
  * @property EnumValue[] $enumValues
  * @property ParameterType $type
@@ -33,7 +34,7 @@ class Parameter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fid_type', 'fid_quest'], 'required'],
+            [['fid_type', 'fid_quest', 'code'], 'required'],
             [['fid_type', 'fid_quest'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['default_value'], 'string', 'max' => 5000],
@@ -48,11 +49,14 @@ class Parameter extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_Parameter' => 'Id  Parameter',
-            'name' => 'Name',
-            'default_value' => 'Default Value',
-            'fid_type' => 'Fid Type',
-            'fid_quest' => 'Fid Quest',
+            'id_Parameter' => 'Id',
+            'name' => 'Название',
+            'default_value' => 'По умолчанию',
+            'fid_type' => 'Тип',
+            'type' => 'Тип',
+            'fid_quest' => 'Квест',
+            'quest' => 'Квест',
+            'code' => 'Код',
         ];
     }
 

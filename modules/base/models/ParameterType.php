@@ -40,9 +40,9 @@ class ParameterType extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_ParameterType' => 'Id  Parameter Type',
-            'name' => 'Name',
-            'class_name' => 'Class Name',
+            'id_ParameterType' => 'Id',
+            'name' => 'Название',
+            'class_name' => 'Класс',
         ];
     }
 

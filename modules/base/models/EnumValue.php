@@ -43,10 +43,11 @@ class EnumValue extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_Enumeration' => 'Id  Enumeration',
-            'text' => 'Text',
-            'fid_parameter' => 'Fid Parameter',
-            'number_value' => 'Number Value',
+            'id_Enumeration' => 'Id',
+            'text' => 'Подпись',
+            'fid_parameter' => 'Параметр',
+            'parameter' => 'Параметр',
+            'number_value' => 'Числовое значение',
         ];
     }
 
