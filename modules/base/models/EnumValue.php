@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id_Enumeration
  * @property string $text
- * @property integer $fid_parameter
+ * @property integer $parameter
  * @property integer $number_value
  *
  * @property Parameter $fidParameter
@@ -53,7 +53,7 @@ class EnumValue extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFidParameter()
+    public function getParameter()
     {
         return $this->hasOne(Parameter::className(), ['id_Parameter' => 'fid_parameter']);
     }

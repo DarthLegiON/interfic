@@ -14,9 +14,8 @@ use Yii;
  * @property integer $fid_quest
  *
  * @property EnumValue[] $enumValues
- * @property ParameterType $fidType
- * @property QuestVersion $fidQuest
- * @property ParameterValue[] $parametersValues
+ * @property ParameterType $type
+ * @property QuestVersion $quest
  */
 class Parameter extends \yii\db\ActiveRecord
 {
@@ -84,8 +83,8 @@ class Parameter extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getParametersValues()
+    /*public function getParametersValues()
     {
-        return $this->hasMany(ParametersValues::className(), ['fid_Parameter' => 'id_Parameter']);
-    }
+        return $this->hasMany(ParameterValues::className(), ['fid_Parameter' => 'id_Parameter']);
+    }*/
 }
