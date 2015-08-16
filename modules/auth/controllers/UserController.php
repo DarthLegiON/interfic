@@ -192,6 +192,7 @@ class UserController extends Controller
         $userModel->login = $form->username;
         $userModel->ip_address = Yii::$app->request->getUserIP();
         $userModel->email = $form->email;
+        $userModel->registration_time = (new \DateTime('now'))->format('Y-m-d H:i:s');
         $userModel->password_hash = Yii::$app->getSecurity()->generatePasswordHash($form->password);
         if (isset($form->avatar)) {
             $userModel->avatar = $this->saveAvatar(UploadedFile::getInstance($form, 'avatar'));
