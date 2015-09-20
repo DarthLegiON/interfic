@@ -1,15 +1,16 @@
 <?php
 
 use app\modules\base\models\QuestVersion;
-use app\modules\editor\models\VersionEditForm;
 
 /** @var QuestVersion $version */
-/** @var VersionEditForm $versionForm */
+/** @var \yii\data\ActiveDataProvider $parameters */
 
 
 echo $this->render('@app/modules/editor/views/common/version-main', [
-    'active' => 'info',
-    'versionForm' => $versionForm,
+    'active' => 'parameters',
+    'versionForm' => null,
     'version' => $version,
-    'data' => [],
+    'data' => [
+        'parameters' => $parameters,
+    ],
 ]);

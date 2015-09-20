@@ -32,7 +32,7 @@ a:focus {
   color: rgba(255, 255, 255, 0.5);
 }
 .text-primary {
-  color: #005cba;
+  color: #0053ce;
 }
 .text-success {
   color: #5cb85c;
@@ -75,9 +75,12 @@ a:focus {
   transition-timing-function: ease;
   transition-duration: 0.3s;
 }
-.btn,
 .form-control {
   background-color: rgba(0, 0, 0, 0.2);
+  border-width: 0 0 1px 0;
+}
+.btn {
+  background-color: transparent;
 }
 .breadcrumb {
   background: transparent;
@@ -88,9 +91,11 @@ a:focus {
 .btn-default,
 .btn[disabled],
 .btn[disabled]:hover,
-.btn[disabled]:active {
+.btn[disabled]:active,
+.btn[disabled]:focus {
   color: white;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: transparent;
+  background: transparent;
 }
 .btn-default:hover,
 .btn-default:active,
@@ -109,14 +114,14 @@ a:focus {
   color: white;
 }
 .btn-primary {
-  color: #005cba;
-  border-color: rgba(0, 92, 186, 0.5);
+  color: #0053ce;
+  border-color: transparent;
 }
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
   border-color: transparent;
-  background: rgba(0, 92, 186, 0.5);
+  background: rgba(0, 83, 206, 0.5);
   color: #ffffff;
 }
 .btn-primary:active:hover,
@@ -124,13 +129,13 @@ a:focus {
 .btn-primary:focus:hover,
 .btn-primary.active:focus,
 .btn-primary:active:focus {
-  border-color: rgba(0, 92, 186, 0.6);
-  background: rgba(0, 92, 186, 0.6);
+  border-color: rgba(0, 83, 206, 0.6);
+  background: rgba(0, 83, 206, 0.6);
   color: #ffffff;
 }
 .btn-success {
   color: #5cb85c;
-  border-color: rgba(92, 184, 92, 0.3);
+  border-color: transparent;
 }
 .btn-success:hover,
 .btn-success:active,
@@ -150,7 +155,7 @@ a:focus {
 }
 .btn-danger {
   color: #d92b21;
-  border-color: rgba(217, 43, 33, 0.3);
+  border-color: transparent;
 }
 .btn-danger:hover,
 .btn-danger:active,
@@ -170,7 +175,7 @@ a:focus {
 }
 .btn-warning {
   color: #f09c1f;
-  border-color: rgba(240, 156, 31, 0.3);
+  border-color: transparent;
 }
 .btn-warning:hover,
 .btn-warning:active,
@@ -190,7 +195,7 @@ a:focus {
 }
 .btn-info {
   color: #00a69c;
-  border-color: rgba(0, 166, 156, 0.3);
+  border-color: transparent;
 }
 .btn-info:hover,
 .btn-info:active,
@@ -404,7 +409,7 @@ label > input[type="radio"]:checked + i.fa:before {
 .table > tbody tr.primary td,
 .table > thead td.primary,
 .table > tbody td.primary {
-  background-color: rgba(0, 92, 186, 0.2);
+  background-color: rgba(0, 83, 206, 0.2);
 }
 .table > thead tr.success td,
 .table > tbody tr.success td,

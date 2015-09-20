@@ -2,7 +2,10 @@
 
 namespace app\modules\base\models;
 
+use app\modules\base\models\interfaces\Restricted;
+use app\modules\editor\models\ParameterEditForm;
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "Parameters".
@@ -17,8 +20,9 @@ use Yii;
  * @property EnumValue[] $enumValues
  * @property ParameterType $type
  * @property QuestVersion $quest
+ * @property mixed canDelete
  */
-class Parameter extends \yii\db\ActiveRecord
+class Parameter extends \yii\db\ActiveRecord implements Restricted
 {
     /**
      * @inheritdoc
@@ -26,6 +30,23 @@ class Parameter extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Parameters';
+    }
+
+    /**
+     * @param integer $versionId
+     * @return ActiveDataProvider
+     */
+    public static function findByVersionId($versionId)
+    {
+        $query = static::find()
+            ->where(['fid_quest' => $versionId]);
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
     }
 
     /**
@@ -91,4 +112,26 @@ class Parameter extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ParameterValues::className(), ['fid_Parameter' => 'id_Parameter']);
     }*/
+    /**
+     * Проверяет, есть ли у пользователя доступ к записи
+     * @return bool
+     */
+    public function checkPermission()
+    {
+        return $this->quest->checkPermission();
+    }
+
+    public function loadFromForm(ParameterEditForm $form)
+    {
+        $this->name = $form->name;
+        $this->default_value = $form->defaultValue;
+        $this->fid_type = $form->type;
+        $this->fid_quest = $form->fid_quest;
+        $this->code = $form->code;
+    }
+
+    public function getCanDelete()
+    {
+        return !$this->quest->isProduction;
+    }
 }

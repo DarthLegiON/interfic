@@ -27,6 +27,8 @@ use yii\data\ActiveDataProvider;
  * @property boolean isProduction
  * @property string startVersionCode
  * @property string creatorUsername
+ * @property Parameter[] parameters
+ * @property integer parametersCount
  */
 class QuestVersion extends \yii\db\ActiveRecord implements Restricted
 {
@@ -130,6 +132,16 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
             return null;
         }
 
+    }
+
+    public function getParameters()
+    {
+        return $this->hasMany(Parameter::className(), ['fid_quest' => 'id_Quest_Version']);
+    }
+
+    public function getParametersCount()
+    {
+        return count($this->parameters);
     }
 
     /**
