@@ -33,7 +33,7 @@ class ParameterEditForm extends Model
             [['id_parameter', 'fid_quest'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['code'], 'string', 'max' => 50],
-            [['code'], 'match', 'pattern' => '/^[a-zA-Z][a-zA-Z\d]*$/'],
+            [['code'], 'match', 'pattern' => '/^[a-zA-Z\_][a-zA-Z\_\d]*$/'],
             [['defaultValue'], 'string', 'max' => 5000],
             [['code'], 'checkUniqueCode'],
         ];
@@ -77,6 +77,9 @@ class ParameterEditForm extends Model
         $this->fid_quest = $record->fid_quest;
     }
 
+    /**
+     * Проверяет код на уникальность
+     */
     public function checkUniqueCode()
     {
         $query = Parameter::find()

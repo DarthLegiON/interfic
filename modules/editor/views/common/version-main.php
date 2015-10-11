@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = 'Версия ' . $version->versionCode;
             'url' => '#',
         ],
         [
-            'label' => 'Параметры ' . Html::tag('span', $version->parametersCount, ['class' => 'badge']),
+            'label' => 'Параметры' . Html::tag('span', $version->parametersCount, ['class' => 'badge']),
             'content' => $active === 'parameters'
                 ? $this->render('../parameters/list', ['version' => $version, 'dataProvider' => $data['parameters']])
                 : null,

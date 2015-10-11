@@ -573,6 +573,9 @@ label > input[type="radio"]:checked + i.fa:before {
   transition-timing-function: ease;
   transition-duration: 0.3s;
 }
+.nav-tabs > li .badge {
+  margin-left: 3px;
+}
 .nav-tabs > li > a:hover {
   border-color: transparent;
 }
