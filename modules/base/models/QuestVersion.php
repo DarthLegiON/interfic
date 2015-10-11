@@ -6,7 +6,10 @@ use app\modules\base\models\interfaces\Restricted;
 use app\modules\editor\models\VersionCreateForm;
 use DateTimeZone;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "Quest_Versions".
@@ -52,6 +55,20 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
                 'pageSize' => 10,
             ],
         ]);
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'save_date',
+                'updatedAtAttribute' => 'save_date',
+                'value' => function () {
+                    return date('Y-m-d H:i:s');
+                }
+            ],
+        ];
     }
 
     /**
@@ -157,7 +174,6 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
         $newVersion->version_name = $form->versionName;
         $newVersion->fid_creator_user = Yii::$app->user->id;
         $newVersion->fid_start_version = $this->id_Quest_Version;
-        $newVersion->save_date = (new \DateTime('now'))->format('Y-m-d H:i:s');
         $newVersion->save();
 
         if ($form->isTest) {
@@ -283,6 +299,4 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
             $transaction->commit();
         }
     }
-
-
 }

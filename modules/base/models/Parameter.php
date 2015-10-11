@@ -5,7 +5,9 @@ namespace app\modules\base\models;
 use app\modules\base\models\interfaces\Restricted;
 use app\modules\editor\models\ParameterEditForm;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "Parameters".
@@ -134,4 +136,15 @@ class Parameter extends \yii\db\ActiveRecord implements Restricted
     {
         return !$this->quest->isProduction;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->quest->save();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+
 }

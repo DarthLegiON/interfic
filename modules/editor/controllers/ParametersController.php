@@ -78,7 +78,6 @@ class ParametersController extends BaseController
                     ]);
                 }
             } else {
-
                 if (isset($id_current)) {
                     /** @var Parameter $current */
                     $current = Parameter::findOne(['id_Parameter' => $id_current]);
