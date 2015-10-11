@@ -2,6 +2,7 @@
 
 namespace app\modules\base\models;
 
+use app\modules\base\models\interfaces\Restricted;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -17,7 +18,7 @@ use yii\data\ActiveDataProvider;
  * @property integer $versionCode
  * @property integer $creatorUsername
  */
-class Quest extends \yii\db\ActiveRecord
+class Quest extends \yii\db\ActiveRecord implements Restricted
 {
     /**
      * @var QuestVersion Актуальная версия (test или production), кэшируется
@@ -30,6 +31,28 @@ class Quest extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Quests';
+    }
+
+    /**
+     * Получает все квесты
+     * @return ActiveDataProvider
+     */
+    public static function searchAll()
+    {
+        $query = self::find();
+
+        if (!Yii::$app->user->can('manageQuests')) {
+            $query->where(['fid_creator_user' => Yii::$app->user->id])
+                ->orWhere('fid_production_version is not null');
+        }
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
     }
 
     /**
@@ -60,6 +83,15 @@ class Quest extends \yii\db\ActiveRecord
     }
 
     /**
+     * Возвращает имя квеста (по актуальной версии)
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getActualVersion()->name;
+    }
+
+    /**
      * Возвращает актуальную версию (релиз или последнюю тестовую)
      * @return QuestVersion
      */
@@ -70,15 +102,6 @@ class Quest extends \yii\db\ActiveRecord
             $this->actualVersion = $this->hasOne(QuestVersion::className(), ['id_Quest_Version' => $field])->all()[0];
         }
         return $this->actualVersion;
-    }
-
-    /**
-     * Возвращает имя квеста (по актуальной версии)
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->getActualVersion()->name;
     }
 
     /**
@@ -96,7 +119,7 @@ class Quest extends \yii\db\ActiveRecord
      */
     public function getVersionCode()
     {
-        return $this->getActualVersion()->release . '.' . $this->getActualVersion()->iteration;
+        return $this->getActualVersion()->versionCode;
     }
 
     public function getCreatorUsername()
@@ -112,24 +135,25 @@ class Quest extends \yii\db\ActiveRecord
     }
 
     /**
-     * Получает все квесты
-     * @return ActiveDataProvider
+     * Возвращает список версий квеста в формате id => "код_версии (имя_версии)"
+     * @return string[]
      */
-    public static function searchAll()
+    public function getVersionsShortList()
     {
-        $query = self::find();
-
-        if (!Yii::$app->user->can('manageQuests')) {
-            $query->where(['fid_creator_user' => Yii::$app->user->id])
-                ->orWhere('fid_production_version is not null');
+        $versionsList = QuestVersion::find()->where(['fid_quest' => $this->id_quest])->orderBy(['save_date' => SORT_DESC])->all();
+        $result = [];
+        foreach ($versionsList as $version) {
+            $result[$version->id_Quest_Version] = $version->versionCode . ' (' . $version->version_name . ')';
         }
+        return $result;
+    }
 
-        return new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
-
+    /**
+     * @inheritdoc
+     */
+    public function checkPermission()
+    {
+        return Yii::$app->user->can('manageQuests')
+        || Yii::$app->user->id == $this->fid_creator_user;
     }
 }

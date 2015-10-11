@@ -4,13 +4,11 @@ namespace app\modules\editor\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use yii\web\Controller;
 use app\modules\base\models\Quest;
 use app\modules\base\models\QuestVersion;
 use app\modules\editor\models\QuestCreateForm;
 
-class DefaultController extends Controller
+class QuestController extends BaseController
 {
     public function behaviors()
     {
@@ -52,6 +50,8 @@ class DefaultController extends Controller
                     'name' => $model->name,
                     'description' => $model->description,
                     'save_date' => (new \DateTime('now'))->format('Y-m-d H:i:s'),
+                    'fid_creator_user' => Yii::$app->user->id,
+                    'version_name' => 'Начальная версия',
                 ]);
                 $questVersion->save();
                 $quest->fid_test_version = $questVersion->id_Quest_Version;
@@ -68,18 +68,17 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
-        $query = Quest::find()->where(['id_quest' => $id]);
+        /** @var Quest $quest */
+        $quest = Quest::findOne(['id_quest' => $id]);
+        if ($this->checkAccess($quest)) {
 
-        if (!Yii::$app->user->can('manageQuests')) {
-            $query->andWhere(['fid_creator_user' => Yii::$app->user->id]);
+            $versions = QuestVersion::findByQuestId($id);
+
+            return $this->render('view', [
+                'quest' => $quest,
+                'versions' => $versions,
+            ]);
         }
-
-        $versions = QuestVersion::findByQuestId($id);
-
-        return $this->render('view', [
-            'quest' => $query->all()[0],
-            'versions' => $versions,
-        ]);
 
     }
 }

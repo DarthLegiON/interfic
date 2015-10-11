@@ -16,6 +16,8 @@ use yii\web\Application;
  * @property string $email
  * @property string $ip_address
  * @property string $bio
+ * @property string $registration_time
+ * @property string $regDuration
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -35,6 +37,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [['login', 'password_hash', 'email', 'ip_address'], 'required'],
             [['bio'], 'string'],
+            [['registration_time'], 'safe'],
             [['login'], 'string', 'max' => 45],
             [['password_hash'], 'string', 'max' => 60],
             [['avatar'], 'string', 'max' => 256],
@@ -62,6 +65,7 @@ class User extends \yii\db\ActiveRecord
             'avatarFullPath' => 'Аватар',
             'quests' => 'Квесты',
             'gamesCount' => 'Сыграно игр',
+            'registration_time' => 'Дата-время регистрации',
         ];
     }
 
@@ -83,6 +87,13 @@ class User extends \yii\db\ActiveRecord
     public function getGamesCount()
     {
         return 0;
+    }
+
+    public function getRegDuration()
+    {
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->registration_time)->setTime(0, 0, 0);
+        return $date->diff(new \DateTime('now'))->days;
+        //return null;
     }
 
     public function getAvatarFullPath()

@@ -36,8 +36,21 @@ $form = ActiveForm::begin([
         echo $form->field($model, 'role')->radioList(User::getRolesList(), ['separator' => '<br>']);
     }
 
-    echo $form->field($model, 'avatar')->fileInput();
-    echo '<input type="hidden" name="MAX_FILE_SIZE" value="200000"/>';
+    echo $form->field($model, 'avatar', [
+        'template' => "{label}\n<div class=\"col-lg-7\">{input}</div>\n<div class=\"col-lg-3\">{error}</div>
+                                <div class=\"col-lg-offset-2 col-lg-12 hint-block\">{hint}</div>",
+    ])->widget(\kartik\widgets\FileInput::className(), [
+        'pluginOptions' => [
+            'allowedFileTypes' => ['image'],
+            'allowedFileMimeTypes' => ['image/jpeg', 'image/png', 'image/gif'],
+            'browseIcon' => Icon::show('folder-open'),
+            'uploadIcon' => Icon::show('upload'),
+            'removeIcon' => Icon::show('trash'),
+            'maxFileSize' => 200,
+            'maxImageWidth' => 160,
+            'maxImageHeight' => 160,
+        ]
+    ]);
     echo '<br>';
     echo $form->field($model, 'passwordOld')->passwordInput();
     echo $form->field($model, 'passwordNew')->passwordInput();
@@ -74,5 +87,5 @@ else :
         <?= Html::encode($this->title) ?>
     </h1>
 
-<? endif; ?>
+<?php endif; ?>
 

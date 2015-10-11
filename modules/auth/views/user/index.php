@@ -6,9 +6,10 @@
  * Time: 12:10
  */
 
+use app\components\widgets\ActionButton;
 use app\modules\base\models\User;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,6 +28,7 @@ $admin = Yii::$app->user->can('manageUsers');
         'tableOptions' => ['class' => 'table table-bordered'],
         'filterModel' => $searchModel,
         'emptyCell' => '',
+        'export' => false,
         'rowOptions' => ['class' => 'row-vmiddle'],
         'columns' => [
 
@@ -49,7 +51,11 @@ $admin = Yii::$app->user->can('manageUsers');
                 'value' => function ($model, $key, $index, $column) {
                     return $model->roleName;
                 },
-                'filter' => User::getRolesList(),
+                'filterType' => GridView::FILTER_SELECT2,
+                'filterWidgetOptions' => [
+                    'data' => \yii\helpers\ArrayHelper::merge([null => 'Все'], User::getRolesList()),
+                    'theme' => 'interfic',
+                ],
             ],
             ['attribute' => 'gamesCount'],
             ['attribute' => 'email', 'visible' => $admin, 'format' => 'email'],
@@ -65,6 +71,16 @@ $admin = Yii::$app->user->can('manageUsers');
                             return [];
                     }
                 },
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        return ActionButton::widget([
+                            'icon' => 'pencil',
+                            'url' => $url,
+                            'title' => 'Редактировать профиль',
+                            'buttonStyle' => 'btn-primary',
+                        ]);
+                    },
+                ],
                 'visible' => $admin,
             ],
         ]

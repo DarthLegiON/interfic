@@ -6,6 +6,8 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'app\modules\editor\controllers';
 
+    public $defaultRoute = 'quest';
+
     public function init()
     {
         parent::init();

@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -36,12 +37,26 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $form->field($model, 'passwordRepeat')->passwordInput() ?>
         <?= $form->field($model, 'email')->input('email') ?>
-        <?= $form->field($model, 'avatar')->fileInput() ?>
+        <?= $form->field($model, 'avatar', [
+            'template' => "{label}\n<div class=\"col-lg-7\">{input}</div>\n<div class=\"col-lg-3\">{error}</div>
+                                <div class=\"col-lg-offset-2 col-lg-12 hint-block\">{hint}</div>",
+        ])->widget(\kartik\widgets\FileInput::className(), [
+            'pluginOptions' => [
+                'allowedFileTypes' => ['image'],
+                'allowedFileMimeTypes' => ['image/jpeg', 'image/png', 'image/gif'],
+                'browseIcon' => Icon::show('folder-open'),
+                'uploadIcon' => Icon::show('upload'),
+                'removeIcon' => Icon::show('trash'),
+                'maxFileSize' => 200,
+                'maxImageWidth' => 160,
+                'maxImageHeight' => 160,
+            ]
+        ]); ?>
         <input type="hidden" name="MAX_FILE_SIZE" value="200000"/>
     
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton(Icon::show('check') . 'Зарегистрироваться', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
     <?php ActiveForm::end(); ?>

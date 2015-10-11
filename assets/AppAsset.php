@@ -18,11 +18,10 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/theme.css',
+        'css/bootstrap-theme.css',
         'css/site.css',
-        'css/interfic.css',
-        'css/theme1.css',
-        'css/redactor.css',
+        'css/plugins/redactor.css',
+        'css/plugins/select2.css'
     ];
     public $js = [
         'js/main.js'
@@ -31,5 +30,7 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'kartik\icons\FontAwesomeAsset',
+        'kartik\checkbox\CheckboxXAsset',
+        'huijiewei\bootboxjs\BootboxjsAsset'
     ];
 }

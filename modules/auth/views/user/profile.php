@@ -20,11 +20,11 @@ if (!empty($user)) :
 
         <h1>
             <?= Html::encode($this->title) ?>
-            <? if ($own || $admin) {
+            <?php if ($own || $admin) {
                 echo Html::a(Icon::show('pencil') . 'Редактировать...', ['/auth/user/edit-profile?id=' . $user->id_User], ['class' => 'btn btn-default btn-change-avatar']);
             } ?>
         </h1>
-
+        <hr>
 
         <div class="full-avatar pull-left text-left">
             <?= ($user->avatar)
@@ -32,57 +32,53 @@ if (!empty($user)) :
                     : Html::tag('div', 'Нет аватара')
             ?>
         </div>
-        <? if ($own) : ?>
-        <p>
-            <b>Персональный код:</b> <?= $user->id_User; ?>
-        </p>
-        <? endif ?>
-        <p>
-            <b>Группа:</b> <?= $user->getRoleName(); ?>
-        </p>
-        <p>
-            <b>Квесты:</b>&nbsp;
-            <? $userQuests = $user->getQuests();
-            if (count($userQuests) > 0) {
-                foreach ($user->getQuests() as $quest) {
-                    /** @TODO Вывести список игр со ссылками на страницы */
+        <dl class="dl-horizontal pull-left">
+            <?php if ($own) : ?>
+            <dt>Персональный код</dt>
+            <dd><?= $user->id_User; ?></dd>
+            <?php endif ?>
+            <dt>Группа</dt>
+            <dd><?= $user->getRoleName(); ?></dd>
+            <dt>Зарегистирован</dt>
+            <dd><?= Yii::$app->formatter->asDatetime($user->registration_time, 'php:d.m.Y H:i'); ?> (<?= $user->regDuration ?> дней)</dd>
+            <dt>Квесты</dt>
+            <dd>
+                <?php $userQuests = $user->getQuests();
+                if (count($userQuests) > 0) {
+                    foreach ($user->getQuests() as $quest) {
+                        /** @TODO Вывести список игр со ссылками на страницы */
+                    }
+                } else {
+                    echo 'нет';
                 }
-            } else {
-                echo 'нет';
-            }
-            ?>
-        </p>
-        <p>
-            <b>Сыграно игр:</b> <?= $user->getGamesCount(); ?>
-        </p>
+                ?>
+            </dd>
+            <dt>Сыграно игр</dt>
+            <dd><?= $user->getGamesCount(); ?></dd>
+        </dl>
         <div class="clearfix"></div>
-
-        <? if ($user->bio) : ?>
+        <hr>
+        <?php if ($user->bio) : ?>
         <h4>Подпись</h4>
         <div>
             <?= $user->bio ?>
         </div>
-        <? endif; ?>
+        <?php endif; ?>
 
-        <? if ($admin || $own) : ?>
+        <?php if ($admin || $own) : ?>
         <h4>Дополнительная информация</h4>
-            <table class="table">
-                <colgroup>
-                    <col width="250px">
-                </colgroup>
-                <tr>
-                    <th>Регистрационный E-mail:</th>
-                    <td><?= $user->email; ?></td>
-                </tr>
-                <tr>
-                    <th>Регистрационный IP:</th>
-                    <td><?= $user->ip_address; ?></td>
-                </tr>
-            </table>
-        <? endif; ?>
+
+        <dl class="dl-horizontal">
+            <dt>E-mail</dt>
+            <dd><?= $user->email; ?></dd>
+            <dt>IP</dt>
+            <dd><?= $user->ip_address; ?></dd>
+        </dl>
+
+        <?php endif; ?>
     </div>
 
-<? else :
+<?php else :
 
     $this->title = 'Пользователь не найден';
     $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
@@ -93,4 +89,4 @@ if (!empty($user)) :
         <?= Html::encode($this->title) ?>
     </h1>
 
- <? endif; ?>
+ <?php endif; ?>
