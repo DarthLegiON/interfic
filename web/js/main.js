@@ -25,3 +25,7 @@ $(document).on('ready', function () {
         }
     });
 });
+
+$(document).on('click', 'a[href][disabled]', function (e) {
+    e.preventDefault();
+});

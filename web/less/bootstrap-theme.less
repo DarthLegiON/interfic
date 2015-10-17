@@ -4,7 +4,7 @@
 
 @default-color: #FFFFFF;
 
-@primary-color: #005CBA;
+@primary-color: mix(#0000FF, @link-color, 50%);
 
 @success-color: #5CB85C;
 
@@ -84,8 +84,13 @@ a:hover, a:active, a:focus {
   .transitioned
 }
 
-.btn, .form-control {
+.form-control {
   background-color: fade(@dark-background-color, 20%);
+  border-width: 0 0 1px 0;
+}
+
+.btn {
+  background-color: transparent;
 }
 
 .breadcrumb {
@@ -100,9 +105,11 @@ a:hover, a:active, a:focus {
 .btn[disabled],
 .btn[disabled]:hover,
 .btn[disabled]:active,
+.btn[disabled]:focus
 {
   color: white;
-  border-color: fade(@default-color, 30%);
+  border-color: transparent;
+  background: transparent;
 }
 
 .btn-default:hover,
@@ -125,7 +132,7 @@ a:hover, a:active, a:focus {
 
 .btn-primary {
   color: @primary-color;
-  border-color: fade(@primary-color, 50%);
+  border-color: transparent;
 }
 
 .btn-primary:hover,
@@ -148,7 +155,7 @@ a:hover, a:active, a:focus {
 
 .btn-success {
   color: @success-color;
-  border-color: fade(@success-color, 30%);
+  border-color: transparent;
 }
 
 .btn-success:hover,
@@ -171,7 +178,7 @@ a:hover, a:active, a:focus {
 
 .btn-danger {
   color: @danger-color;
-  border-color: fade(@danger-color, 30%);
+  border-color: transparent;
 }
 
 .btn-danger:hover,
@@ -194,7 +201,7 @@ a:hover, a:active, a:focus {
 
 .btn-warning {
   color: @warning-color;
-  border-color: fade(@warning-color, 30%);
+  border-color: transparent;
 }
 
 .btn-warning:hover,
@@ -217,7 +224,7 @@ a:hover, a:active, a:focus {
 
 .btn-info {
   color: @info-color;
-  border-color: fade(@info-color, 30%);
+  border-color: transparent;
 }
 
 .btn-info:hover,
@@ -642,6 +649,12 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
     border-radius: 0;
     margin-right: 0;
     .transitioned
+  }
+
+  >li {
+    .badge {
+      margin-left: 3px;
+    }
   }
 
   > li > a:hover {

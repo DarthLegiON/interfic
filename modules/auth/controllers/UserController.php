@@ -187,23 +187,7 @@ class UserController extends Controller
      */
     private function registerUser($form)
     {
-        $userModel = new User();
-
-        $userModel->login = $form->username;
-        $userModel->ip_address = Yii::$app->request->getUserIP();
-        $userModel->email = $form->email;
-        $userModel->registration_time = (new \DateTime('now'))->format('Y-m-d H:i:s');
-        $userModel->password_hash = Yii::$app->getSecurity()->generatePasswordHash($form->password);
-        if (isset($form->avatar)) {
-            $userModel->avatar = $this->saveAvatar(UploadedFile::getInstance($form, 'avatar'));
-        }
-        if ($userModel->save()) {
-            Yii::$app->authManager->assign(Yii::$app->authManager->getRole('player'), $userModel->id_User);
-            return $userModel->id_User;
-        } else {
-            return false;
-        }
-
+        return User::registerUser($form);
     }
 
     /**
@@ -223,9 +207,9 @@ class UserController extends Controller
         $avatarFile = UploadedFile::getInstance($form, 'avatar');
         if (isset($avatarFile)) {
             if (isset($userModel->avatar)) {
-                unlink(Yii::$app->params['avatars-path'] . $userModel->avatar);
+                @unlink(Yii::$app->params['avatars-path'] . $userModel->avatar);
             }
-            $userModel->avatar = $this->saveAvatar($avatarFile);
+            $userModel->avatar = User::saveAvatar($avatarFile);
         }
 
         if (isset($form->role) && Yii::$app->user->can('manageUsers')) {
@@ -239,19 +223,7 @@ class UserController extends Controller
         return $userModel->save();
     }
 
-    /**
-     * Сохраняет в особую папку аватар пользователя и возвращает ссылку на этот файл
-     * @param UploadedFile $file
-     * @return string Имя файла
-     */
-    private function saveAvatar($file)
-    {
-        if (isset($file)) {
-            $filename = uniqid('av_') . '.' . $file->extension;
-            $file->saveAs(Yii::$app->params['avatars-path'] . $filename);
-            return $filename;
-        }
-    }
+
 
     /**
      * @param $id

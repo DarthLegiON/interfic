@@ -100,7 +100,7 @@ class ActionButton extends Widget
                         ' ',
                         array_merge(
                             ['btn btn-xs btn-grid-action', $this->buttonStyle, $this->getClass()],
-                            is_array($this->options['class'])
+                            array_key_exists('class', $this->options) && is_array($this->options['class'])
                                 ? $this->options['class']
                                 : []
                         )

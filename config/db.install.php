@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=interfic_test',
-    'username' => 'root',
-    'password' => '',
+    'dsn' => 'mysql:host={host};dbname={name}',
+    'username' => '{username}',
+    'password' => '{password}',
     'charset' => 'utf8',
     'enableSchemaCache' => true,
 ];
