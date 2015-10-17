@@ -10,10 +10,16 @@ namespace app\modules\editor\models;
 
 
 use app\modules\base\models\Parameter;
+use app\modules\base\models\QuestVersion;
 use yii\base\Model;
 use yii\db\Query;
 use yii\validators\RegularExpressionValidator;
 
+/**
+ * Форма редактирования параметра
+ * @property QuestVersion $quest
+ * @package app\modules\editor\models
+ */
 class ParameterEditForm extends Model
 {
     public $id_parameter;
@@ -89,6 +95,14 @@ class ParameterEditForm extends Model
         if (count($query->all()) > 0) {
             $this->addError('code', 'Код должен быть уникальным для данного квеста');
         }
+    }
+
+    /**
+     * @return QuestVersion
+     */
+    public function getQuest()
+    {
+        return QuestVersion::findOne($this->fid_quest);
     }
 
 }

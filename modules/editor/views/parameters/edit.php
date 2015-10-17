@@ -19,7 +19,7 @@ use kartik\widgets\Select2;
 
 $this->title = isset($model->id_parameter) ? 'Редактирование параметра' : 'Новый параметр';
 $this->params['breadcrumbs'][] = ['label' => 'Редактор квестов', 'url' => ['quest/index']];
-$this->params['breadcrumbs'][] = ['label' => 'Редактирование', 'url' => ['parameters/index', 'id_version' => Yii::$app->request->get('id_version')]];
+$this->params['breadcrumbs'][] = ['label' => 'Редактирование', 'url' => ['parameters/index', 'id_version' => $model->quest->id_Quest_Version]];
 
 $this->params['breadcrumbs'][] = $this->title;
 

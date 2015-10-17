@@ -71,8 +71,28 @@ abstract class ModelCollection extends Model implements ArrayModelInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function attributeLabels()
+    {
+        $modelName = static::modelClassName();
+        return (new $modelName)->attributeLabels();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeHints()
+    {
+        $modelName = static::modelClassName();
+        return (new $modelName)->attributeHints();
+    }
+
+
+    /**
      * Заполняет объект данными из массива объектов
      * @param Model[] $array
+     * @return ModelCollection
      */
     public static function fromModelsArray(array $array)
     {
