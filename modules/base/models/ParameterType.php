@@ -20,7 +20,7 @@ class ParameterType extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Parameters_Types';
+        return '{{%parameters_types}}';
     }
 
     /**

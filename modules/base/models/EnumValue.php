@@ -21,7 +21,7 @@ class EnumValue extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Enum_Values';
+        return '{{%enum_values}}';
     }
 
     /**

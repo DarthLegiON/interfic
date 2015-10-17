@@ -31,7 +31,7 @@ class Parameter extends \yii\db\ActiveRecord implements Restricted
      */
     public static function tableName()
     {
-        return 'Parameters';
+        return '{{%parameters}}';
     }
 
     /**

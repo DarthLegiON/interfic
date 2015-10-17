@@ -100,7 +100,7 @@ class RbacController extends \yii\console\Controller
                 'email' => $settings['email'],
             ]);
 
-            User::registerUser($form);
+            User::registerUser($form, 'admin');
 
             echo "User {$settings['login']} created, password: {$settings['password']}.\n";
         }

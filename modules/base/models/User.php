@@ -26,7 +26,7 @@ class User extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Users';
+        return '{{%users}}';
     }
 
     public static function registerUser($form, $role = 'player')

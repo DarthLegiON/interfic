@@ -30,7 +30,7 @@ class Quest extends \yii\db\ActiveRecord implements Restricted
      */
     public static function tableName()
     {
-        return 'Quests';
+        return '{{%quests}';
     }
 
     /**
