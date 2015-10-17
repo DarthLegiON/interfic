@@ -29,7 +29,7 @@ class User extends \yii\db\ActiveRecord
         return 'Users';
     }
 
-    public static function registerUser($form)
+    public static function registerUser($form, $role = 'player')
     {
         $userModel = new User();
 
@@ -46,7 +46,7 @@ class User extends \yii\db\ActiveRecord
             $userModel->avatar = self::saveAvatar(UploadedFile::getInstance($form, 'avatar'));
         }
         if ($userModel->save()) {
-            Yii::$app->authManager->assign(Yii::$app->authManager->getRole('player'), $userModel->id_User);
+            Yii::$app->authManager->assign(Yii::$app->authManager->getRole($role), $userModel->id_User);
             return $userModel->id_User;
         } else {
             return false;
