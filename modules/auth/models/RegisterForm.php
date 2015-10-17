@@ -9,7 +9,7 @@
 namespace app\modules\auth\models;
 
 use yii\base\Model;
-use app\modules\base\models\User;
+use app\modules\base\models\User as BaseUser;
 
 class RegisterForm extends Model {
 
@@ -81,7 +81,7 @@ class RegisterForm extends Model {
      */
     public function checkUsername($attribute, $params)
     {
-        $usersFound = User::findAll(['lower(login)' => strtolower($this->$attribute)]);
+        $usersFound = BaseUser::findAll(['lower(login)' => strtolower($this->$attribute)]);
         if (count($usersFound) > 0) {
             $this->addError($attribute, 'Логин уже занят');
         }
@@ -94,7 +94,7 @@ class RegisterForm extends Model {
      */
     public function checkEmail($attribute, $params)
     {
-        $usersFound = User::findAll(['email' => $this->$attribute]);
+        $usersFound = BaseUser::findAll(['email' => $this->$attribute]);
         if (count($usersFound) > 0) {
             $this->addError($attribute, 'E-mail уже занят');
         }
