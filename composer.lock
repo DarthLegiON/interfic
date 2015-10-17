@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f8e5cfd1275f8c199627f9b8ed91a0c1",
-    "content-hash": "a08f4c002f2b2850ea8bf20e31c9929d",
+    "hash": "43a9cf5af5aef92a5a76bcfbfe60be5b",
+    "content-hash": "05ddc408c0d888ac1e48fb4621ac991a",
     "packages": [
         {
             "name": "asofter/yii2-imperavi-redactor",
@@ -1943,12 +1943,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "fa6453b46b5392c06d3afb039896e0a328a8cbdf"
+                "reference": "53e1cc3ff9e0980e25a04e48b57786bb5b0fddf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/fa6453b46b5392c06d3afb039896e0a328a8cbdf",
-                "reference": "fa6453b46b5392c06d3afb039896e0a328a8cbdf",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/53e1cc3ff9e0980e25a04e48b57786bb5b0fddf9",
+                "reference": "53e1cc3ff9e0980e25a04e48b57786bb5b0fddf9",
                 "shasum": ""
             },
             "require": {
@@ -2024,7 +2024,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-10-11 07:58:42"
+            "time": "2015-10-15 09:53:59"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -2032,12 +2032,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "5ca562bcc759fbb1d9e3fe679529e44c912aaf05"
+                "reference": "7c6b244d9cfd58a5a10cad9853edc090ffd479b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/5ca562bcc759fbb1d9e3fe679529e44c912aaf05",
-                "reference": "5ca562bcc759fbb1d9e3fe679529e44c912aaf05",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/7c6b244d9cfd58a5a10cad9853edc090ffd479b1",
+                "reference": "7c6b244d9cfd58a5a10cad9853edc090ffd479b1",
                 "shasum": ""
             },
             "require": {
@@ -2074,7 +2074,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-10-08 09:33:22"
+            "time": "2015-10-15 16:22:38"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -2258,12 +2258,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "5c3fa245495903957df6737347cce04d0919a781"
+                "reference": "9198c2f7668b9ee494959f8ff7f5f6e6f65379ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5c3fa245495903957df6737347cce04d0919a781",
-                "reference": "5c3fa245495903957df6737347cce04d0919a781",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/9198c2f7668b9ee494959f8ff7f5f6e6f65379ca",
+                "reference": "9198c2f7668b9ee494959f8ff7f5f6e6f65379ca",
                 "shasum": ""
             },
             "require": {
@@ -2300,7 +2300,53 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-10-06 08:17:03"
+            "time": "2015-10-12 15:48:46"
+        },
+        {
+            "name": "insolita/yii2-migration-generator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Insolita/yii2-migrik.git",
+                "reference": "bbc19ccf949a4a4e9fe49719ba89480f0c2de732"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Insolita/yii2-migrik/zipball/bbc19ccf949a4a4e9fe49719ba89480f0c2de732",
+                "reference": "bbc19ccf949a4a4e9fe49719ba89480f0c2de732",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "yiisoft/yii2-gii": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "insolita\\migrik\\Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "insolita\\migrik\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "insolita",
+                    "email": "donnainsolita@gmail.com"
+                }
+            ],
+            "description": "gii tool for mass migration generation by Schema ",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-05-07 14:19:56"
         },
         {
             "name": "phpspec/php-diff",

@@ -6,11 +6,8 @@
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
+        "issues": "https://github.com/DarthLegiON/interfic/issues?state=open",
+        "source": "https://github.com/DarthLegiON/interfic"
     },
     "minimum-stability": "dev",
     "require": {
@@ -30,6 +27,7 @@
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
+        "insolita/yii2-migration-generator": "*",
         "yiisoft/yii2-faker": "*"
     },
     "config": {
