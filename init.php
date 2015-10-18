@@ -1,5 +1,7 @@
 <?php
 
+$params = getParams();
+
 initDatabase();
 
 
@@ -27,8 +29,9 @@ function getParams()
 
 function initDatabase()
 {
+    global $params;
+
     $installTemplate = file_get_contents('./config/db.install.php');
-    $params = getParams();
 
     foreach ($params as $key => $value) {
         if (substr($key, 0, 3) == 'db_') {

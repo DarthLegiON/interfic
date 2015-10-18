@@ -26,7 +26,7 @@ class User extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Users';
+        return '{{%users}}';
     }
 
     public static function registerUser($form, $role = 'player')
@@ -35,7 +35,7 @@ class User extends \yii\db\ActiveRecord
 
         $userModel->login = $form->username;
         if (Yii::$app->request instanceof \yii\web\Request) {
-            $userModel->ip_address = Yii::$app->request->getUserIP();
+            $userModel->ip_address = \app\modules\auth\models\User::getIp();
         } else {
             $userModel->ip_address = '127.0.0.1';
         }
@@ -100,7 +100,7 @@ class User extends \yii\db\ActiveRecord
             [['avatar'], 'string', 'max' => 256],
             [['code'], 'string', 'max' => 10],
             [['email'], 'string', 'max' => 100],
-            [['ip_address'], 'string', 'max' => 11]
+            [['ip_address'], 'string', 'max' => 15]
         ];
     }
 

@@ -6,38 +6,38 @@ class m151017_131030_Relations extends Migration
 {
     public function safeUp()
     {
-        $this->addForeignKey('fk_Actions_fid_quest', '{{%actions}}', 'fid_quest', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Answers_fid_quest', '{{%answers}}', 'fid_quest', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Answers_fid_action', '{{%answers}}', 'fid_action', 'Actions', 'id_Action');
-        $this->addForeignKey('fk_Constants_fid_quest', '{{%constants}}', 'fid_quest', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Constants_fid_action', '{{%constants}}', 'fid_action', 'Actions', 'id_Action');
-        $this->addForeignKey('fk_Enum_Values_fid_parameter', '{{%enum_values}}', 'fid_parameter', 'Parameters', 'id_Parameter');
-        $this->addForeignKey('fk_Game_Instances_fid_user', '{{%game_instances}}', 'fid_user', 'Users', 'id_User');
-        $this->addForeignKey('fk_Game_Instances_fid_game', '{{%game_instances}}', 'fid_game', 'Games', 'id_game');
-        $this->addForeignKey('fk_Gameplay_States_fid_game_instance', '{{%gameplay_states}}', 'fid_game_instance', 'Game_Instances', 'id_game_instance');
-        $this->addForeignKey('fk_Gameplay_States_fid_Stage', '{{%gameplay_states}}', 'fid_Stage', 'Stages', 'id_Stage');
-        $this->addForeignKey('fk_Games_fid_quest', '{{%games}}', 'fid_quest', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Parameters_fid_type', '{{%parameters}}', 'fid_type', 'Parameters_Types', 'id_ParameterType');
-        $this->addForeignKey('fk_Parameters_fid_quest', '{{%parameters}}', 'fid_quest', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Parameters_Values_fid_Gameplay_State', '{{%parameters_values}}', 'fid_Gameplay_State', 'Gameplay_States', 'id_Gameplay_State');
-        $this->addForeignKey('fk_Parameters_Values_fid_Parameter', '{{%parameters_values}}', 'fid_Parameter', 'Parameters', 'id_Parameter');
-        $this->addForeignKey('fk_Quest_Versions_fid_quest', '{{%quest_versions}}', 'fid_quest', 'Quests', 'id_quest');
-        $this->addForeignKey('fk_Quest_Versions_fid_creator_user', '{{%quest_versions}}', 'fid_creator_user', 'Users', 'id_User');
-        $this->addForeignKey('fk_Quest_Versions_fid_start_version', '{{%quest_versions}}', 'fid_start_version', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Quests_fid_production_version', '{{%quests}}', 'fid_production_version', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Quests_fid_creator_user', '{{%quests}}', 'fid_creator_user', 'Users', 'id_User');
-        $this->addForeignKey('fk_Quests_fid_test_version', '{{%quests}}', 'fid_test_version', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Rel_Stages_Answers_fid_answer', '{{%rel_stages_answers}}', 'fid_answer', 'Answers', 'id_Answer');
-        $this->addForeignKey('fk_Rel_Stages_Answers_fid_stage', '{{%rel_stages_answers}}', 'fid_stage', 'Stages', 'id_Stage');
-        $this->addForeignKey('fk_Rel_Stages_Templates_fid_stage', '{{%rel_stages_templates}}', 'fid_stage', 'Stages', 'id_Stage');
-        $this->addForeignKey('fk_Rel_Stages_Templates_fid_template', '{{%rel_stages_templates}}', 'fid_template', 'Templates', 'id_template');
-        $this->addForeignKey('fk_Stages_fid_quest_version', '{{%stages}}', 'fid_quest_version', 'Quest_Versions', 'id_Quest_Version');
-        $this->addForeignKey('fk_Stages_fid_params_template', '{{%stages}}', 'fid_params_template', 'Templates', 'id_template');
-        $this->addForeignKey('fk_Stages_fid_after_action', '{{%stages}}', 'fid_after_action', 'Actions', 'id_Action');
-        $this->addForeignKey('fk_Stages_fid_before_action', '{{%stages}}', 'fid_before_action', 'Actions', 'id_Action');
-        $this->addForeignKey('fk_Stages_fid_picture', '{{%stages}}', 'fid_picture', 'Pictures', 'id_Picture');
-        $this->addForeignKey('fk_Template_Variables_fid_template', '{{%template_variables}}', 'fid_template', 'Templates', 'id_template');
-        $this->addForeignKey('fk_Templates_fid_quest_version', '{{%templates}}', 'fid_quest_version', 'Quest_Versions', 'id_Quest_Version');
+        $this->addForeignKey('fk_Actions_fid_quest', '{{%actions}}', 'fid_quest', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Answers_fid_quest', '{{%answers}}', 'fid_quest', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Answers_fid_action', '{{%answers}}', 'fid_action', '{{%actions}}', 'id_Action');
+        $this->addForeignKey('fk_Constants_fid_quest', '{{%constants}}', 'fid_quest', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Constants_fid_action', '{{%constants}}', 'fid_action', '{{%actions}}', 'id_Action');
+        $this->addForeignKey('fk_Enum_Values_fid_parameter', '{{%enum_values}}', 'fid_parameter', '{{%parameters}}', 'id_Parameter');
+        $this->addForeignKey('fk_Game_Instances_fid_user', '{{%game_instances}}', 'fid_user', '{{%users}}', 'id_User');
+        $this->addForeignKey('fk_Game_Instances_fid_game', '{{%game_instances}}', 'fid_game', '{{%games}}', 'id_game');
+        $this->addForeignKey('fk_Gameplay_States_fid_game_instance', '{{%gameplay_states}}', 'fid_game_instance', '{{%game_instances}}', 'id_game_instance');
+        $this->addForeignKey('fk_Gameplay_States_fid_Stage', '{{%gameplay_states}}', 'fid_Stage', '{{%stages}}', 'id_Stage');
+        $this->addForeignKey('fk_Games_fid_quest', '{{%games}}', 'fid_quest', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Parameters_fid_type', '{{%parameters}}', 'fid_type', '{{%parameters_types}}', 'id_ParameterType');
+        $this->addForeignKey('fk_Parameters_fid_quest', '{{%parameters}}', 'fid_quest', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Parameters_Values_fid_Gameplay_State', '{{%parameters_values}}', 'fid_Gameplay_State', '{{%gameplay_states}}', 'id_Gameplay_State');
+        $this->addForeignKey('fk_Parameters_Values_fid_Parameter', '{{%parameters_values}}', 'fid_Parameter', '{{%parameters}}', 'id_Parameter');
+        $this->addForeignKey('fk_Quest_Versions_fid_quest', '{{%quest_versions}}', 'fid_quest', '{{%quests}}', 'id_quest');
+        $this->addForeignKey('fk_Quest_Versions_fid_creator_user', '{{%quest_versions}}', 'fid_creator_user', '{{%users}}', 'id_User');
+        $this->addForeignKey('fk_Quest_Versions_fid_start_version', '{{%quest_versions}}', 'fid_start_version', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Quests_fid_production_version', '{{%quests}}', 'fid_production_version', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Quests_fid_creator_user', '{{%quests}}', 'fid_creator_user', '{{%users}}', 'id_User');
+        $this->addForeignKey('fk_Quests_fid_test_version', '{{%quests}}', 'fid_test_version', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Rel_Stages_Answers_fid_answer', '{{%rel_stages_answers}}', 'fid_answer', '{{%answers}}', 'id_Answer');
+        $this->addForeignKey('fk_Rel_Stages_Answers_fid_stage', '{{%rel_stages_answers}}', 'fid_stage', '{{%stages}}', 'id_Stage');
+        $this->addForeignKey('fk_Rel_Stages_Templates_fid_stage', '{{%rel_stages_templates}}', 'fid_stage', '{{%stages}}', 'id_Stage');
+        $this->addForeignKey('fk_Rel_Stages_Templates_fid_template', '{{%rel_stages_templates}}', 'fid_template', '{{%templates}}', 'id_template');
+        $this->addForeignKey('fk_Stages_fid_quest_version', '{{%stages}}', 'fid_quest_version', '{{%quest_versions}}', 'id_Quest_Version');
+        $this->addForeignKey('fk_Stages_fid_params_template', '{{%stages}}', 'fid_params_template', '{{%templates}}', 'id_template');
+        $this->addForeignKey('fk_Stages_fid_after_action', '{{%stages}}', 'fid_after_action', '{{%actions}}', 'id_Action');
+        $this->addForeignKey('fk_Stages_fid_before_action', '{{%stages}}', 'fid_before_action', '{{%actions}}', 'id_Action');
+        $this->addForeignKey('fk_Stages_fid_picture', '{{%stages}}', 'fid_picture', '{{%pictures}}', 'id_Picture');
+        $this->addForeignKey('fk_Template_Variables_fid_template', '{{%template_variables}}', 'fid_template', '{{%templates}}', 'id_template');
+        $this->addForeignKey('fk_Templates_fid_quest_version', '{{%templates}}', 'fid_quest_version', '{{%quest_versions}}', 'id_Quest_Version');
     }
 
     public function safeDown()

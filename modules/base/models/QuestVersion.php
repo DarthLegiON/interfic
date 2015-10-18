@@ -40,7 +40,7 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
      */
     public static function tableName()
     {
-        return 'Quest_Versions';
+        return '{{%quest_versions}}';
     }
 
     public static function findByQuestId($id)

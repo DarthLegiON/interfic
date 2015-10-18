@@ -73,7 +73,7 @@ $form = ActiveForm::begin([
 
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton(Icon::show('floppy-o') . 'Сохранить', ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
     <?php ActiveForm::end();

@@ -31,7 +31,7 @@ $this->title = 'Interfic - главная';
                     fugiat nulla pariatur.</p>
 
                 <p>
-                    <?= Html::a('Играть!&nbsp;' . Icon::show('angle-double-right'), ['/game/manage/index'], ['class' => 'btn btn-default']); ?>
+                    <?= Html::a('Играть!&nbsp;' . Icon::show('angle-double-right'), ['/game/manage/index'], ['class' => 'btn btn-success']); ?>
                 </p>
             </div>
             <div class="col-lg-4">
@@ -43,7 +43,7 @@ $this->title = 'Interfic - главная';
                     fugiat nulla pariatur.</p>
 
                 <p>
-                    <?= Html::a('Редактор&nbsp;' . Icon::show('angle-double-right'), ['/editor/'], ['class' => 'btn btn-default']); ?>
+                    <?= Html::a('Редактор&nbsp;' . Icon::show('angle-double-right'), ['/editor/'], ['class' => 'btn btn-primary']); ?>
                 </p>
             </div>
             <div class="col-lg-4">
@@ -55,7 +55,7 @@ $this->title = 'Interfic - главная';
                     fugiat nulla pariatur.</p>
 
                 <p>
-                    <?= Html::a('Пользователи&nbsp;' . Icon::show('angle-double-right'), ['/auth/user/index'], ['class' => 'btn btn-default']); ?>
+                    <?= Html::a('Пользователи&nbsp;' . Icon::show('angle-double-right'), ['/auth/user/index'], ['class' => 'btn btn-info']); ?>
                 </p>
             </div>
         </div>
