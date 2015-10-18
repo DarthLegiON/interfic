@@ -4,7 +4,7 @@
 
 @default-color: #FFFFFF;
 
-@primary-color: mix(#0000FF, @link-color, 50%);
+@primary-color: mix(#0000FF, @link-color, 30%);
 
 @success-color: #5CB85C;
 
@@ -75,7 +75,6 @@ a[disabled]:active {
 
 .btn, .form-control, .dropdown-menu, .container .jumbotron, .breadcrumb, .form-group-sm .form-control, .form-group-lg .form-control, .cbx {
   border-radius: 0 !important;
-  box-shadow: none !important;
 }
 
 .transitioned {
@@ -97,22 +96,27 @@ a[disabled]:active {
   background-color: transparent;
   font-weight: bold;
   text-transform: uppercase;
+  position: relative;
 }
 
 .breadcrumb {
   background: transparent;
 }
 
-.btn:active {
-  box-shadow: none;
+.btn {
+  text-shadow: 0 0 25px rgba(0, 255, 240, 0.7);
+}
+
+.btn:hover, .btn:active {
+  box-shadow: 0 0 5px rgba(0, 255, 240, 0.5);
+  text-shadow: none;
 }
 
 .btn[disabled],
 .btn[disabled]:hover,
 .btn[disabled]:active,
 .btn[disabled]:focus,
-.btn[disabled]:focus:hover
-{
+.btn[disabled]:focus:hover {
   color: fade(@default-color, 50%);
   border-color: transparent;
   background: transparent;
@@ -151,7 +155,7 @@ a[disabled]:active {
 .btn-primary:active,
 .btn-primary:focus {
   border-color: transparent;
-  background: fade(@primary-color, 50%);
+  background: darken(@primary-color, 20%);
   color: @default-color;
 }
 
@@ -655,7 +659,7 @@ input[type="radio"]:checked + label > i.fa:before, label > input[type="radio"]:c
     .transitioned
   }
 
-  >li {
+  > li {
     .badge {
       margin-left: 3px;
     }

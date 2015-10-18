@@ -19,7 +19,8 @@ $createDeleteEnabled = !($version->isProduction);
 ?>
 
 <?= Html::a(Icon::show('plus') . 'Новый параметр', ['parameters/create', 'id_version' => $version->id_Quest_Version], ['class' => 'btn btn-success', 'disabled' => !$createDeleteEnabled]) ?>
-
+<br>
+<br>
 <?= GridView::widget([
 
     'dataProvider' => $dataProvider,

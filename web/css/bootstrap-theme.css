@@ -35,7 +35,7 @@ a[disabled]:active {
   color: rgba(255, 255, 255, 0.5);
 }
 .text-primary {
-  color: #0053ce;
+  color: #0074ba;
 }
 .text-success {
   color: #5cb85c;
@@ -61,7 +61,6 @@ a[disabled]:active {
 .form-group-lg .form-control,
 .cbx {
   border-radius: 0 !important;
-  box-shadow: none !important;
 }
 .transitioned {
   transition-property: color, background-color, border-color, box-shadow;
@@ -86,12 +85,18 @@ a[disabled]:active {
   background-color: transparent;
   font-weight: bold;
   text-transform: uppercase;
+  position: relative;
 }
 .breadcrumb {
   background: transparent;
 }
+.btn {
+  text-shadow: 0 0 25px rgba(0, 255, 240, 0.7);
+}
+.btn:hover,
 .btn:active {
-  box-shadow: none;
+  box-shadow: 0 0 5px rgba(0, 255, 240, 0.5);
+  text-shadow: none;
 }
 .btn[disabled],
 .btn[disabled]:hover,
@@ -124,14 +129,14 @@ a[disabled]:active {
   color: white;
 }
 .btn-primary {
-  color: #0053ce;
+  color: #0074ba;
   border-color: transparent;
 }
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
   border-color: transparent;
-  background: rgba(0, 83, 206, 0.5);
+  background: #003454;
   color: #ffffff;
 }
 .btn-primary:active:hover,
@@ -139,8 +144,8 @@ a[disabled]:active {
 .btn-primary:focus:hover,
 .btn-primary.active:focus,
 .btn-primary:active:focus {
-  border-color: rgba(0, 83, 206, 0.6);
-  background: rgba(0, 83, 206, 0.6);
+  border-color: rgba(0, 116, 186, 0.6);
+  background: rgba(0, 116, 186, 0.6);
   color: #ffffff;
 }
 .btn-success {
@@ -413,7 +418,7 @@ label > input[type="radio"]:checked + i.fa:before {
 .table > tbody tr.primary td,
 .table > thead td.primary,
 .table > tbody td.primary {
-  background-color: rgba(0, 83, 206, 0.2);
+  background-color: rgba(0, 116, 186, 0.2);
 }
 .table > thead tr.success td,
 .table > tbody tr.success td,
