@@ -369,7 +369,6 @@ label > input[type="radio"]:checked + i.fa:before {
   border: 1px solid rgba(0, 166, 156, 0.5);
 }
 .jumbotron:hover {
-  box-shadow: inset 0 0 70px rgba(0, 166, 156, 0.7);
   border: 1px solid rgba(0, 166, 156, 0.7);
   background: rgba(0, 166, 156, 0.1);
 }
