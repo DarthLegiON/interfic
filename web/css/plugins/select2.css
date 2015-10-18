@@ -57,8 +57,10 @@
 .select2-container--interfic .select2-selection {
   -webkit-box-shadow: none;
   box-shadow: none;
-  background-color: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  /*border-style: none none solid none;*/
   border-radius: 0;
   color: #ffffff;
   font-size: 14px;
@@ -181,7 +183,9 @@
 .select2-container--interfic.select2-container--open.select2-container--below .select2-selection {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+  border: 1px solid #00403c;
   border-bottom-color: transparent;
+  background: black;
 }
 .select2-container--interfic.select2-container--open.select2-container--above .select2-selection {
   border-top-right-radius: 0;

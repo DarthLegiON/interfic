@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -31,7 +32,7 @@ use yii\bootstrap\ActiveForm;
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton(Icon::show('sign-in') . 'Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
     </div>
 

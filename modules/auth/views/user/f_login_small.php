@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\modules\auth\models\LoginForm;
@@ -33,12 +34,12 @@ $form = ActiveForm::begin([
 
 
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-            <?= Html::submitButton('Вход', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
+        <div class="col-sm-offset-3 col-sm-4">
+            <?= Html::submitButton(Icon::show('sign-in') . 'Войти', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
         </div>
 
         <?= $form->field($model, 'rememberMe', [
-            'template' => "<div class=\"col-lg-6\">{input}{label}</div>",
+            'template' => "<div class=\"col-lg-5\">{input}{label}</div>",
             'labelOptions' => ['class' => 'cbx-label'],
         ])->widget(\kartik\checkbox\CheckboxX::className(), [
             'pluginOptions' => ['threeState' => false],

@@ -3,7 +3,7 @@
 namespace app\modules\base\models;
 
 use Yii;
-use yii\web\Application;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "Users".
@@ -26,7 +26,64 @@ class User extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Users';
+        return '{{%users}}';
+    }
+
+    public static function registerUser($form, $role = 'player')
+    {
+        $userModel = new User();
+
+        $userModel->login = $form->username;
+        if (Yii::$app->request instanceof \yii\web\Request) {
+            $userModel->ip_address = \app\modules\auth\models\User::getIp();
+        } else {
+            $userModel->ip_address = '127.0.0.1';
+        }
+        $userModel->email = $form->email;
+        $userModel->registration_time = (new \DateTime('now'))->format('Y-m-d H:i:s');
+        $userModel->password_hash = Yii::$app->getSecurity()->generatePasswordHash($form->password);
+        if (isset($form->avatar)) {
+            $userModel->avatar = self::saveAvatar(UploadedFile::getInstance($form, 'avatar'));
+        }
+        if ($userModel->save()) {
+            Yii::$app->authManager->assign(Yii::$app->authManager->getRole($role), $userModel->id_User);
+            return $userModel->id_User;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Сохраняет в особую папку аватар пользователя и возвращает ссылку на этот файл
+     * @param UploadedFile $file
+     * @return string Имя файла
+     */
+    public static function saveAvatar($file)
+    {
+        if (isset($file)) {
+            $filename = uniqid('av_') . '.' . $file->extension;
+            if ($file->saveAs(Yii::$app->params['avatars-path'] . $filename)) {
+                return $filename;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Возвращает список ролей в формате [код => название]
+     * @return array
+     */
+    public static function getRolesList()
+    {
+        $roles = \Yii::$app->authManager->getRoles();
+        $return = [];
+        foreach ($roles as $role) {
+            $return[$role->name] = $role->description;
+        }
+        return $return;
     }
 
     /**
@@ -43,7 +100,7 @@ class User extends \yii\db\ActiveRecord
             [['avatar'], 'string', 'max' => 256],
             [['code'], 'string', 'max' => 10],
             [['email'], 'string', 'max' => 100],
-            [['ip_address'], 'string', 'max' => 11]
+            [['ip_address'], 'string', 'max' => 15]
         ];
     }
 
@@ -99,19 +156,5 @@ class User extends \yii\db\ActiveRecord
     public function getAvatarFullPath()
     {
         return '/' . Yii::$app->params['avatars-path'] . $this->avatar;
-    }
-
-    /**
-     * Возвращает список ролей в формате [код => название]
-     * @return array
-     */
-    public static function getRolesList()
-    {
-        $roles = \Yii::$app->authManager->getRoles();
-        $return = [];
-        foreach ($roles as $role) {
-            $return[$role->name] = $role->description;
-        }
-        return $return;
     }
 }

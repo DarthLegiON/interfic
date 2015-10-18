@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-10">
-            <?= Html::submitButton('Создать', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Icon::show('plus') . 'Создать', ['class' => 'btn btn-success']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>

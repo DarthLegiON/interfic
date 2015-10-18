@@ -6,7 +6,10 @@ use app\modules\base\models\interfaces\Restricted;
 use app\modules\editor\models\VersionCreateForm;
 use DateTimeZone;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "Quest_Versions".
@@ -27,6 +30,8 @@ use yii\data\ActiveDataProvider;
  * @property boolean isProduction
  * @property string startVersionCode
  * @property string creatorUsername
+ * @property Parameter[] parameters
+ * @property integer parametersCount
  */
 class QuestVersion extends \yii\db\ActiveRecord implements Restricted
 {
@@ -35,7 +40,7 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
      */
     public static function tableName()
     {
-        return 'Quest_Versions';
+        return '{{%quest_versions}}';
     }
 
     public static function findByQuestId($id)
@@ -50,6 +55,20 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
                 'pageSize' => 10,
             ],
         ]);
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'save_date',
+                'updatedAtAttribute' => 'save_date',
+                'value' => function () {
+                    return date('Y-m-d H:i:s');
+                }
+            ],
+        ];
     }
 
     /**
@@ -132,6 +151,16 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
 
     }
 
+    public function getParameters()
+    {
+        return $this->hasMany(Parameter::className(), ['fid_quest' => 'id_Quest_Version']);
+    }
+
+    public function getParametersCount()
+    {
+        return count($this->parameters);
+    }
+
     /**
      * Создает точную копию версии вместе со всеми настройками квеста (каскадно)
      * @param VersionCreateForm $form
@@ -145,7 +174,6 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
         $newVersion->version_name = $form->versionName;
         $newVersion->fid_creator_user = Yii::$app->user->id;
         $newVersion->fid_start_version = $this->id_Quest_Version;
-        $newVersion->save_date = (new \DateTime('now'))->format('Y-m-d H:i:s');
         $newVersion->save();
 
         if ($form->isTest) {
@@ -271,6 +299,4 @@ class QuestVersion extends \yii\db\ActiveRecord implements Restricted
             $transaction->commit();
         }
     }
-
-
 }
