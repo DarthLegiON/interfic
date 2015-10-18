@@ -38,6 +38,15 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         return static::getFromDBModel(\app\modules\base\models\User::findOne(['lower(login)' => strtolower($username)]));
     }
 
+    public static function getIp()
+    {
+        if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+            return $_SERVER["HTTP_X_FORWARDED_FOR"];
+        } else {
+            return $_SERVER["REMODE_ADDR"];
+        }
+    }
+
     /**
      * @inheritdoc
      */

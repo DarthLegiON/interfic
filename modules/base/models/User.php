@@ -35,7 +35,7 @@ class User extends \yii\db\ActiveRecord
 
         $userModel->login = $form->username;
         if (Yii::$app->request instanceof \yii\web\Request) {
-            $userModel->ip_address = Yii::$app->request->getUserIP();
+            $userModel->ip_address = \app\modules\auth\models\User::getIp();
         } else {
             $userModel->ip_address = '127.0.0.1';
         }
