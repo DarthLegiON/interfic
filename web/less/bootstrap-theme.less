@@ -106,7 +106,6 @@ a[disabled]:active {
   box-shadow: none;
 }
 
-.btn-default,
 .btn[disabled],
 .btn[disabled]:hover,
 .btn[disabled]:active,
@@ -114,6 +113,12 @@ a[disabled]:active {
 .btn[disabled]:focus:hover
 {
   color: fade(@default-color, 50%);
+  border-color: transparent;
+  background: transparent;
+}
+
+.btn-default {
+  color: fade(@default-color, 70%);
   border-color: transparent;
   background: transparent;
 }

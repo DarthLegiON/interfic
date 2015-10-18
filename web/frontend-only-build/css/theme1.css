@@ -1,7 +1,17 @@
 body {
     font-family: Verdana;
     font-size: 13px;
-    background: url(img/back.png);
+    background: url(../../css/img/me-background.jpg);
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover, a:active, a:focus {
+    color: rgba(0, 166, 156, 1.0);
 }
 
 .wrap {
@@ -11,7 +21,7 @@ body {
 }
 
 .block {
-    border: 1px solid #1d61dc;
+    border: 1px solid rgba(0, 166, 156, 0.5);
     float: left;
     background: black;
 }
@@ -66,7 +76,7 @@ body {
     cursor: default;
 }
 .block.answers a.answer.active:hover {
-    color: #1d61dc;
+    color: #00A69C;
     background-color: #1B1B1B;
     cursor: pointer;
 }

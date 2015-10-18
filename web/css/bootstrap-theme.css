@@ -28,6 +28,9 @@ a:focus {
   color: #00a69c;
   text-decoration: underline;
 }
+a[disabled]:active {
+  pointer-events: none;
+}
 .text-muted {
   color: rgba(255, 255, 255, 0.5);
 }
@@ -76,11 +79,12 @@ a:focus {
   transition-duration: 0.3s;
 }
 .form-control {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: transparent;
   border-width: 0 0 1px 0;
 }
 .btn {
   background-color: transparent;
+  font-weight: bold;
 }
 .breadcrumb {
   background: transparent;
@@ -88,12 +92,17 @@ a:focus {
 .btn:active {
   box-shadow: none;
 }
-.btn-default,
 .btn[disabled],
 .btn[disabled]:hover,
 .btn[disabled]:active,
-.btn[disabled]:focus {
-  color: white;
+.btn[disabled]:focus,
+.btn[disabled]:focus:hover {
+  color: rgba(255, 255, 255, 0.5);
+  border-color: transparent;
+  background: transparent;
+}
+.btn-default {
+  color: rgba(255, 255, 255, 0.7);
   border-color: transparent;
   background: transparent;
 }
@@ -212,12 +221,6 @@ a:focus {
   border-color: rgba(0, 166, 156, 0.4);
   background: rgba(0, 166, 156, 0.4);
   color: #ffffff;
-}
-.btn[disabled],
-.btn[disabled]:hover,
-.btn[disabled]:active {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.5);
 }
 .btn-group .btn {
   float: none;

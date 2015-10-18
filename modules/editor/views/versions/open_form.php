@@ -3,6 +3,7 @@
 use app\modules\base\models\QuestVersion;
 use app\modules\editor\models\VersionEditForm;
 use kartik\helpers\Html;
+use kartik\icons\Icon;
 use yii\widgets\ActiveForm;
 
 /** @var QuestVersion $version */
@@ -44,7 +45,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-10">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Icon::show('floppy-o') . 'Сохранить', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>
