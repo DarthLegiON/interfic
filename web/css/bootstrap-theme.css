@@ -85,6 +85,7 @@ a[disabled]:active {
 .btn {
   background-color: transparent;
   font-weight: bold;
+  text-transform: uppercase;
 }
 .breadcrumb {
   background: transparent;
