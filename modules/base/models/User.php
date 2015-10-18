@@ -100,7 +100,7 @@ class User extends \yii\db\ActiveRecord
             [['avatar'], 'string', 'max' => 256],
             [['code'], 'string', 'max' => 10],
             [['email'], 'string', 'max' => 100],
-            [['ip_address'], 'string', 'max' => 11]
+            [['ip_address'], 'string', 'max' => 15]
         ];
     }
 
