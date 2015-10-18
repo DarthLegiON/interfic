@@ -43,7 +43,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
             return $_SERVER["HTTP_X_FORWARDED_FOR"];
         } else {
-            return $_SERVER["REMODE_ADDR"];
+            return $_SERVER["REMOTE_ADDR"];
         }
     }
 
